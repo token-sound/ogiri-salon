@@ -1,0 +1,1712 @@
+[
+  {
+    "id": "topic-11",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "コンビニのおにぎり売り場で、店員さんが急に正座をした。何があった？",
+    "hint": "「いや、土下座は早い！」と全員がツッコむ理由",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-12",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「今から行くね」と言った人が、まだ家を出ていない時の理由で一番ひどいものは？",
+    "hint": "「それはもう行くじゃない！」とツッコめる言い訳",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-13",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "絶対に信用してはいけない不動産屋の、物件紹介の決まり文句とは？",
+    "hint": "「全部ウソだろ！」とツッコみたくなる文句",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-14",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「しゃっくりが100回出ると地球が止まる」世界で、人々が必死にやっていることとは？",
+    "hint": "「みんな必死すぎる！」となる行動",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-15",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "回転寿司で、思わず二度見した流れてきた謎のネタ名とは？",
+    "hint": "「それ寿司じゃない！」と言いたくなるネタ名",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-16",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "取引先との大事な会議で、全員の前でスマホから爆音で流れてしまった曲とは？",
+    "hint": "「選曲が最悪！」となる曲",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-17",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "悪の組織の幹部会議で、議題が小さすぎて全員が困惑した内容とは？",
+    "hint": "「世界征服どうした！」となる議題",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-18",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも桃太郎が、きびだんごの代わりに給料制を採用していたら？",
+    "hint": "「雇用契約が現代的！」となる条件",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-19",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "校則に新しく追加された、理不尽すぎるルールとは？",
+    "hint": "「誰が決めたんだ！」となるルール",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-20",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "人気アニメの続編タイトルが、絶対に売れなさそうな名前に改悪された。何という名前？",
+    "hint": "「続編の意味ない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-21",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "エレベーターで知らない人が「次の階で降ります」と宣言してきた。続く一言は？",
+    "hint": "聞いてない情報を足されて困惑する一言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-22",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「ちょっと5分だけ」と言って始めたことが、気づいたら3時間続いていた。何をしていた？",
+    "hint": "「5分の定義どうなってる！」となる行動",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-23",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "怪しい自己啓発セミナー講師の、最初の一言とは？",
+    "hint": "「入口から怪しい！」となる一言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-24",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「語尾に必ず『にゃ』をつけないと逮捕される」世界の、裁判シーンでの一言とは？",
+    "hint": "「裁判が真剣すぎる！」となる一言",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-25",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "カフェの新作ドリンクのネーミングが、どう考えても失敗している。何という名前？",
+    "hint": "「飲む気失せる！」となる名前",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-26",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "オンライン会議で、マイクがオンのまま画面の外で言ってしまった独り言とは？",
+    "hint": "「全部聞こえてる！」となる独り言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-27",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "勇者が魔王城に乗り込む前に、なぜか手間取っている日常的な理由とは？",
+    "hint": "「RPGの緊張感ゼロ！」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-28",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもシンデレラが、23時59分にスマホの充電が切れていたら？",
+    "hint": "「結末が変わる！」となる展開",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-29",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "会社の就業規則に、なぜか書いてある謎のルールとは？",
+    "hint": "「いつ使うのそれ！」となるルール",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-30",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "感動映画のタイトルを、あらすじ全部入りに改悪すると？",
+    "hint": "「ネタバレ！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-31",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "電車で隣の人がずっと小声で拍手している。その理由とは？",
+    "hint": "「何に対して！？」とツッコみたくなる理由",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-32",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "充電残り1%で、スマホが最後に見せた意地とは？",
+    "hint": "「最後くらい働け！」と言いたくなる意地",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-33",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "新人研修で講師が言ってはいけない、本音の一言とは？",
+    "hint": "「それは言っちゃダメ！」となる本音",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-34",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「寝ている間に別人格が仕事に行く」世界で、本人と別人格が交わす置き手紙とは？",
+    "hint": "「何やってんだ別人格！」となる内容",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-35",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "お菓子の新商品名が、絶対に会議で止められるべきだったものとは？",
+    "hint": "「誰も止めなかったの！？」となる名前",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-36",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "社内メールの宛先を間違えて、とんでもない人に送ってしまった。何と書いた？",
+    "hint": "「送り先が最悪！」となる内容",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-37",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "宇宙人が地球侵略を諦めた、あまりにも小さな理由とは？",
+    "hint": "「そんなことで！？」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-38",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも浦島太郎が、竜宮城でWi-Fiを見つけてしまったら？",
+    "hint": "「帰る気ゼロ！」となる展開",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-39",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "新しくできたカフェの、入店ルールがおかしい。何がルール？",
+    "hint": "「入りづらすぎる！」となるルール",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-40",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "朝ドラのタイトルが、朝から重すぎる名前に改悪された。何という名前？",
+    "hint": "「朝から見たくない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-41",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "美容院で「今日はどうしますか？」と聞かれ、とんでもない返しをしてしまった。何と答えた？",
+    "hint": "「いや、それ髪型じゃない！」となる返答",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-42",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「あとでやる」と言う人が、本当にやる日はいつ？",
+    "hint": "「それは来ない日だ！」とツッコめる日付",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-43",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "プロ野球の解説者が、試合中につい口にしてしまった意外な一言とは？",
+    "hint": "「解説じゃなくて感想！」となる一言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-44",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「ため息をつくと財布から100円消える」世界で、人々が編み出した対策とは？",
+    "hint": "「発想がおかしい！」となる対策",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-45",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "ホテルの朝食ビュッフェで、料理の札に書かれていた不安になる説明文とは？",
+    "hint": "「説明が不親切！」となる説明文",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-46",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "結婚式のスピーチで、新郎の過去を暴露しすぎてしまった。何を言った？",
+    "hint": "「それはやめて！」となる暴露",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-47",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "巨大怪獣が街を襲っている最中に、市民が気にしていたこととは？",
+    "hint": "「命より大事なの！？」となること",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-48",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも織田信長が、現代の会社で上司になったら、初日に言いそうな一言とは？",
+    "hint": "「パワハラどころじゃない！」となる一言",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-49",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "町内会の回覧板に書かれていた、新しい地域ルールとは？",
+    "hint": "「いつの間に決まった！」となるルール",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-50",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "料理番組のタイトルが、物騒すぎる名前に改悪された。何という名前？",
+    "hint": "「料理する気失せる！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-51",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "ATMの画面に表示された、絶対に見たくないメッセージとは？",
+    "hint": "「そんな機能いらん！」と言いたくなるメッセージ",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-52",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "ダイエット初日の夜、冷蔵庫の前で自分に言い聞かせた言い訳とは？",
+    "hint": "「理屈がめちゃくちゃ！」となる言い訳",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-53",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "人気ラーメン店主の、実は秘密にしている「隠し味」とは？",
+    "hint": "「それ隠し味じゃない！」と言いたくなる材料",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-54",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「上司の話が長いと床が抜ける」世界の、朝礼の風景とは？",
+    "hint": "「その仕組み最高！」とツッコめる風景",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-55",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "新発売のエナジードリンクのキャッチコピーが、危険すぎる。何と書いてある？",
+    "hint": "「それ法律的に大丈夫！？」となるコピー",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-56",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "上司に「ちょっといい？」と呼ばれて、頭をよぎった最悪の想像とは？",
+    "hint": "「想像力豊かすぎ！」となる想像",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-57",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "ヒーローが変身するまでに、なぜか長くかかっている理由とは？",
+    "hint": "「待ってやってる敵偉い！」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-58",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも聖徳太子が、飲み会の幹事になったら、何人の注文を同時に聞ける？",
+    "hint": "「10人どころか！」となる人数と展開",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-59",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "マンションの管理規約に、住人全員が困惑した一文とは？",
+    "hint": "「守れるわけない！」となる一文",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-60",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "国民的アニメの主題歌のタイトルを、歌詞の本音に改悪すると？",
+    "hint": "「それが本心！？」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-61",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "スーパーのレジ袋に書かれていた、不穏すぎる一文とは？",
+    "hint": "「誰が得するんだその情報！」となる一文",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-62",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「絶対に起きる」と決めた朝、目覚ましを止めた自分の言い分とは？",
+    "hint": "「二度寝の弁護士かよ！」と言いたくなる言い分",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-63",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "タクシー運転手が、乗客に絶対に言ってはいけない一言とは？",
+    "hint": "「怖い怖い怖い！」となる一言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-64",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「嘘をつくと鼻から花が咲く」世界の、花屋さんの繁盛する理由とは？",
+    "hint": "「世の中嘘だらけ！」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-65",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "ラーメン屋の「全部のせ」を頼んだら、本当に全部のせてきた。何がのっていた？",
+    "hint": "「全部の定義が広すぎる！」となるトッピング",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-66",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "面接官に「最後に質問は？」と聞かれて、つい口にしてしまった質問とは？",
+    "hint": "「それ聞いちゃダメ！」となる質問",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-67",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "最終決戦の前夜、仲間たちが盛り上がっていた意外な話題とは？",
+    "hint": "「緊張感どこいった！」となる話題",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-68",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも織姫と彦星が、年1回のデートでドタキャンしたら、何と言い訳する？",
+    "hint": "「理由が現代的！」となる言い訳",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-69",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "プールの更衣室に貼られた、謎の注意書きとは？",
+    "hint": "「そんな人いるの！？」となる注意書き",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-70",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "恋愛ドラマのタイトルが、正直すぎる名前に改悪された。何という名前？",
+    "hint": "「身も蓋もない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-71",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "自動ドアが開くたびに、こっそり言っているセリフとは？",
+    "hint": "「ドアのくせに生意気！」とツッコめる一言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-72",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "傘を持っていない日に限って、雨が降る理由を神様に聞いたら何と返ってきた？",
+    "hint": "「性格悪いな神様！」とツッコめる返答",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-73",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "占い師が、お客さんの手相を見て最初にこぼした独り言とは？",
+    "hint": "「聞こえてるよ！」とツッコめる独り言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-74",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「全員が1日1回だけ時間を巻き戻せる」世界で、一番無駄遣いされている瞬間とは？",
+    "hint": "「そんなことに使うな！」となる瞬間",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-75",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "新しい映画のタイトルが長すぎて、全部言えない。どんなタイトル？",
+    "hint": "「あらすじ全部入ってる！」となるタイトル",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-76",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "社長のモノマネを本人の目の前でやってしまった。その最悪のタイミングとは？",
+    "hint": "「後ろにいるよ！」となる場面",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-77",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "魔法使いが世界を救う呪文を唱えようとして、つい噛んでしまった。何と言った？",
+    "hint": "「そこ噛むな！」となる言い間違い",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-78",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもかぐや姫が、地球の宅配便を頼んでしまったら？",
+    "hint": "「月まで届くの！？」となる展開",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-79",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "図書館の新ルール「静かにする」に追加された、極端な条件とは？",
+    "hint": "「静かすぎる！」となる条件",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-80",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "名作文学のタイトルを、SNS投稿風に改悪すると？",
+    "hint": "「#つけるな！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-81",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "トイレの個室に貼られていた、意味不明すぎる注意書きとは？",
+    "hint": "「具体的すぎて逆に怖い！」となる注意書き",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-82",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「全然気にしてないよ」と言う人の、気にしている証拠とは？",
+    "hint": "「めちゃくちゃ気にしてる！」となる行動",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-83",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "学校の校長先生の、朝礼で話が長い本当の理由とは？",
+    "hint": "「そんな理由かい！」となる理由",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-84",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「犬が人間の言葉を話し始めた」世界で、散歩中に飼い主が言われた一言とは？",
+    "hint": "「犬の方が立場強い！」となる一言",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-85",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "メニューの「本日のおすすめ」が、本日だけ異様に怪しい。何が書いてある？",
+    "hint": "「おすすめする気ある！？」となる内容",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-86",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "初デートでレストランに入ったら、元カノが店員だった。第一声は？",
+    "hint": "「どんな偶然だよ！」となる第一声",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-87",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "タイムマシンを手に入れた人が、最初に行った過去の用事とは？",
+    "hint": "「もっと大事な使い道が！」となる用事",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-88",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも金太郎が、都会で一人暮らしを始めたら、真っ先に困ることとは？",
+    "hint": "「クマがいない！」となる困りごと",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-89",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "新しい国民の祝日が制定された。その名前とやることとは？",
+    "hint": "「全員休みたいけど！」となる祝日",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-90",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "ニュース番組のタイトルが、不安をあおる名前に改悪された。何という名前？",
+    "hint": "「見たら眠れない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-91",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "居酒屋で隣の席の会話が気になって、思わず耳を疑った一言とは？",
+    "hint": "「どんな状況だよ！」と言いたくなる会話",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-92",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「それ、私も思ってた！」と言う人が、本当は思っていなかった証拠とは？",
+    "hint": "「絶対今思っただろ！」と言いたくなる証拠",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-93",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "ベテラン添乗員が、バスの中でこっそり行っている裏作業とは？",
+    "hint": "「それ仕事じゃない！」と言いたくなる作業",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-94",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「重力が気分で変わる」世界の、天気予報の言い回しとは？",
+    "hint": "「予報がふんわりしすぎ！」となる言い回し",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-95",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "宿泊施設の「当館自慢の絶景」が、実際に見たら思っていたのと違った。何が見えた？",
+    "hint": "「それは絶景じゃない！」となる景色",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-96",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "出張先のホテルで、隣の部屋の声が聞こえてしまった。何が聞こえた？",
+    "hint": "「壁薄すぎ！」となる内容",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-97",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "世界最強の剣士が、実はどうしても斬れないものとは？",
+    "hint": "「それは斬れないよな！」となるもの",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-98",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもドラえもんが、ポケットから出すものがすべて100均だったら？",
+    "hint": "「夢がない！」となる道具",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-99",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "ゲームのルール説明書の最後に、小さく書かれていた恐ろしい一文とは？",
+    "hint": "「先に言って！」となる一文",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-100",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "ゲームのタイトルが、やる気が出ない名前に改悪された。何という名前？",
+    "hint": "「開始前に諦める！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-101",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "自販機でおつり口から小銭と一緒に「カサッ」と出てきたものとは？",
+    "hint": "「なんでそれ入ってんの！？」となるもの",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-102",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "服を買いに行って「何かお探しですか？」と聞かれた時、一番ダサい回避法とは？",
+    "hint": "「逃げ方下手くそ！」となる挙動",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-103",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "一流ソムリエが、ワインを一口含んで吐き出しそうになった本音とは？",
+    "hint": "「ブドウの味しかせん！」となるコメント",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-104",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「怒ると頭からWi-Fiが飛ぶ」世界の、オフィスでの日常とは？",
+    "hint": "「怒らせてネット繋ぐな！」となる日常",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-105",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "居酒屋の「激辛ロシアンたこ焼き」の注意書きが、脅迫状レベル。何と書いてある？",
+    "hint": "「食べる前から怖い！」となる注意書き",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-106",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "エレベーターで社長と2人きりになった30秒間、耐えきれずに放った一言とは？",
+    "hint": "「なんでその話題選んだ！」となる沈黙破り",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-107",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "地球滅亡まであと3分の巨大隕石が、突然Uターンした理由とは？",
+    "hint": "「隕石も空気読んだ！」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-108",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも三蔵法師一行が、天竺に行く途中でGoogleマップを見たら？",
+    "hint": "「最短ルート発見！」となる展開",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-109",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "自動車教習所で「これに違反したら即不合格」と言われた謎の禁止事項とは？",
+    "hint": "「運転に関係ない！」となる禁止令",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-110",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "健康番組のタイトルが、視聴者を脅迫する名前に改悪された。何という名前？",
+    "hint": "「見るのが怖い！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-111",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "図書館で静寂の中、突然鳴り響いた謎の電子音の正体とは？",
+    "hint": "「いま鳴らす音じゃない！」と全員が振り返る音",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-112",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "お風呂に入るのが面倒くさすぎて、洗面所で編み出した謎の儀式とは？",
+    "hint": "「早く入れよ！」とツッコみたくなる儀式",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-113",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "テーマパークの着ぐるみアクターが、休憩室に入った瞬間に見せる裏の顔とは？",
+    "hint": "「夢を壊すな！」となるリアクション",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-114",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「心の声が字幕で頭上に出る」世界で、合コンが3分で崩壊した理由とは？",
+    "hint": "「字幕見えすぎ！」となる地獄絵図",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-115",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "パン屋の「焼きたてメロンパン」のポップに書かれていた、正直すぎる告白とは？",
+    "hint": "「焼きたてじゃないんかい！」となる告白",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-116",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "会社の忘年会の余興で、絶対に滑ってはいけない空気の中放った一発ギャグとは？",
+    "hint": "「会場が凍りついた！」となるギャグ",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-117",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "デスゲームの主催者が、最初のルール説明でグダグダになった原因とは？",
+    "hint": "「スライドの操作慣れてない！」となる主催者",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-118",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもニュートンが、リンゴではなくドリアンが落ちてくるのを目撃したら？",
+    "hint": "「万有引力どころじゃない！」となる発見",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-119",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "映画館で「ポップコーンを食べる時は…」に続く、拷問のようなルールとは？",
+    "hint": "「味しない！」となる食べ方",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-120",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "探偵アニメのタイトルが、事件現場の惨状をダイレクトに伝える名前に改悪されたら？",
+    "hint": "「子供に見せるな！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-121",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "コインランドリーで乾燥機が回り終わった瞬間、中から聞こえた声とは？",
+    "hint": "「服がしゃべった！？」と飛び退く一言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-122",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "パスワードを「間違っています」と言われ、再設定しようとしたら「現在のパスワードと同じです」と怒られた時の心の叫びとは？",
+    "hint": "「じゃあ通せよ！」と机を叩く一言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-123",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "敏腕ファンドマネージャーが、実は毎朝チェックしている一番重要な指標とは？",
+    "hint": "「占いで決めてんのか！」となる指標",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-124",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「ジャンケンで負けたやつが法律になる」世界で、制定された最悪のルールとは？",
+    "hint": "「負けたやつの逆ギレ！」となる法律",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-125",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "コスメの広告で「まるで素肌のような」に続く、予想外のフレーズとは？",
+    "hint": "「メイクする意味！」となるキャッチコピー",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-126",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "有給休暇の申請理由に正直に書きすぎて、人事部がザワついた理由とは？",
+    "hint": "「正直すぎる！」となる理由",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-127",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "伝説の聖剣を台座から引き抜いた勇者が、剣の裏側に見た注意書きとは？",
+    "hint": "「聖剣のくせにチープ！」となる記載",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-128",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもペリーが黒船で来航した時、最初にお土産として渡してきたものとは？",
+    "hint": "「開国したくなる！」となるプレゼント",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-129",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "温泉旅館の「お風呂でのマナー」に書かれていた、常連優遇すぎるルールとは？",
+    "hint": "「新参者に厳しすぎる！」となる掟",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-130",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "大人気魔法少女アニメのタイトルが、現実の厳しさを突きつける名前に改悪されたら？",
+    "hint": "「夢も希望もない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-131",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "信号待ちで前の車のリアガラスに貼られていた、二度見必至のステッカーとは？",
+    "hint": "「赤ちゃん乗ってない！」とツッコめる内容",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-132",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "美容院で「シャンプーの温度いかがですか？」と聞かれ、熱いのに「大丈夫です」と答えてしまった人の限界の顔とは？",
+    "hint": "「意地張るな！」となる表情",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-133",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "凄腕マジシャンが、タネを落とした瞬間に客席に向かって放った苦し紛れの一言とは？",
+    "hint": "「マジック放棄した！」となる言い訳",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-134",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「年齢が戦闘力として胸に表示される」世界の、敬老の日の風景とは？",
+    "hint": "「おじいちゃん最強！」となる光景",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-135",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "定食屋の日替わりランチが「A：肉、B：魚、C：？？？」。Cを頼んだら何が出てきた？",
+    "hint": "「食材の分類どこいった！」となる料理",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-136",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "取引先の偉い人の名前を、名刺交換の瞬間に度忘れして呼んでしまった愛称とは？",
+    "hint": "「友達感覚で呼ぶな！」となる呼び方",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-137",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "神竜が「どんな願いも1つだけ叶えてやろう」と言ったのに、叶えてくれなかったショボすぎる願いとは？",
+    "hint": "「自分でやれ！」と怒られる願い",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-138",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも赤ずきんちゃんが、オオカミに騙されない論破王だったら？",
+    "hint": "「オオカミが泣き寝入り！」となる反論",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-139",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "社員食堂で「カレーの日は全員〇〇すること」と決められた謎の社内規定とは？",
+    "hint": "「小学生か！」となる決まり事",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-140",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "旅行番組のタイトルが、移動の疲れを全面に出した名前に改悪されたら？",
+    "hint": "「旅行行きたくなくなる！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-141",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "ファミレスの呼び出しボタンを押したら、店員ではなく何が来た？",
+    "hint": "「人手不足の極み！」となる登場",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-142",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "部屋の掃除を始めたはずが、30分後にやっていた全く関係ないこととは？",
+    "hint": "「掃除どこいった！」となるあるある",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-143",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "カリスマパーソナルトレーナーが、深夜にこっそりUber Eatsで頼んでいるものとは？",
+    "hint": "「筋肉裏切ってる！」となる注文",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-144",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「スベるとその場の室温が3度下がる」世界で、猛暑日に大活躍する芸人とは？",
+    "hint": "「命がけのクーラー！」となる現場",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-145",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "通販番組の「今ならなんと、もう1個ついてくる！」で、一緒についてきた最悪のオマケとは？",
+    "hint": "「それ処分したいだけだろ！」となるオマケ",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-146",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "同僚のPC画面をチラ見したら、検索履歴のトップにあった戦慄のワードとは？",
+    "hint": "「警察呼んだ方がいい！？」となる履歴",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-147",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "スパイ組織の極秘暗号が、あまりにも解読しやすかった理由とは？",
+    "hint": "「暗号になってない！」となる形式",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-148",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもアリとキリギリスで、キリギリスがYouTubeで大バズりしていたら？",
+    "hint": "「冬の格差逆転！」となる結末",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-149",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "シェアハウスの「冷蔵庫のルール」が細かすぎて誰も使えない理由とは？",
+    "hint": "「食べる前に腐る！」となる手順",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-150",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "甲子園を目指す青春野球マンガのタイトルが、過酷な練習環境を暴露する名前に改悪されたら？",
+    "hint": "「ブラック部活！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-151",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "試着室のカーテンを開けたら、店員さんが目を丸くして放った一言とは？",
+    "hint": "「褒めてないだろそれ！」となる一言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-152",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "靴下に穴が空いていることに気づいた瞬間、人がとる最も無意味な悪あがきとは？",
+    "hint": "「隠せてないから！」となる隠蔽工作",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-153",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "エリート気象予報士が、傘を持つかどうかを決める本当の基準とは？",
+    "hint": "「最新レーダー使えよ！」となる基準",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-154",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「寝言がそのまま全校放送される」高校で、朝一番に校内に響き渡った声とは？",
+    "hint": "「学校来られない！」となる寝言",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-155",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "激辛カップ麺のパッケージに書かれた「辛さレベル：？？？」の正体とは？",
+    "hint": "「数字で書け！」となる警告",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-156",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "社内チャットで上司への愚痴を、本人がいる全体グループに誤爆した瞬間の言い訳とは？",
+    "hint": "「苦しい言い訳！」となる取り繕い",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-157",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "人工知能が人類を滅ぼそうと決意した、あまりにも身勝手なきっかけとは？",
+    "hint": "「そんなことで滅ぼすな！」となる動機",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-158",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもツルの恩返しで、機織りの部屋を覗かれたツルが逆ギレしたら？",
+    "hint": "「覗いた方が悪い！」となる修羅場",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-159",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "ボウリング場でスコアがゼロになった人に課される、屈辱的な罰ゲームとは？",
+    "hint": "「二度と行かない！」となるペナルティ",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-160",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "日曜夕方の家族向けアニメのタイトルが、明日への絶望を煽る名前に改悪されたら？",
+    "hint": "「サザエさん症候群直撃！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-161",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "映画館で上映開始直前の「携帯電話は…」に続く、予想外の注意とは？",
+    "hint": "「マナーの基準どこ！？」となるルール",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-162",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「一口ちょうだい」と言ってきたやつが、一口で持っていった信じられない量とは？",
+    "hint": "「それ一口じゃない、本体だ！」となる量",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-163",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "超高級ホテルの総支配人が、クレーマーに対して裏でやっているささやかな復讐とは？",
+    "hint": "「地味すぎて気づかない！」となる復讐",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-164",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「おならの音で相手の好感度がわかる」世界の、初デートの結末とは？",
+    "hint": "「メロディでフラれた！」となる展開",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-165",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "洋服の洗濯タグに書かれていた、無茶振りすぎるお手入れ方法とは？",
+    "hint": "「洗うなってこと！？」となる指示",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-166",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "内定者懇親会で、調子に乗った新卒が社長に言い放った恐れ知らずの一言とは？",
+    "hint": "「明日から来なくていい！」となる一言",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-167",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "海底2万マイルの古代都市で見つかった、古代文明の最古の落書きとは？",
+    "hint": "「現代人と変わらん！」となる落書き",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-168",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもベートーヴェンが、現代の重低音EDMを聴いたら？",
+    "hint": "「運命が変わる！」となるリアクション",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-169",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "結婚相談所の入会資格に書かれていた、あまりにも厳しい条件とは？",
+    "hint": "「誰も入れない！」となるハードル",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-170",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "料理対決マンガのタイトルが、審査員のえこひいきを暴露する名前に改悪されたら？",
+    "hint": "「勝負になってない！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-171",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "歯医者で「痛かったら左手あげてくださいね」のあと、本当に左手をあげたら起きた悲劇とは？",
+    "hint": "「合図の意味ない！」となるリアクション",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-172",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "Amazonで送料無料にするために、本当にいらないのに買ってしまったものとは？",
+    "hint": "「送料払った方が安い！」となる買い物",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-173",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "熱血高校教師が、職員室で同僚にだけ漏らす本音とは？",
+    "hint": "「ドラマと違う！」となる愚痴",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-174",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「靴を左右逆に履くと過去に戻れる」世界で、タイムトラベラーの歩き方とは？",
+    "hint": "「足痛そう！」となる歩行",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-175",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "カラオケの曲名検索で、どう考えても歌手がヤケクソでつけた曲名とは？",
+    "hint": "「タイトルに文句言うな！」となる曲名",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-176",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "Zoom会議でカメラオフだと思って、堂々とやっていたとんでもない行動とは？",
+    "hint": "「ガッツリ映ってる！」となる油断",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-177",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "ゾンビウイルスが世界中に蔓延したのに、なぜか日本だけ感染者が増えなかった理由とは？",
+    "hint": "「国民性が勝ちすぎ！」となる理由",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-178",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも坂本龍馬が、X（旧Twitter）のアカウントを持っていたらプロフに何と書く？",
+    "hint": "「インフルエンサー気取り！」となるバイオ",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-179",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "動物園で「サル山を見る時は…」と書かれた、サル目線の注意書きとは？",
+    "hint": "「サルの方が偉い！」となるマナー",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-180",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "人気YouTuberの動画タイトルが、再生数稼ぎの裏側を暴露した名前に改悪されたら？",
+    "hint": "「正直すぎて草！」となるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-181",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "サウナで隣の常連のおじさんが、誰もいない壁に向かって小声で話しかけていた内容とは？",
+    "hint": "「熱でやられてる！」となる独り言",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-182",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "電車を1本見送った人が、ベンチで自分に言い聞かせる最高に意識高い言い訳とは？",
+    "hint": "「ただ乗り遅れただけだろ！」となる強がり",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-183",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "敏腕弁護士が、法廷で勝訴を確信した本当の理由とは？",
+    "hint": "「法律関係ない！」となる理由",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-184",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「あくびをすると一番近くの人の好物を叫んでしまう」満員電車での大混乱とは？",
+    "hint": "「急にラーメン食べたい！」となる大合唱",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-185",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "旅行パンフレットの「徒歩圏内！」の基準が、おかしい。注釈に何と書いてある？",
+    "hint": "「競歩の選手基準か！」となる距離",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-186",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "新プロジェクトのリーダー発表で、自分の名前が呼ばれた瞬間のリアクションとは？",
+    "hint": "「嫌がり方露骨！」となる表情",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-187",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "宇宙戦艦のメインワープ航法が使えなくなった、信じられない故障原因とは？",
+    "hint": "「ファミコンの接触不良か！」となる原因",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-188",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしもマッチ売りの少女が、マッチではなくモバイルバッテリーを売っていたら？",
+    "hint": "「全員が買う！」となる即完売劇",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-189",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "居酒屋の「飲み放題ルール」で、店員がニヤニヤしながら説明してきたトラップとは？",
+    "hint": "「飲む気削ぐな！」となる縛り",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-190",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "ヒーロー特撮番組のタイトルが、街の修繕費に悩む自治体目線に改悪されたら？",
+    "hint": "「壊すな！」と叫びたくなるタイトル",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-191",
+    "tag": "#身近な違和感",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "身近な違和感",
+    "title": "カフェのWi-Fiパスワードが、あまりにも入力しづらい理由とは？",
+    "hint": "「誰が覚えられるか！」となるパスワード",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-192",
+    "tag": "#日常あるある",
+    "badgeColor": "bg-emerald-800 text-white",
+    "formula": "共感と逆ギレ",
+    "title": "「怒らないから本当のこと言って」と言った親が、言った瞬間にキレた理由とは？",
+    "hint": "「約束1秒で破った！」となる理不尽",
+    "genreId": "daily"
+  },
+  {
+    "id": "topic-193",
+    "tag": "#肩書きの裏側",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "肩書きの裏側暴露",
+    "title": "伝説のロックギタリストが、ソロ演奏中に心の中で叫んでいることとは？",
+    "hint": "「早く終わってくれ！」となる本音",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-194",
+    "tag": "#ぶっ飛び空想",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "ぶっ飛び空想",
+    "title": "「ツッコミを入れないと呼吸ができない」世界の、国会中継の様子とは？",
+    "hint": "「ヤジじゃなくて生存本能！」となる議論",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-195",
+    "tag": "#言葉の罠",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "言葉の罠",
+    "title": "求人チラシの「アットホームな職場です！」を裏付ける、ヤバすぎる補足説明とは？",
+    "hint": "「家族のケンカに巻き込まれる！」となる説明",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-196",
+    "tag": "#職場の修羅場",
+    "badgeColor": "bg-blue-800 text-white",
+    "formula": "大人の冷や汗",
+    "title": "接待ゴルフで、取引先の社長のナイスショットを妨害してしまった原因とは？",
+    "hint": "「よりによってそこで！」となる妨害",
+    "genreId": "intellect"
+  },
+  {
+    "id": "topic-197",
+    "tag": "#スケール崩壊",
+    "badgeColor": "bg-purple-800 text-white",
+    "formula": "スケール崩壊",
+    "title": "魔王が世界を半分くれると言ってきたが、その「半分」の分け方がセコすぎた。どう分けた？",
+    "hint": "「そっちの半分いらん！」となる領土",
+    "genreId": "surreal"
+  },
+  {
+    "id": "topic-198",
+    "tag": "#もしもあの人が",
+    "badgeColor": "bg-rose-700 text-white",
+    "formula": "もしもシリーズ",
+    "title": "もしも竹取物語の竹の中から、赤ん坊ではなく何が出てきたらおじいさんは腰を抜かした？",
+    "hint": "「竹から出すな！」となる中身",
+    "genreId": "parody"
+  },
+  {
+    "id": "topic-199",
+    "tag": "#クソルール",
+    "badgeColor": "bg-stone-800 text-white",
+    "formula": "理不尽ルール",
+    "title": "コンビニの「お一人様1点限り」の対象が、あまりにも意味不明。何が1点限り？",
+    "hint": "「誰が買い占めるか！」となる対象",
+    "genreId": "dilemma"
+  },
+  {
+    "id": "topic-200",
+    "tag": "#タイトル改悪",
+    "badgeColor": "bg-amber-800 text-white",
+    "formula": "タイトル改悪",
+    "title": "クラシック名曲の日本語タイトルが、作曲者の金欠事情をそのまま反映した名前に改悪されたら？",
+    "hint": "「ギャラのために作った！」となるタイトル",
+    "genreId": "parody"
+  }
+]

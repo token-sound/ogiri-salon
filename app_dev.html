@@ -2,8 +2,30 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>大喜利サロン仲間版 - 匿名ボケバトル＆月間アンヴェイル</title>
+  
+  <!-- PWA設定 -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="サロン大喜利">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  
+  <!-- サービスワーカー登録 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('SW registration skipped or failed:', err);
+        });
+      });
+    }
+  </script>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- React & ReactDOM -->
@@ -423,6 +445,31 @@
       // サロン遊び方ルールブックモーダル
       const [showGuideModal, setShowGuideModal] = useState(false);
 
+      // PWAインストール案内モーダル
+      const [showInstallModal, setShowInstallModal] = useState(false);
+      const [installPrompt, setInstallPrompt] = useState(null);
+
+      // PWA インストールプロンプト監視
+      useEffect(() => {
+        const handler = (e) => {
+          e.preventDefault();
+          setInstallPrompt(e);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+      }, []);
+
+      const handleInstallClick = () => {
+        if (installPrompt) {
+          installPrompt.prompt();
+          installPrompt.userChoice.then(() => {
+            setInstallPrompt(null);
+          });
+        } else {
+          setShowInstallModal(true);
+        }
+      };
+
       // タイマー用Ref
       const timerRef = useRef(null);
 
@@ -632,10 +679,20 @@
 
             {/* ヘッダー右側ボタン群 */}
             <div className="flex items-center gap-1.5">
+              {/* アプリ追加ボタン */}
+              <button
+                onClick={handleInstallClick}
+                className="flex items-center gap-1 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 px-2 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
+                title="スマホにアプリとして追加する"
+              >
+                <span>📲</span>
+                <span className="hidden sm:inline">アプリ化</span>
+              </button>
+
               {/* ルールブックボタン */}
               <button
                 onClick={() => setShowGuideModal(true)}
-                className="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-2.5 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
+                className="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-2 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
                 title="遊び方・ルールを見る"
               >
                 <span>❓</span>
@@ -1377,6 +1434,74 @@
                     className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:brightness-110 active:scale-95"
                   >
                     ルールを理解した！大喜利へGO！
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================= モーダル：スマホにアプリ追加（PWAガイド） ================= */}
+          {showInstallModal && (
+            <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-indigo-500/40 rounded-3xl p-5 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">📲</span>
+                    <div>
+                      <h3 className="font-bold text-indigo-300 font-pop text-base">スマホにアプリを追加</h3>
+                      <p className="text-[11px] text-slate-400">ホーム画面に置いてワンタップで起動！</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowInstallModal(false)}
+                    className="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center text-sm font-bold transition"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="space-y-4 py-4 text-xs text-slate-300 leading-relaxed">
+                  {/* アプリ化のメリット */}
+                  <div className="bg-indigo-500/10 border border-indigo-500/30 rounded-2xl p-3 text-indigo-200">
+                    <p className="text-[11px]">
+                      ホーム画面に追加すると、ブラウザのURLバーが消えて<b>本物のアプリのように全画面でサクサク遊べます！</b>
+                    </p>
+                  </div>
+
+                  {/* iPhone (Safari) の手順 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🍎</span>
+                      <h5 className="font-bold text-slate-100 text-xs">iPhone / iPad (Safari) の場合</h5>
+                    </div>
+                    <ol className="list-decimal pl-5 space-y-1 text-slate-400 text-[11px]">
+                      <li>画面下部の <span className="text-indigo-400 font-bold">「共有ボタン（四角から上矢印 ⎋）」</span> をタップ</li>
+                      <li>メニューを少し下にスクロール</li>
+                      <li><span className="text-amber-300 font-bold">「ホーム画面に追加（＋）」</span> をタップ</li>
+                      <li>右上の「追加」を押せば完了！</li>
+                    </ol>
+                  </div>
+
+                  {/* Android (Chrome) の手順 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🤖</span>
+                      <h5 className="font-bold text-slate-100 text-xs">Android (Chrome) の場合</h5>
+                    </div>
+                    <ol className="list-decimal pl-5 space-y-1 text-slate-400 text-[11px]">
+                      <li>画面右上の <span className="text-indigo-400 font-bold">「︙（メニュー）」</span> をタップ</li>
+                      <li><span className="text-amber-300 font-bold">「アプリをインストール」</span> または <span className="text-amber-300 font-bold">「ホーム画面に追加」</span> をタップ</li>
+                      <li>確認画面で「インストール」を押せば完了！</li>
+                    </ol>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800">
+                  <button
+                    onClick={() => setShowInstallModal(false)}
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl text-sm transition shadow-md"
+                  >
+                    閉じる
                   </button>
                 </div>
               </div>

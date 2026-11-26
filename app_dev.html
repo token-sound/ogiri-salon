@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大喜利サロン仲間版 - 匿名ボケバトル＆月間アンヴェイル</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
+    
+    body {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .font-pop {
+      font-family: 'Mochiy Pop One', 'Zen Maru Gothic', sans-serif;
+    }
+
+    .font-kiwi {
+      font-family: 'Kiwi Maru', serif;
+    }
+
+    /* 3Dカード反転アニメーション（正体アンヴェイル用） */
+    .flip-card {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* 心臓鼓動パルス */
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.08); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.08); }
+      70% { transform: scale(1); }
+    }
+    .animate-heartbeat {
+      animation: heartbeat 1.2s infinite;
+    }
+
+    /* 和風封筒開封アニメーション */
+    @keyframes seal-open {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2) rotate(15deg); opacity: 0.8; }
+      100% { transform: scale(0) rotate(-45deg); opacity: 0; }
+    }
+    .animate-seal-open {
+      animation: seal-open 0.6s forwards;
+    }
+
+    /* 金枠の輝き */
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+      border-color: #f59e0b;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center pb-24">
+  <div id="root" class="w-full max-w-md md:max-w-xl px-4 min-h-screen flex flex-col"></div>
+
+  <script type="text/babel">
+    /**
+     * ============================================================================
+     * 大喜利サロン仲間版 (O-GIRI SALON EDITION)
+     * Copyright (c) 2026 token-sound. All Rights Reserved.
+     * 
+     * 本コードは著作権法および不正競争防止法により保護されています。
+     * 無断での複製、改変、再配布、リバースエンジニアリング、他ドメインでの転用を固く禁じます。
+     * ============================================================================
+     */
+
+    // --- セキュリティガード：ドメインロック ---
+    (function enforceDomainLock() {
+      const allowedHosts = [
+        'ogiri-salon.vercel.app',
+        'localhost',
+        '127.0.0.1'
+      ];
+      const host = window.location.hostname || '';
+      const isAllowed = allowedHosts.some(h => host === h || host.endsWith('.vercel.app')) || window.location.protocol === 'file:';
+      if (!isAllowed) {
+        document.body.innerHTML = `
+          <div style="min-h:100vh;display:flex;align-items:center;justify-content:center;background:#0d1117;color:#f87171;font-family:sans-serif;padding:20px;text-align:center;">
+            <div>
+              <h2 style="font-size:20px;margin-bottom:10px;">⚠️ 不正なドメインからのアクセスです</h2>
+              <p style="font-size:13px;color:#94a3b8;">このアプリケーションは認可されたドメインでのみ動作します。<br>Copyright (c) 2026 token-sound</p>
+            </div>
+          </div>
+        `;
+        throw new Error('Unauthorized domain execution blocked.');
+      }
+    })();
+
+    // --- セキュリティガード：ソース盗用防止（右クリック・F12ガード） ---
+    (function preventSourceTheft() {
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('keydown', e => {
+        if (
+          e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+          (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    })();
+
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    // --- 効果音システム (Web Audio API) ---
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      }
+      // 封筒開封 (シャキーン)
+      playOpen() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(1320, now + 0.15);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      }
+      // 送信完了 (和太鼓ドン)
+      playSubmit() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(40, now + 0.4);
+        gain.gain.setValueAtTime(0.5, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.4);
+      }
+      // よいしょ！ (ピコーン拍手風)
+      playYoisho() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, now); // D5
+        osc.frequency.setValueAtTime(880, now + 0.08); // A5
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+      // カウントダウン警告音 (コツコツ)
+      playTick(isDanger = false) {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = isDanger ? 'sawtooth' : 'sine';
+        osc.frequency.setValueAtTime(isDanger ? 880 : 520, now);
+        gain.gain.setValueAtTime(isDanger ? 0.25 : 0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.06);
+      }
+      // 正体発表ドラムロール＆ファンファーレ
+      playReveal() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + i * 0.12);
+          gain.gain.setValueAtTime(0.35, now + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.12 + 0.5);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.12);
+          osc.stop(now + i * 0.12 + 0.5);
+        });
+      }
+    }
+    const sound = new SoundFX();
+
+    // 仮面アバターリスト
+    const AVATARS = [
+      { id: 'fox', label: '狐面', icon: '🦊' },
+      { id: 'panda', label: '覆面パンダ', icon: '🐼' },
+      { id: 'cat', label: '黒猫', icon: '🐱' },
+      { id: 'samurai', label: '浪人', icon: '👺' },
+      { id: 'tanuki', label: '化け狸', icon: '🦝' },
+      { id: 'owl', label: '夜梟', icon: '🦉' },
+      { id: 'alien', label: '星人', icon: '👽' },
+      { id: 'clown', label: '道化師', icon: '🎭' }
+    ];
+
+    // 今日のデフォルト5問
+    const TODAY_TOPICS = [
+      {
+        id: 'q1',
+        genre: '日常・あるある',
+        text: '「この人、サロンで絶対リア充だな」と秒でバレる発言とは？',
+        bg: 'from-amber-900/40 to-amber-950/70'
+      },
+      {
+        id: 'q2',
+        genre: 'ボドゲ・人狼',
+        text: '人狼ゲームで初日追放された人が、死に際に放った前代未聞の捨て台詞とは？',
+        bg: 'from-purple-900/40 to-purple-950/70'
+      },
+      {
+        id: 'q3',
+        genre: '地獄・ブラック',
+        text: '絶対に仲間に入りたくない「最悪のオンラインサロン」の特徴とは？',
+        bg: 'from-red-900/40 to-red-950/70'
+      },
+      {
+        id: 'q4',
+        genre: '知的・文学',
+        text: '夏目漱石が現代のチャットで「既読スルー」された時に言いそうな愚痴とは？',
+        bg: 'from-blue-900/40 to-blue-950/70'
+      },
+      {
+        id: 'q5',
+        genre: 'シュール・カオス',
+        text: '動物園のパンダが、飼育員が背を向けた瞬間にやっていた怪しいアルバイトとは？',
+        bg: 'from-emerald-900/40 to-emerald-950/70'
+      }
+    ];
+
+    // サンプル仲間回答データ（サロンメンバーたち）
+    const INITIAL_ANSWERS = [
+      {
+        id: 'a1',
+        topicId: 'q1',
+        fakeName: '月夜のパンダ',
+        avatar: '🐼',
+        realName: 'ありぽん（主）',
+        text: '「ちょっと待って、今テラス席でシャンパン開けながらSlack見てるから！」',
+        points: 7,
+        voters: ['user_other1']
+      },
+      {
+        id: 'a2',
+        topicId: 'q1',
+        fakeName: '路地裏の浪人',
+        avatar: '👺',
+        realName: 'マスターT',
+        text: 'Zoomの背景がバーチャルじゃなくて本物のハワイの夕日。',
+        points: 5,
+        voters: []
+      },
+      {
+        id: 'a3',
+        topicId: 'q2',
+        fakeName: '金曜日のフクロウ',
+        avatar: '🦉',
+        realName: 'ユウキ@Web制作',
+        text: '「いいもんね！霊界チャットで一人でお菓子パーティーするもんね！！」',
+        points: 9,
+        voters: []
+      },
+      {
+        id: 'a4',
+        topicId: 'q2',
+        fakeName: '仮面タヌキ',
+        avatar: '🦝',
+        realName: 'さくらんぼ',
+        text: '「投票した奴全員のアカウント、今日の夜中にフォロー外します」',
+        points: 12,
+        voters: []
+      },
+      {
+        id: 'a5',
+        topicId: 'q3',
+        fakeName: '月夜のパンダ',
+        avatar: '🐼',
+        realName: 'ありぽん（主）',
+        text: '毎朝5時に主から「今日も宇宙と交信しよう」というボイスメッセージが届く。',
+        points: 11,
+        voters: []
+      },
+      {
+        id: 'a6',
+        topicId: 'q4',
+        fakeName: '路地裏の浪人',
+        avatar: '👺',
+        realName: 'マスターT',
+        text: '「吾輩は既読である。返事はまだ無い。」',
+        points: 15,
+        voters: []
+      }
+    ];
+
+    // 上位リワード初期データ
+    const INITIAL_TOP3_PROMOS = {
+      rank1: {
+        title: '🌟 【第1位】マスターTの秘密基地',
+        hobby: 'ボードゲーム収集＆自作キーボード作り',
+        intro: '普段は無口ですがボケで1位獲れて嬉しいです！今度サロンで自作ボドゲ会やりましょう！',
+        link: 'https://twitter.com'
+      },
+      rank2: {
+        title: '🍒 【第2位】さくらんぼのイラスト工房',
+        hobby: 'iPadお絵描き・カフェ巡り',
+        intro: 'ゆるいイラスト描いてます！アイコン描いてほしい人いつでもDMください〜！',
+        link: 'https://instagram.com'
+      },
+      rank3: {
+        title: '🐼 【第3位】ありぽんのサウナ放浪記',
+        hobby: '全国のサウナ開拓・お笑い鑑賞',
+        intro: 'サロンのみんな最高！これからもまるくゆるく楽しく遊んでいきましょう！',
+        link: 'https://note.com'
+      }
+    };
+
+    function App() {
+      // ユーザープロフィール
+      const [profile, setProfile] = useState(() => {
+        const saved = localStorage.getItem('ogiri_salon_profile');
+        return saved ? JSON.parse(saved) : {
+          realName: 'サロンの仲間A',
+          fakeName: '覆面の刺客',
+          avatar: '🦊',
+          isRegistered: false
+        };
+      });
+
+      // 表示タブ: 'today' (今日の5問), 'answers' (みんなのボケ＆よいしょ), 'ranking' (月間集計＆アンヴェイル)
+      const [tab, setTab] = useState('today');
+
+      // 封筒開封＆タイマー状態
+      // openedIndex: 現在開封してプレイ中の問題 (0..4, nullならなし)
+      // answeredQuestions: 既に回答を送信した問題のインデックスセット [0, 1, ...]
+      const [openedIndex, setOpenedIndex] = useState(null);
+      const [answeredIndices, setAnsweredIndices] = useState(() => {
+        const saved = localStorage.getItem('ogiri_salon_answered');
+        return saved ? JSON.parse(saved) : [];
+      });
+
+      // 1問あたりの制限時間（1分50秒 = 110秒）
+      const TIME_LIMIT = 110;
+      const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
+      const [currentInput, setCurrentInput] = useState('');
+
+      // 回答リスト＆投票
+      const [answers, setAnswers] = useState(() => {
+        const saved = localStorage.getItem('ogiri_salon_answers');
+        return saved ? JSON.parse(saved) : INITIAL_ANSWERS;
+      });
+
+      // 1ヶ月後の正体アンヴェイル（正体明かし）モードフラグ
+      const [isUnveiled, setIsUnveiled] = useState(() => {
+        return localStorage.getItem('ogiri_salon_unveiled') === 'true';
+      });
+
+      // ベスト3宣伝枠データ
+      const [top3Promos, setTop3Promos] = useState(() => {
+        const saved = localStorage.getItem('ogiri_salon_promos');
+        return saved ? JSON.parse(saved) : INITIAL_TOP3_PROMOS;
+      });
+
+      // 宣伝編集モーダル
+      const [editingRank, setEditingRank] = useState(null);
+      const [editPromoForm, setEditPromoForm] = useState({ title: '', hobby: '', intro: '', link: '' });
+
+      // 設定・プロフィール変更モーダル
+      const [showProfileModal, setShowProfileModal] = useState(false);
+
+      // サロン遊び方ルールブックモーダル
+      const [showGuideModal, setShowGuideModal] = useState(false);
+
+      // タイマー用Ref
+      const timerRef = useRef(null);
+
+      // 初回未登録ならプロフィール設定を開く
+      useEffect(() => {
+        if (!profile.isRegistered) {
+          setShowProfileModal(true);
+        }
+      }, []);
+
+      // Lucide アイコン初期化
+      useEffect(() => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      });
+
+      // タイマー処理 (110秒カウントダウン)
+      useEffect(() => {
+        if (openedIndex !== null && timeLeft > 0) {
+          timerRef.current = setInterval(() => {
+            setTimeLeft(prev => {
+              if (prev <= 1) {
+                clearInterval(timerRef.current);
+                handleTimeUp();
+                return 0;
+              }
+              // カウントダウン警告音（残り30秒以下で5秒ごと、残り10秒以下で毎秒）
+              if (prev <= 10) {
+                sound.playTick(true);
+              } else if (prev <= 30 && prev % 5 === 0) {
+                sound.playTick(false);
+              }
+              return prev - 1;
+            });
+          }, 1000);
+        } else {
+          clearInterval(timerRef.current);
+        }
+        return () => clearInterval(timerRef.current);
+      }, [openedIndex, timeLeft]);
+
+      // 封筒を開封するアクション
+      const handleOpenEnvelope = (index) => {
+        if (answeredIndices.includes(index)) return; // 既に回答済み
+        if (openedIndex !== null) return; // 既に他の問題を開いている
+
+        sound.playOpen();
+        setOpenedIndex(index);
+        setTimeLeft(TIME_LIMIT);
+        setCurrentInput('');
+      };
+
+      // 回答を送信する
+      const handleSubmitAnswer = () => {
+        if (openedIndex === null) return;
+        const text = currentInput.trim();
+        if (!text) {
+          alert('ボケを入力してください！');
+          return;
+        }
+
+        sound.playSubmit();
+        const currentTopic = TODAY_TOPICS[openedIndex];
+
+        // 新しい回答を作成
+        const newAnswer = {
+          id: 'ans_' + Date.now(),
+          topicId: currentTopic.id,
+          fakeName: profile.fakeName || '覆面の刺客',
+          avatar: profile.avatar || '🦊',
+          realName: profile.realName || 'サロンの仲間',
+          text: text,
+          points: 1, // 自分自身からの初期1P
+          voters: ['user_self']
+        };
+
+        const updatedAnswers = [newAnswer, ...answers];
+        setAnswers(updatedAnswers);
+        localStorage.setItem('ogiri_salon_answers', JSON.stringify(updatedAnswers));
+
+        // 回答済みインデックスを更新
+        const newAnswered = [...answeredIndices, openedIndex];
+        setAnsweredIndices(newAnswered);
+        localStorage.setItem('ogiri_salon_answered', JSON.stringify(newAnswered));
+
+        // 紙吹雪
+        if (window.confetti) {
+          window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        }
+
+        // 開封状態を終了
+        setOpenedIndex(null);
+        setCurrentInput('');
+      };
+
+      // 時間切れ時の自動提出処理
+      const handleTimeUp = () => {
+        sound.playTick(true);
+        if (currentInput.trim()) {
+          handleSubmitAnswer();
+        } else {
+          alert('⏰ 1分50秒が経過しました！残念ながらタイムアップ（パス）です。次の問題に挑戦しましょう！');
+          if (openedIndex !== null) {
+            const newAnswered = [...answeredIndices, openedIndex];
+            setAnsweredIndices(newAnswered);
+            localStorage.setItem('ogiri_salon_answered', JSON.stringify(newAnswered));
+            setOpenedIndex(null);
+            setCurrentInput('');
+          }
+        }
+      };
+
+      // よいしょ！投票処理
+      const handleYoisho = (answerId) => {
+        sound.playYoisho();
+        if (window.confetti) {
+          window.confetti({ particleCount: 30, spread: 45, origin: { y: 0.7 } });
+        }
+
+        const updated = answers.map(a => {
+          if (a.id === answerId) {
+            const hasVoted = a.voters.includes('user_self');
+            return {
+              ...a,
+              points: hasVoted ? a.points : a.points + 1,
+              voters: hasVoted ? a.voters : [...a.voters, 'user_self']
+            };
+          }
+          return a;
+        });
+        setAnswers(updated);
+        localStorage.setItem('ogiri_salon_answers', JSON.stringify(updated));
+      };
+
+      // 正体アンヴェイル切り替え
+      const toggleUnveil = () => {
+        const next = !isUnveiled;
+        setIsUnveiled(next);
+        localStorage.setItem('ogiri_salon_unveiled', next.toString());
+        if (next) {
+          sound.playReveal();
+          if (window.confetti) {
+            window.confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
+          }
+        }
+      };
+
+      // プロフィール保存
+      const saveProfile = (newProfile) => {
+        const p = { ...newProfile, isRegistered: true };
+        setProfile(p);
+        localStorage.setItem('ogiri_salon_profile', JSON.stringify(p));
+        setShowProfileModal(false);
+      };
+
+      // 宣伝枠の編集保存
+      const savePromo = () => {
+        if (!editingRank) return;
+        const updated = {
+          ...top3Promos,
+          [editingRank]: { ...editPromoForm }
+        };
+        setTop3Promos(updated);
+        localStorage.setItem('ogiri_salon_promos', JSON.stringify(updated));
+        setEditingRank(null);
+      };
+
+      // ランキング集計（サロン本名または仮名単位）
+      const rankingList = useMemo(() => {
+        const scoreMap = {};
+        answers.forEach(a => {
+          const key = a.realName;
+          if (!scoreMap[key]) {
+            scoreMap[key] = {
+              realName: a.realName,
+              fakeName: a.fakeName,
+              avatar: a.avatar,
+              totalPoints: 0,
+              bestAnswer: a.text,
+              count: 0
+            };
+          }
+          scoreMap[key].totalPoints += a.points;
+          scoreMap[key].count += 1;
+        });
+        return Object.values(scoreMap).sort((a, b) => b.totalPoints - a.totalPoints);
+      }, [answers]);
+
+      // タイマー色計算
+      const timerColor = timeLeft > 40 ? 'bg-emerald-500' : timeLeft > 15 ? 'bg-amber-500' : 'bg-rose-500 animate-pulse';
+
+      return (
+        <div className="flex-1 flex flex-col py-4 w-full">
+          {/* ヘッダー */}
+          <header className="flex items-center justify-between py-3 border-b border-slate-800 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🎭</span>
+              <div>
+                <h1 className="text-lg font-bold font-pop text-amber-400 tracking-wide flex items-center gap-1.5">
+                  サロン大喜利
+                  <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">仲間内編</span>
+                </h1>
+                <p className="text-xs text-slate-400">仮名でボケて1ヶ月後に正体明かし！</p>
+              </div>
+            </div>
+
+            {/* ヘッダー右側ボタン群 */}
+            <div className="flex items-center gap-1.5">
+              {/* ルールブックボタン */}
+              <button
+                onClick={() => setShowGuideModal(true)}
+                className="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-2.5 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
+                title="遊び方・ルールを見る"
+              >
+                <span>❓</span>
+                <span className="hidden sm:inline">遊び方</span>
+              </button>
+
+              {/* プロフィールボタン */}
+              <button
+                onClick={() => setShowProfileModal(true)}
+                className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-xs transition"
+              >
+                <span className="text-base">{profile.avatar}</span>
+                <div className="text-left">
+                  <p className="font-bold text-amber-300 leading-none">{profile.fakeName}</p>
+                  <p className="text-[10px] text-slate-400 leading-none mt-1">本名: {profile.realName}</p>
+                </div>
+              </button>
+            </div>
+          </header>
+
+          {/* ナビゲーションタブ */}
+          <nav className="flex rounded-xl bg-slate-900/80 p-1 mb-5 border border-slate-800">
+            <button
+              onClick={() => setTab('today')}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
+                tab === 'today' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <i data-lucide="mail-open" className="w-4 h-4"></i>
+              今日の5問
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-950/20">
+                {answeredIndices.length}/5
+              </span>
+            </button>
+            <button
+              onClick={() => setTab('answers')}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
+                tab === 'answers' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <i data-lucide="sparkles" className="w-4 h-4"></i>
+              みんなのボケ
+            </button>
+            <button
+              onClick={() => setTab('ranking')}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
+                tab === 'ranking' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <i data-lucide="trophy" className="w-4 h-4"></i>
+              正体＆宣伝枠
+            </button>
+          </nav>
+
+          {/* ================= TAB 1: 今日の5問 (封筒開封＆110秒タイマー) ================= */}
+          {tab === 'today' && (
+            <div className="space-y-4 flex-1">
+              {/* ガイドバナー */}
+              <div className="bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-500/30 rounded-xl p-3 text-xs text-indigo-200 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">⏱️</span>
+                  <div>
+                    <span className="font-bold text-amber-300">完全初見・1問1分50秒勝負！</span>
+                    <p className="text-[11px] text-slate-300">封筒を開封した瞬間からタイマーが始まります。</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] text-slate-400">本日の進捗</span>
+                  <p className="font-bold text-amber-400">{answeredIndices.length} / 5 問済</p>
+                </div>
+              </div>
+
+              {/* 5問の封筒カード一覧 */}
+              <div className="space-y-3">
+                {TODAY_TOPICS.map((topic, idx) => {
+                  const isAnswered = answeredIndices.includes(idx);
+                  const isPlaying = openedIndex === idx;
+                  const isLocked = openedIndex !== null && openedIndex !== idx;
+                  const canOpen = !isAnswered && (openedIndex === null);
+
+                  return (
+                    <div
+                      key={topic.id}
+                      className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                        isPlaying
+                          ? 'border-amber-400 bg-slate-900 shadow-xl gold-glow'
+                          : isAnswered
+                          ? 'border-slate-800 bg-slate-900/40 opacity-75'
+                          : canOpen
+                          ? 'border-indigo-500/40 bg-slate-900/90 hover:border-amber-400/60 cursor-pointer shadow-md'
+                          : 'border-slate-800 bg-slate-950/50 opacity-50 cursor-not-allowed'
+                      }`}
+                    >
+                      {/* カードヘッダー */}
+                      <div className="px-4 py-3 flex items-center justify-between border-b border-slate-800/80 bg-slate-950/40">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            第 {idx + 1} 問
+                          </span>
+                          <span className="text-xs text-slate-400 font-medium">{topic.genre}</span>
+                        </div>
+
+                        {/* ステータスバッジ */}
+                        <div>
+                          {isAnswered && (
+                            <span className="flex items-center gap-1 text-xs text-emerald-400 font-bold">
+                              <i data-lucide="check-circle" className="w-4 h-4"></i>
+                              回答完了
+                            </span>
+                          )}
+                          {isPlaying && (
+                            <span className="flex items-center gap-1 text-xs text-amber-400 font-bold animate-pulse">
+                              <i data-lucide="flame" className="w-4 h-4"></i>
+                              回答中！
+                            </span>
+                          )}
+                          {!isAnswered && !isPlaying && (
+                            <span className="text-xs text-slate-500 flex items-center gap-1">
+                              <i data-lucide="lock" className="w-3.5 h-3.5"></i>
+                              未開封
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* カード本体 */}
+                      <div className="p-4">
+                        {/* 1. 未開封状態 */}
+                        {!isPlaying && !isAnswered && (
+                          <div className="py-4 text-center">
+                            <div className="w-16 h-12 mx-auto mb-3 bg-amber-500/10 border border-amber-500/30 rounded-lg flex items-center justify-center text-2xl shadow-inner">
+                              💌
+                            </div>
+                            <p className="text-sm font-bold text-slate-200 mb-1">お題は開けてからのお楽しみ</p>
+                            <p className="text-xs text-slate-400 mb-4">開封と同時に1分50秒（110秒）のタイマーが動きます</p>
+
+                            <button
+                              onClick={() => handleOpenEnvelope(idx)}
+                              disabled={!canOpen}
+                              className={`w-full py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition ${
+                                canOpen
+                                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-110 active:scale-95 shadow-lg'
+                                  : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                              }`}
+                            >
+                              <i data-lucide="unlock" className="w-4 h-4"></i>
+                              第{idx + 1}問を開封してスタート！
+                            </button>
+                          </div>
+                        )}
+
+                        {/* 2. 回答中（開封後＆タイマースタート！） */}
+                        {isPlaying && (
+                          <div className="space-y-4">
+                            {/* タイマーヘッダー */}
+                            <div className="space-y-1.5">
+                              <div className="flex items-center justify-between text-xs">
+                                <span className="font-bold flex items-center gap-1 text-slate-300">
+                                  <i data-lucide="clock" className="w-4 h-4 text-amber-400"></i>
+                                  残り時間
+                                </span>
+                                <span className={`font-mono font-bold text-base ${timeLeft <= 15 ? 'text-rose-400 animate-heartbeat' : timeLeft <= 40 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                                  {Math.floor(timeLeft / 60)}分 {('0' + (timeLeft % 60)).slice(-2)}秒
+                                </span>
+                              </div>
+                              {/* プログレスバー */}
+                              <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden p-0.5">
+                                <div
+                                  className={`h-full rounded-full transition-all duration-1000 ${timerColor}`}
+                                  style={{ width: `${(timeLeft / TIME_LIMIT) * 100}%` }}
+                                ></div>
+                              </div>
+                            </div>
+
+                            {/* お題表示 */}
+                            <div className="bg-gradient-to-br from-slate-950 to-slate-900 border border-amber-500/40 rounded-xl p-4 text-center shadow-inner">
+                              <span className="text-[11px] text-amber-400 font-bold block mb-1">【 お題 】</span>
+                              <p className="text-base font-bold text-white font-kiwi leading-relaxed">
+                                {topic.text}
+                              </p>
+                            </div>
+
+                            {/* ボケ入力欄 */}
+                            <div className="space-y-2">
+                              <textarea
+                                value={currentInput}
+                                onChange={(e) => setCurrentInput(e.target.value)}
+                                placeholder="思いついたボケをここに直感で入力！（1分50秒以内に送信）"
+                                rows={3}
+                                autoFocus
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition resize-none"
+                              ></textarea>
+
+                              <div className="flex items-center justify-between gap-3">
+                                <span className="text-xs text-slate-400">
+                                  投稿名: <span className="text-amber-300 font-bold">{profile.avatar} {profile.fakeName}</span>（仮名）
+                                </span>
+                                <button
+                                  onClick={handleSubmitAnswer}
+                                  className="bg-gradient-to-r from-amber-500 to-amber-600 hover:brightness-110 active:scale-95 text-slate-950 font-bold px-6 py-2 rounded-xl text-sm transition shadow-lg flex items-center gap-1.5"
+                                >
+                                  <i data-lucide="send" className="w-4 h-4"></i>
+                                  ボケを放つ！
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 3. 回答済み状態 */}
+                        {isAnswered && (
+                          <div className="space-y-2 text-xs">
+                            <div className="text-slate-300 font-medium">
+                              <span className="text-slate-500 mr-2">お題:</span>
+                              {topic.text}
+                            </div>
+                            <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800 text-slate-300 flex items-center justify-between">
+                              <span className="text-emerald-400 flex items-center gap-1">
+                                <i data-lucide="check" className="w-3.5 h-3.5"></i>
+                                あなたのボケ送信済み
+                              </span>
+                              <button
+                                onClick={() => setTab('answers')}
+                                className="text-amber-400 hover:underline flex items-center gap-1"
+                              >
+                                みんなの回答を見る &rarr;
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* 全問回答完了時の祝祭カード */}
+              {answeredIndices.length === 5 && (
+                <div className="bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-indigo-500/20 border border-amber-500/40 rounded-2xl p-4 text-center mt-6">
+                  <span className="text-3xl">🎉</span>
+                  <h3 className="font-bold text-amber-300 font-pop mt-2">本日の5問コンプリート！</h3>
+                  <p className="text-xs text-slate-300 mt-1">
+                    お疲れ様でした！仲間のボケ一覧を見に行って「よいしょ！👏」と投票して盛り上がりましょう！
+                  </p>
+                  <button
+                    onClick={() => setTab('answers')}
+                    className="mt-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-xl text-xs transition shadow-md"
+                  >
+                    みんなの回答を見に行く
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ================= TAB 2: みんなのボケ＆よいしょ！ ================= */}
+          {tab === 'answers' && (
+            <div className="space-y-4 flex-1">
+              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <span className="text-lg">👏</span>
+                  <span>面白いボケに<b>「よいしょ！」</b>を押して応援！</span>
+                </span>
+                <span className="text-amber-400 text-[11px] font-bold">誰のボケかは仮名で非公開</span>
+              </div>
+
+              {/* 回答一覧 */}
+              <div className="space-y-3">
+                {answers.map(ans => {
+                  const topic = TODAY_TOPICS.find(t => t.id === ans.topicId);
+                  const hasVoted = ans.voters.includes('user_self');
+
+                  return (
+                    <div
+                      key={ans.id}
+                      className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-sm hover:border-slate-700 transition"
+                    >
+                      {/* お題引用 */}
+                      {topic && (
+                        <div className="text-[11px] text-slate-400 mb-2 border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+                          <span className="px-1.5 py-0.2 rounded bg-slate-800 text-amber-300 font-bold text-[10px]">
+                            {topic.genre}
+                          </span>
+                          <span className="truncate">{topic.text}</span>
+                        </div>
+                      )}
+
+                      {/* ボケ本文 */}
+                      <p className="text-base font-bold text-slate-100 font-kiwi mb-3 leading-relaxed">
+                        「{ans.text}」
+                      </p>
+
+                      {/* フッター：投稿者（仮名）＆よいしょボタン */}
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-800/60">
+                        {/* 投稿者表示（正体アンヴェイル状態なら本名も表示！） */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl bg-slate-800 p-1.5 rounded-full">{ans.avatar}</span>
+                          <div>
+                            <div className="text-xs font-bold text-amber-300 flex items-center gap-1">
+                              {ans.fakeName}
+                              {isUnveiled && (
+                                <span className="bg-purple-500/20 text-purple-300 text-[10px] px-1.5 py-0.2 rounded border border-purple-500/40">
+                                  中身: {ans.realName}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-slate-500">
+                              {isUnveiled ? '正体開示済み' : '仮面メンバー'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* よいしょボタン */}
+                        <button
+                          onClick={() => handleYoisho(ans.id)}
+                          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition active:scale-95 shadow-sm ${
+                            hasVoted
+                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                              : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
+                          }`}
+                        >
+                          <span>👏</span>
+                          <span>よいしょ!</span>
+                          <span className="bg-slate-950/50 px-1.5 py-0.2 rounded-full font-mono text-[11px] text-amber-300">
+                            {ans.points}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ================= TAB 3: 正体＆月間宣伝枠 ================= */}
+          {tab === 'ranking' && (
+            <div className="space-y-6 flex-1">
+              {/* 正体アンヴェイル制御パネル */}
+              <div className="bg-gradient-to-br from-indigo-950 to-slate-900 border border-indigo-500/40 rounded-2xl p-4 shadow-xl">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider">Season Status</span>
+                    <h3 className="text-base font-bold text-amber-300 font-pop">第1回 月間大喜利シーズン</h3>
+                  </div>
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-500/30 font-medium">
+                    {isUnveiled ? '🎉 結果発表中' : '🔒 匿名期間中'}
+                  </span>
+                </div>
+
+                <p className="text-xs text-slate-300 mb-4 leading-relaxed">
+                  1ヶ月間、誰が書いたか分からない仮名でポイントを蓄積。発表ボタンを押すと全員の「サロン本名」が一斉にオープンします！
+                </p>
+
+                {/* アンヴェイル切り替えボタン */}
+                <button
+                  onClick={toggleUnveil}
+                  className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition shadow-lg ${
+                    isUnveiled
+                      ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                      : 'bg-gradient-to-r from-amber-500 via-purple-500 to-indigo-500 text-white hover:brightness-110 active:scale-95'
+                  }`}
+                >
+                  <i data-lucide={isUnveiled ? 'eye-off' : 'party-popper'} className="w-5 h-5"></i>
+                  {isUnveiled ? '匿名モードに戻す' : '🎭 1ヶ月後の正体一斉アンヴェイル！！'}
+                </button>
+              </div>
+
+              {/* 👑 上位3名 特等席（自己紹介＆宣伝ステージ） */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-amber-400 flex items-center gap-1.5 font-pop">
+                    <span className="text-lg">👑</span>
+                    月間ベスト3特設宣伝ステージ
+                  </h3>
+                  <span className="text-[11px] text-slate-400">上位3名に宣伝権を付与</span>
+                </div>
+
+                {/* 1位〜3位の宣伝カード */}
+                {['rank1', 'rank2', 'rank3'].map((key, i) => {
+                  const promo = top3Promos[key];
+                  const rankNum = i + 1;
+                  const rankColors = [
+                    'border-amber-400/80 bg-gradient-to-b from-amber-950/40 to-slate-900',
+                    'border-slate-400/80 bg-gradient-to-b from-slate-800/40 to-slate-900',
+                    'border-amber-700/80 bg-gradient-to-b from-amber-950/20 to-slate-900'
+                  ];
+                  const medals = ['🥇 1位', '🥈 2位', '🥉 3位'];
+
+                  return (
+                    <div
+                      key={key}
+                      className={`border rounded-2xl p-4 shadow-lg transition ${rankColors[i]}`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-950/60 text-amber-300 border border-amber-500/30">
+                          {medals[i]}
+                        </span>
+                        {/* 編集ボタン（上位者本人が編集できる設定） */}
+                        <button
+                          onClick={() => {
+                            setEditingRank(key);
+                            setEditPromoForm(promo);
+                          }}
+                          className="text-xs text-slate-400 hover:text-amber-300 flex items-center gap-1"
+                        >
+                          <i data-lucide="edit-3" className="w-3.5 h-3.5"></i>
+                          宣伝を編集
+                        </button>
+                      </div>
+
+                      <h4 className="text-sm font-bold text-slate-100 mb-1">{promo.title}</h4>
+                      <p className="text-xs text-amber-300/90 font-medium mb-2 flex items-center gap-1">
+                        <span>🎯 好きなこと・活動:</span>
+                        <span>{promo.hobby}</span>
+                      </p>
+                      <p className="text-xs text-slate-300 bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80 mb-3 leading-relaxed">
+                        {promo.intro}
+                      </p>
+
+                      {promo.link && (
+                        <a
+                          href={promo.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 underline font-medium"
+                        >
+                          <i data-lucide="external-link" className="w-3.5 h-3.5"></i>
+                          活動リンク・自己紹介ページを見る
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* ランキング一覧＆正体フリップカード */}
+              <div className="space-y-3 pt-2">
+                <h3 className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="list-ordered" className="w-4 h-4 text-amber-400"></i>
+                  全メンバーのポイント＆正体一覧
+                </h3>
+
+                <div className="space-y-2">
+                  {rankingList.map((item, idx) => (
+                    <div
+                      key={item.realName}
+                      className="bg-slate-900/70 border border-slate-800 rounded-xl p-3 flex items-center justify-between shadow-sm"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`w-6 text-center font-bold font-mono text-sm ${idx < 3 ? 'text-amber-400' : 'text-slate-500'}`}>
+                          #{idx + 1}
+                        </span>
+                        <span className="text-xl">{item.avatar}</span>
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            {isUnveiled ? (
+                              <span className="font-bold text-sm text-purple-300">
+                                {item.realName}
+                                <span className="text-xs text-slate-400 font-normal ml-1">
+                                  ({item.fakeName})
+                                </span>
+                              </span>
+                            ) : (
+                              <span className="font-bold text-sm text-amber-300">
+                                {item.fakeName}
+                                <span className="text-[10px] text-slate-500 font-normal ml-1">
+                                  (正体は非公開中)
+                                </span>
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-400 truncate max-w-[200px]">
+                            最高傑作: 「{item.bestAnswer}」
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="font-mono font-bold text-sm text-amber-400">
+                          {item.totalPoints} <span className="text-[10px] text-slate-400">P</span>
+                        </span>
+                        <p className="text-[10px] text-slate-500">{item.count}ボケ投稿</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================= モーダル：プロフィール設定 ================= */}
+          {showProfileModal && (
+            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 w-full max-w-sm shadow-2xl">
+                <div className="text-center mb-5">
+                  <span className="text-3xl">🎭</span>
+                  <h3 className="text-lg font-bold text-amber-400 font-pop mt-2">メンバー登録・設定</h3>
+                  <p className="text-xs text-slate-400 mt-1">サロン本名と、今回の大喜利用の仮名を設定してください</p>
+                </div>
+
+                <div className="space-y-4 text-xs">
+                  {/* サロン本名 */}
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">
+                      サロンでのいつもの名前（本名・普段のハンネ）
+                    </label>
+                    <input
+                      type="text"
+                      value={profile.realName}
+                      onChange={(e) => setProfile({ ...profile, realName: e.target.value })}
+                      placeholder="例: ありぽん、マスターT"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
+                    />
+                    <p className="text-[10px] text-slate-500 mt-0.5">※1ヶ月後の発表時まで他の人には隠されます</p>
+                  </div>
+
+                  {/* 大喜利用の仮名 */}
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">
+                      大喜利での仮名（マスクネーム）
+                    </label>
+                    <input
+                      type="text"
+                      value={profile.fakeName}
+                      onChange={(e) => setProfile({ ...profile, fakeName: e.target.value })}
+                      placeholder="例: 月夜のパンダ、夜更かし侍"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
+                    />
+                    <p className="text-[10px] text-slate-500 mt-0.5">※この名前でボケが投稿・表示されます</p>
+                  </div>
+
+                  {/* 仮面アバター選択 */}
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-2">仮面アバターを選択</label>
+                    <div className="grid grid-cols-4 gap-2">
+                      {AVATARS.map(av => (
+                        <button
+                          key={av.id}
+                          type="button"
+                          onClick={() => setProfile({ ...profile, avatar: av.icon })}
+                          className={`p-2 rounded-xl text-center border transition ${
+                            profile.avatar === av.icon
+                              ? 'bg-amber-500/20 border-amber-400 shadow-sm'
+                              : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+                          }`}
+                        >
+                          <span className="text-xl block">{av.icon}</span>
+                          <span className="text-[9px] text-slate-400 block mt-1">{av.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => saveProfile(profile)}
+                    className="w-full mt-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:brightness-110 active:scale-95"
+                  >
+                    この設定で大喜利をはじめる！
+                  </button>
+
+                  {/* 遊び方への導線 */}
+                  <div className="text-center pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowGuideModal(true)}
+                      className="text-[11px] text-amber-400/90 hover:underline inline-flex items-center gap-1"
+                    >
+                      <span>❓</span> 詳しい遊び方・ルールを見る
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================= モーダル：宣伝枠の編集 ================= */}
+          {editingRank && (
+            <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 w-full max-w-sm shadow-2xl">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-bold text-amber-400 font-pop text-sm flex items-center gap-1.5">
+                    <span>👑</span> 宣伝枠の編集
+                  </h3>
+                  <button
+                    onClick={() => setEditingRank(null)}
+                    className="text-slate-400 hover:text-white"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">タイトル・屋号</label>
+                    <input
+                      type="text"
+                      value={editPromoForm.title}
+                      onChange={(e) => setEditPromoForm({ ...editPromoForm, title: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">好きなこと・活動内容</label>
+                    <input
+                      type="text"
+                      value={editPromoForm.hobby}
+                      onChange={(e) => setEditPromoForm({ ...editPromoForm, hobby: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">自己紹介・サロン仲間へのメッセージ</label>
+                    <textarea
+                      rows={3}
+                      value={editPromoForm.intro}
+                      onChange={(e) => setEditPromoForm({ ...editPromoForm, intro: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white resize-none"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-bold mb-1">宣伝URL（SNSや作品リンクなど）</label>
+                    <input
+                      type="url"
+                      value={editPromoForm.link}
+                      onChange={(e) => setEditPromoForm({ ...editPromoForm, link: e.target.value })}
+                      placeholder="https://..."
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                    />
+                  </div>
+
+                  <button
+                    onClick={savePromo}
+                    className="w-full mt-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-md"
+                  >
+                    宣伝ステージを更新する
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================= モーダル：サロン遊び方ルールブック ================= */}
+          {showGuideModal && (
+            <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-amber-500/40 rounded-3xl p-5 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
+                {/* モーダルヘッダー */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">📜</span>
+                    <div>
+                      <h3 className="font-bold text-amber-400 font-pop text-base">サロン大喜利 ルールブック</h3>
+                      <p className="text-[11px] text-slate-400">まるくゆるく、笑いで繋がる遊び方ガイド</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowGuideModal(false)}
+                    className="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center text-sm font-bold transition"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* ガイド本文 */}
+                <div className="space-y-4 py-4 text-xs leading-relaxed text-slate-300">
+                  {/* 理念ブロック */}
+                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3.5 text-amber-200">
+                    <h4 className="font-bold text-amber-400 text-xs mb-1 flex items-center gap-1.5">
+                      <span>✨</span> この大喜利の目的
+                    </h4>
+                    <p className="text-[11px] text-amber-200/90 leading-normal">
+                      「各々が好きなことをし、まるくゆるく繋がる」ための仲間内お遊びツールです！上手いこと言えなくても全然OK。直感で自由にボケて笑い合いましょう！
+                    </p>
+                  </div>
+
+                  {/* ルール1 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs">1</span>
+                      <h5 className="font-bold text-slate-100 text-xs">仮名でボケるから恥ずかしくない！</h5>
+                    </div>
+                    <p className="text-slate-400 pl-8 text-[11px]">
+                      参加時はサロン名と別に「仮名（マスク名）」を設定します。プレイ中は誰が書いたか完全匿名！普段のキャラと違っても、盛大にスベっても誰にもバレません。
+                    </p>
+                  </div>
+
+                  {/* ルール2 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-indigo-500 text-white font-bold flex items-center justify-center text-xs">2</span>
+                      <h5 className="font-bold text-slate-100 text-xs">1日5問・1問1分50秒のライブ勝負！</h5>
+                    </div>
+                    <p className="text-slate-400 pl-8 text-[11px]">
+                      お題は最初は封筒（💌）で隠されています。開封した瞬間にタイマーがスタート！ネット検索やAIに頼る暇のない「110秒の直感勝負」だからこそ、全員が平等に楽しめます。
+                    </p>
+                  </div>
+
+                  {/* ルール3 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
+                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「よいしょ！👏」と投票</h5>
+                    </div>
+                    <p className="text-slate-400 pl-8 text-[11px]">
+                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「よいしょ！」を押してポイントをプレゼントしましょう！
+                    </p>
+                  </div>
+
+                  {/* ルール4 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center text-xs">4</span>
+                      <h5 className="font-bold text-slate-100 text-xs">1ヶ月後に正体一斉アンヴェイル（開示）！</h5>
+                    </div>
+                    <p className="text-slate-400 pl-8 text-[11px]">
+                      1ヶ月間、誰のボケか分からない状態でポイントを蓄積。月末に全員のサロン本名が一斉開示されます！「えっ！あのキレキレのボケ〇〇さんだったの！？」と最高のネタバラシが待っています。
+                    </p>
+                  </div>
+
+                  {/* ルール5 */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-xs">5</span>
+                      <h5 className="font-bold text-slate-100 text-xs">👑 ベスト3には「好きなこと宣伝枠」！</h5>
+                    </div>
+                    <p className="text-slate-400 pl-8 text-[11px]">
+                      月間ポイント上位3名には、アプリTOPの特設ステージで「自分の好きなこと・自己紹介・活動リンク（SNSや自作作品など）」を堂々とPRできる権利が贈呈されます！
+                    </p>
+                  </div>
+                </div>
+
+                {/* モーダルフッター */}
+                <div className="pt-3 border-t border-slate-800">
+                  <button
+                    onClick={() => setShowGuideModal(false)}
+                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:brightness-110 active:scale-95"
+                  >
+                    ルールを理解した！大喜利へGO！
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

@@ -2350,47 +2350,54 @@
               <span>🔒</span>
               <span>個人情報を外部サーバーに預けない安心設計（端末完結 / P2P通信対応）</span>
             </div>
-            <p className="text-[10px] text-slate-500">
+            <p
+              onClick={() => {
+                const clicks = (window._secretAdminClicks || 0) + 1;
+                window._secretAdminClicks = clicks;
+                if (clicks >= 3) {
+                  window._secretAdminClicks = 0;
+                  const pass = window.prompt('【主・運営専用】管理者パスワードを入力してください:');
+                  if (pass === 'salon2026') {
+                    try { sessionStorage.setItem('ogiri_admin_auth', 'salon2026'); } catch (e) {}
+                    window.location.href = '?test=true';
+                  } else if (pass !== null) {
+                    alert('⚠️ パスワードが違います。');
+                  }
+                }
+              }}
+              className="text-[10px] text-slate-500 cursor-default select-none"
+              title="サロン大喜利 仲間内編"
+            >
               サロン大喜利 仲間内編 &copy; 2026 token-sound. All rights reserved.
             </p>
 
-            {/* 主・運営用テスト切り替えリンク */}
-            <div className="pt-1">
-              {isTestMode ? (
+            {/* お問い合わせ・サポート案内 ＆ 遊び方導線 */}
+            <div className="pt-1 space-y-1">
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setShowGuideModal(true)}
+                  className="inline-flex items-center gap-1 text-[11px] text-amber-400 hover:text-amber-300 underline transition cursor-pointer"
+                >
+                  <span>❓ 詳しい遊び方・ルールを見る</span>
+                </button>
+              </div>
+              <p className="text-[10px] text-slate-400">
+                💬 ご質問・操作の相談はサロン内の質問チャットまでお気軽にどうぞ♪
+              </p>
+            </div>
+
+            {/* テストモード中のみ表示される復帰リンク */}
+            {isTestMode && (
+              <div className="pt-1">
                 <a
                   href="?"
                   className="text-[10px] text-amber-400 hover:text-amber-300 underline transition"
                 >
                   [一般メンバー向け] 12/1開幕直前画面に戻る
                 </a>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    let isAuthed = false;
-                    try {
-                      isAuthed = sessionStorage.getItem('ogiri_admin_auth') === 'salon2026';
-                    } catch (e) {}
-                    if (isAuthed) {
-                      window.location.href = '?test=true';
-                      return;
-                    }
-                    const pass = window.prompt('【主・運営専用】シミュレーター用パスワードを入力してください:');
-                    if (pass === 'salon2026') {
-                      try {
-                        sessionStorage.setItem('ogiri_admin_auth', 'salon2026');
-                      } catch (e) {}
-                      window.location.href = '?test=true';
-                    } else if (pass !== null) {
-                      alert('⚠️ パスワードが違います。');
-                    }
-                  }}
-                  className="text-[10px] text-slate-600 hover:text-slate-400 underline transition cursor-pointer"
-                >
-                  [主・運営用] 🧪 動作確認シミュレーター（要PW）
-                </button>
-              )}
-            </div>
+              </div>
+            )}
           </footer>
 
           {/* ================= モーダル：プロフィール設定 ================= */}

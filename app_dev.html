@@ -639,8 +639,8 @@
       const [showCalendar, setShowCalendar] = useState(false);
 
       // ================= 12/1 開幕カウントダウン＆モード判定 =================
-      // 12/1 00:00:00 JST 開幕
-      const targetLaunchDate = useMemo(() => new Date('2026-12-01T00:00:00+09:00'), []);
+      // 12/1 10:00:00 JST 開幕
+      const targetLaunchDate = useMemo(() => new Date('2026-12-01T10:00:00+09:00'), []);
 
       // テストモード判定: URLパラメータに ?test=true または ?demo=true があり、かつパスワード認証済みか
       const [isTestMode, setIsTestMode] = useState(() => {
@@ -1229,7 +1229,7 @@
                 </h1>
                 {isPreLaunch ? (
                   <p className="text-[11px] text-indigo-300 font-bold flex items-center gap-1">
-                    <span>⏳</span> 12/1(火) 0:00 START！事前受付中
+                    <span>⏳</span> 12/1(火) 10:00 START！事前受付中
                   </p>
                 ) : answeredIndices.length === 0 && openedIndex === null ? (
                   <p className="text-[11px] text-amber-300/90 group-hover:text-amber-200 transition flex items-center gap-1">
@@ -1274,7 +1274,7 @@
 
                 <div className="space-y-1">
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-pop tracking-tight">
-                    12/1<span className="text-sm font-normal text-slate-300 ml-1">(火) 00:00</span>
+                    12/1<span className="text-sm font-normal text-slate-300 ml-1">(火) 10:00</span>
                     <span className="text-amber-400 ml-2">開幕！</span>
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-300">
@@ -1302,7 +1302,7 @@
                   </div>
                 </div>
                 <p className="text-[11px] text-amber-300/80 animate-pulse font-medium">
-                  ⏳ 12/1の0時になった瞬間、第1日目の封筒がオープンします！
+                  ⏳ 12/1の朝10:00になった瞬間、第1日目の封筒がオープンします！
                 </p>
               </div>
 

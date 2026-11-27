@@ -1787,6 +1787,17 @@
             </div>
           )}
 
+          {/* ================= フッター（安心宣言・著作権） ================= */}
+          <footer className="mt-8 pt-4 pb-8 border-t border-slate-800/80 text-center space-y-2">
+            <div className="inline-flex items-center gap-1.5 bg-slate-900/80 border border-emerald-500/30 rounded-full px-3 py-1 text-[11px] text-emerald-300">
+              <span>🔒</span>
+              <span>個人情報を外部サーバーに預けない安心・安全設計</span>
+            </div>
+            <p className="text-[10px] text-slate-500">
+              サロン大喜利 仲間内編 &copy; 2026 token-sound. All rights reserved.
+            </p>
+          </footer>
+
           {/* ================= モーダル：プロフィール設定 ================= */}
           {showProfileModal && (
             <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -1795,6 +1806,15 @@
                   <span className="text-3xl">🎭</span>
                   <h3 className="text-lg font-bold text-amber-400 font-pop mt-2">メンバー登録・設定</h3>
                   <p className="text-xs text-slate-400 mt-1">サロン本名と、今回の大喜利用の仮名を設定してください</p>
+                </div>
+
+                {/* 個人情報ゼロ・安心バッジ */}
+                <div className="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-3 mb-4 text-emerald-200 text-[11px] leading-relaxed flex items-start gap-2">
+                  <span className="text-base shrink-0 mt-0.5">🔒</span>
+                  <div>
+                    <span className="font-bold text-emerald-400 block mb-0.5">個人情報の完全ゼロ設計</span>
+                    メールアドレスやパスワード等の個人情報は一切収集・保存しません。データはお使いの端末（ブラウザ）にのみ安全に保持され、外部サーバーに預けられることはありません。
+                  </div>
                 </div>
 
                 <div className="space-y-4 text-xs">
@@ -2090,6 +2110,17 @@
                     </div>
                     <p className="text-slate-400 pl-8 text-[11px]">
                       月間ポイント上位3名には、アプリTOPの特設ステージで「自分の好きなこと・自己紹介・活動リンク（SNSや自作作品など）」を堂々とPRできる権利が贈呈されます！
+                    </p>
+                  </div>
+
+                  {/* ルール6：個人情報ゼロ設計 */}
+                  <div className="bg-emerald-950/40 border border-emerald-500/30 rounded-2xl p-3.5 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">🔒</span>
+                      <h5 className="font-bold text-emerald-300 text-xs">個人情報を一切預けない安心設計！</h5>
+                    </div>
+                    <p className="text-slate-300 pl-8 text-[11px] leading-relaxed">
+                      メールアドレス、パスワード、電話番号などの個人情報は一切登録不要です。回答やポイントはお手元のスマホ/ブラウザ内にのみ保存されるため、外部への情報流出リスクが物理的にゼロ。どなたでも安心してお気軽にご参加いただけます。
                     </p>
                   </div>
                 </div>

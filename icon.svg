@@ -1,46 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Gradient (Rich Deep Midnight Indigo to Royal Violet) -->
-    <radialGradient id="bgGrad" cx="50%" cy="42%" r="72%">
-      <stop offset="0%" stop-color="#2d1b54"/>
-      <stop offset="55%" stop-color="#160f2e"/>
-      <stop offset="100%" stop-color="#090514"/>
+    <!-- Background Gradient (Deep Japanese Indigo / Night Violet) -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#261b4d"/>
+      <stop offset="55%" stop-color="#140d2b"/>
+      <stop offset="100%" stop-color="#080414"/>
     </radialGradient>
 
     <!-- Golden Stage Spotlight -->
-    <radialGradient id="stageGlow" cx="50%" cy="46%" r="52%">
-      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.32"/>
-      <stop offset="65%" stop-color="#f59e0b" stop-opacity="0.10"/>
+    <radialGradient id="stageGlow" cx="50%" cy="44%" r="48%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- Chestnut Shell Body Gradient (Warm Glossy Marron) -->
+    <!-- Chestnut Shell Gradient (Rich, Polished Marron) -->
     <linearGradient id="chestnutShell" x1="25%" y1="0%" x2="75%" y2="100%">
       <stop offset="0%" stop-color="#b45309"/>
-      <stop offset="25%" stop-color="#8c3707"/>
-      <stop offset="60%" stop-color="#662203"/>
-      <stop offset="100%" stop-color="#3d1300"/>
+      <stop offset="22%" stop-color="#853205"/>
+      <stop offset="65%" stop-color="#5a1e02"/>
+      <stop offset="100%" stop-color="#340e00"/>
     </linearGradient>
 
-    <!-- Shell Glossy Curved Highlight -->
-    <linearGradient id="chestnutShine" x1="0%" y1="0%" x2="80%" y2="80%">
+    <!-- Chestnut Shell Elegant Light Reflection -->
+    <linearGradient id="shellHighlight" x1="0%" y1="0%" x2="80%" y2="80%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
-      <stop offset="40%" stop-color="#fef08a" stop-opacity="0.25"/>
+      <stop offset="35%" stop-color="#fef08a" stop-opacity="0.25"/>
       <stop offset="100%" stop-color="#b45309" stop-opacity="0"/>
     </linearGradient>
 
-    <!-- Chestnut Pedicel (Cream Bottom) Gradient -->
+    <!-- Chestnut Bottom (Pedicel / 栗の座) -->
     <linearGradient id="chestnutBase" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="0%" stop-color="#fffdf0"/>
       <stop offset="30%" stop-color="#fef3c7"/>
       <stop offset="70%" stop-color="#fde68a"/>
       <stop offset="100%" stop-color="#eab308"/>
     </linearGradient>
 
-    <!-- Zabuton Cushion Gradient (Imperial Kyoto Purple) -->
+    <!-- Zabuton Cushion Gradient (Kyoto Royal Purple) -->
     <linearGradient id="zabutonTop" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="45%" stop-color="#6d28d9"/>
+      <stop offset="40%" stop-color="#6d28d9"/>
       <stop offset="100%" stop-color="#4c1d95"/>
     </linearGradient>
     <linearGradient id="zabutonRim" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -48,249 +48,198 @@
       <stop offset="100%" stop-color="#2e1065"/>
     </linearGradient>
 
-    <!-- Sensu Golden Paper Gradient -->
+    <!-- Sensu Golden Fan Gradient -->
     <linearGradient id="sensuGold" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="40%" stop-color="#fffbeb"/>
-      <stop offset="85%" stop-color="#fef08a"/>
-      <stop offset="100%" stop-color="#fbbf24"/>
+      <stop offset="80%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
     </linearGradient>
 
-    <!-- Gold Foil Text Gradient -->
+    <!-- Gold Text Gradient -->
     <linearGradient id="goldPlate" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fffdf5"/>
+      <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="25%" stop-color="#fef08a"/>
       <stop offset="65%" stop-color="#f59e0b"/>
       <stop offset="100%" stop-color="#b45309"/>
     </linearGradient>
 
-    <!-- Gold Trim Gradient -->
-    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#fef08a"/>
+    <!-- Gold Frame Gradient -->
+    <linearGradient id="goldBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fffbeb"/>
       <stop offset="50%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#92400e"/>
     </linearGradient>
 
-    <!-- Drop Shadows for 3D App Icon Feel -->
+    <!-- Drop Shadows -->
     <filter id="shadowZabuton" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000000" flood-opacity="0.65"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000000" flood-opacity="0.6"/>
     </filter>
     <filter id="shadowChestnut" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#000000" flood-opacity="0.55"/>
-    </filter>
-    <filter id="shadowSensu" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="-4" dy="8" stdDeviation="7" flood-color="#000000" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.5"/>
     </filter>
     <filter id="shadowBadge" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000000" flood-opacity="0.7"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+    <filter id="shadowSensu" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="-2" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
     </filter>
   </defs>
 
   <!-- ==================== BACKGROUND ==================== -->
-  <!-- Full bleed for Maskable Icon Safe Zone compatibility -->
   <rect width="512" height="512" fill="url(#bgGrad)"/>
 
-  <!-- Elegant Japanese Traditional Circles / Shippo Watermark -->
-  <g opacity="0.10" stroke="#fef08a" stroke-width="1.8" fill="none">
-    <circle cx="256" cy="245" r="215"/>
-    <circle cx="256" cy="245" r="175" stroke-dasharray="8 6"/>
-    <circle cx="256" cy="245" r="135"/>
+  <!-- Japanese Traditional Pattern (Shippo Rings) -->
+  <g opacity="0.09" stroke="#fef08a" stroke-width="1.6" fill="none">
+    <circle cx="256" cy="235" r="210"/>
+    <circle cx="256" cy="235" r="170" stroke-dasharray="8 6"/>
+    <circle cx="256" cy="235" r="130"/>
   </g>
 
-  <!-- Stage Glow behind Character -->
-  <circle cx="256" cy="235" r="175" fill="url(#stageGlow)"/>
+  <!-- Stage Glow behind Mascot -->
+  <circle cx="256" cy="225" r="165" fill="url(#stageGlow)"/>
 
-  <!-- Golden Stage Confetti & Flakes (Celebration of Wasshoi / 笑いの舞) -->
+  <!-- Festive Golden Confetti & Flakes (大喜利の祝祭感) -->
   <g fill="#fbbf24">
-    <!-- Soft falling golden petals -->
-    <path d="M105 125 C113 115 123 120 120 130 C117 140 107 135 105 125 Z" opacity="0.6"/>
-    <path d="M405 115 C415 110 422 117 418 127 C412 135 405 125 405 115 Z" opacity="0.7"/>
-    <path d="M428 200 C436 195 441 202 437 210 C431 216 425 208 428 200 Z" opacity="0.5"/>
-    <path d="M78 225 C85 220 90 227 87 233 C82 238 77 232 78 225 Z" opacity="0.5"/>
-    <!-- Sparkling Star Crosses -->
-    <path d="M135 90 Q135 100 125 100 Q135 100 135 110 Q135 100 145 100 Q135 100 135 90 Z" fill="#ffffff" opacity="0.95"/>
-    <path d="M380 75 Q380 84 371 84 Q380 84 380 93 Q380 84 389 84 Q380 84 380 75 Z" fill="#fef08a" opacity="0.9"/>
-    <path d="M375 270 Q375 276 369 276 Q375 276 375 282 Q375 276 381 276 Q375 276 375 270 Z" fill="#fde047" opacity="0.75"/>
-    <circle cx="120" cy="180" r="3.5" fill="#fef08a" opacity="0.7"/>
-    <circle cx="395" cy="165" r="3" fill="#fde047" opacity="0.6"/>
+    <path d="M115 110 C123 100 133 105 130 115 C127 125 117 120 115 110 Z" opacity="0.65"/>
+    <path d="M395 105 C405 100 412 107 408 117 C402 125 395 115 395 105 Z" opacity="0.7"/>
+    <path d="M420 190 C428 185 433 192 429 200 C423 206 417 198 420 190 Z" opacity="0.5"/>
+    <path d="M88 205 C95 200 100 207 97 213 C92 218 87 212 88 205 Z" opacity="0.5"/>
+    <!-- Sparkling cross stars -->
+    <path d="M140 85 Q140 94 131 94 Q140 94 140 103 Q140 94 149 94 Q140 94 140 85 Z" fill="#ffffff" opacity="0.95"/>
+    <path d="M370 70 Q370 78 362 78 Q370 78 370 86 Q370 78 378 78 Q370 78 370 70 Z" fill="#fef08a" opacity="0.9"/>
   </g>
 
-  <!-- ==================== 1. ZABUTON (OGIRI STAGE CUSHION) ==================== -->
+  <!-- ==================== 1. SENSU (大喜利の和扇子 - 背後から広がる) ==================== -->
+  <g filter="url(#shadowSensu)">
+    <!-- Sensu positioned behind chestnut slightly to the left/upper -->
+    <g transform="translate(180, 210) rotate(-22)">
+      <!-- Fan Arc -->
+      <path d="M0 0 L-95 -125 C-60 -150 10 -155 75 -125 L0 0 Z" fill="url(#sensuGold)" stroke="#d97706" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Ribs -->
+      <path d="M0 0 L-65 -138" stroke="#f59e0b" stroke-width="1.8" opacity="0.6"/>
+      <path d="M0 0 L-25 -148" stroke="#f59e0b" stroke-width="1.8" opacity="0.6"/>
+      <path d="M0 0 L15 -146" stroke="#f59e0b" stroke-width="1.8" opacity="0.6"/>
+      <path d="M0 0 L48 -135" stroke="#f59e0b" stroke-width="1.8" opacity="0.6"/>
+      <!-- Bamboo Outer Sticks -->
+      <path d="M0 0 L-97 -123" stroke="#78350f" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M0 0 L77 -123" stroke="#78350f" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Red Sun / Laugh Crest on Fan -->
+      <circle cx="-10" cy="-105" r="18" fill="#dc2626"/>
+      <text x="-10" y="-98" font-family="'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif" font-weight="900" font-size="16" fill="#ffffff" text-anchor="middle">笑</text>
+      <!-- Pivot (Kaname) -->
+      <circle cx="0" cy="0" r="5" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- ==================== 2. ZABUTON (高座の紫座布団) ==================== -->
+  <!-- Lifted upwards to ensure bottom text is safely within the maskable safe zone -->
   <g filter="url(#shadowZabuton)">
     <!-- Bottom Rim (Depth) -->
-    <path d="M85 365 C85 352 145 342 256 342 C367 342 427 352 427 365 L419 388 C419 402 363 414 256 414 C149 414 93 402 93 388 Z" fill="url(#zabutonRim)"/>
+    <path d="M96 324 C96 312 152 302 256 302 C360 302 416 312 416 324 L408 344 C408 356 356 368 256 368 C156 368 104 356 104 344 Z" fill="url(#zabutonRim)"/>
 
-    <!-- Main Cushion Top (Plump Satin Surface) -->
-    <path d="M92 360 C94 340 152 324 256 324 C360 324 418 340 420 360 C420 382 360 402 256 402 C152 402 92 382 92 360 Z" fill="url(#zabutonTop)"/>
+    <!-- Main Cushion Top (Plump Purple Surface) -->
+    <path d="M102 320 C104 302 158 288 256 288 C354 288 408 302 410 320 C410 340 354 358 256 358 C158 358 102 340 102 320 Z" fill="url(#zabutonTop)"/>
 
-    <!-- Cushion Tuft Seams / Indentations -->
-    <path d="M256 328 C222 346 175 358 114 362" stroke="#3b0764" stroke-width="3" fill="none" opacity="0.65"/>
-    <path d="M256 328 C290 346 337 358 398 362" stroke="#3b0764" stroke-width="3" fill="none" opacity="0.65"/>
-    <path d="M256 328 L256 398" stroke="#3b0764" stroke-width="3" opacity="0.55"/>
+    <!-- Cushion Creases -->
+    <path d="M256 292 C224 308 180 318 122 322" stroke="#3b0764" stroke-width="2.5" fill="none" opacity="0.6"/>
+    <path d="M256 292 C288 308 332 318 390 322" stroke="#3b0764" stroke-width="2.5" fill="none" opacity="0.6"/>
+    <path d="M256 292 L256 354" stroke="#3b0764" stroke-width="2.5" opacity="0.5"/>
 
-    <!-- Elegant Gold Piping on Cushion Edge -->
-    <path d="M108 362 C142 376 195 388 256 388 C317 388 370 376 404 362" stroke="url(#goldTrim)" stroke-width="2.2" fill="none" opacity="0.85"/>
+    <!-- Golden Piping Trim -->
+    <path d="M116 322 C148 334 198 344 256 344 C314 344 364 334 396 322" stroke="url(#goldBorder)" stroke-width="2" fill="none" opacity="0.85"/>
 
-    <!-- Traditional Gold Tassels (Fusa / 房) -->
+    <!-- Golden Tassels (房) at Corners -->
     <!-- Left Tassel -->
-    <g transform="translate(92, 362)">
-      <circle cx="0" cy="0" r="5.5" fill="#fde047"/>
-      <path d="M0 4 C-8 16 -16 28 -22 38 M0 4 C-4 17 -8 30 -10 40 M0 4 C1 17 0 32 3 40" stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round"/>
+    <g transform="translate(102, 322)">
+      <circle cx="0" cy="0" r="5" fill="#fde047"/>
+      <path d="M0 3 C-6 14 -14 24 -18 32 M0 3 C-3 15 -7 26 -8 34 M0 3 C1 15 0 27 2 34" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
     </g>
     <!-- Right Tassel -->
-    <g transform="translate(420, 362)">
-      <circle cx="0" cy="0" r="5.5" fill="#fde047"/>
-      <path d="M0 4 C8 16 16 28 22 38 M0 4 C4 17 8 30 10 40 M0 4 C-1 17 0 32 -3 40" stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round"/>
+    <g transform="translate(410, 322)">
+      <circle cx="0" cy="0" r="5" fill="#fde047"/>
+      <path d="M0 3 C6 14 14 24 18 32 M0 3 C3 15 7 26 8 34 M0 3 C-1 15 0 27 -2 34" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
     </g>
-    <!-- Center Front Tuft Knot -->
-    <circle cx="256" cy="368" r="4.5" fill="#fde047"/>
-    <path d="M253 371 L248 386 M256 372 L256 388 M259 371 L264 386" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Center Tuft Knot -->
+    <circle cx="256" cy="328" r="4" fill="#fde047"/>
+    <path d="M253 331 L249 344 M256 332 L256 346 M259 331 L263 344" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
   </g>
 
-  <!-- ==================== 2. CHESTNUT CHARACTER (SALON MASCOT) ==================== -->
+  <!-- ==================== 3. PURE CHESTNUT (NO FACE / 美しい栗の実) ==================== -->
   <g filter="url(#shadowChestnut)">
-    <!-- Base Shell Silhouette (Perfect Cute Chestnut Drop Shape) -->
-    <!-- Point at (256, 92), sweeping curved hips to (132, 260) and (380, 260), round base at (256, 350) -->
-    <path d="M256 90 
-             C246 112 210 166 160 216 
-             C128 248 126 282 136 310 
-             C150 342 198 352 256 352 
-             C314 352 362 342 376 310 
-             C386 282 384 248 352 216 
-             C302 166 266 112 256 90 Z" 
+    <!-- Chestnut Shell Silhouette -->
+    <!-- Top point at (256, 85), plump organic curves to sides, sitting squarely on cushion -->
+    <path d="M256 82 
+             C246 102 212 154 165 200 
+             C134 230 132 260 142 284 
+             C155 312 200 320 256 320 
+             C312 320 357 312 370 284 
+             C380 260 378 230 347 200 
+             C300 154 266 102 256 82 Z" 
           fill="url(#chestnutShell)"/>
 
-    <!-- 3D Glossy Highlights on Shell -->
-    <!-- Curved Primary Specular Light -->
-    <path d="M252 102 
-             C240 120 196 175 164 222 
-             C150 242 146 264 152 282 
-             C144 260 148 238 165 214 
-             C198 168 238 118 252 102 Z" 
-          fill="url(#chestnutShine)"/>
-    <!-- Head Soft Oval Glint -->
-    <ellipse cx="218" cy="170" rx="14" ry="24" transform="rotate(-30 218 170)" fill="#ffffff" opacity="0.35"/>
-    <circle cx="204" cy="148" r="5" fill="#ffffff" opacity="0.5"/>
+    <!-- Natural Glossy Specular Reflection (栗の美しい光沢・ハイライト) -->
+    <path d="M252 94 
+             C240 110 200 160 170 204 
+             C156 224 152 244 158 260 
+             C150 240 154 220 171 196 
+             C202 152 240 108 252 94 Z" 
+          fill="url(#shellHighlight)"/>
 
-    <!-- Bottom Light Cream Pedicel (Chestnut "座") -->
-    <path d="M136 310 
-             C140 302 154 296 178 292 
-             C210 287 238 292 256 294 
-             C274 292 302 287 334 292 
-             C358 296 372 302 376 310 
-             C362 342 314 352 256 352 
-             C198 352 150 342 136 310 Z" 
+    <!-- Secondary Soft Oval Sheen -->
+    <ellipse cx="220" cy="155" rx="14" ry="24" transform="rotate(-30 220 155)" fill="#ffffff" opacity="0.30"/>
+    <circle cx="206" cy="134" r="5" fill="#ffffff" opacity="0.45"/>
+
+    <!-- Chestnut Pedicel / Base (栗の座 - クリーム色の下部) -->
+    <path d="M142 284 
+             C146 276 160 270 182 266 
+             C212 262 238 266 256 268 
+             C274 266 300 262 330 266 
+             C352 270 366 276 370 284 
+             C357 312 312 320 256 320 
+             C200 320 155 312 142 284 Z" 
           fill="url(#chestnutBase)"/>
 
-    <!-- Cute Speckled Texture on Pedicel -->
-    <g fill="#92400e" opacity="0.32">
-      <circle cx="166" cy="316" r="2.2"/><circle cx="184" cy="324" r="2.5"/><circle cx="204" cy="318" r="2.2"/>
-      <circle cx="226" cy="326" r="2.5"/><circle cx="246" cy="320" r="2.2"/><circle cx="256" cy="328" r="2.5"/>
-      <circle cx="266" cy="320" r="2.2"/><circle cx="286" cy="326" r="2.5"/><circle cx="308" cy="318" r="2.2"/>
-      <circle cx="328" cy="324" r="2.5"/><circle cx="346" cy="316" r="2.2"/>
-      <circle cx="178" cy="334" r="2.2"/><circle cx="214" cy="338" r="2.5"/><circle cx="256" cy="342" r="2.5"/>
-      <circle cx="298" cy="338" r="2.5"/><circle cx="334" cy="334" r="2.2"/>
+    <!-- Subtle Natural Texture Dots on Pedicel -->
+    <g fill="#92400e" opacity="0.30">
+      <circle cx="170" cy="288" r="2"/><circle cx="188" cy="295" r="2.2"/><circle cx="208" cy="290" r="2"/>
+      <circle cx="228" cy="296" r="2.2"/><circle cx="246" cy="291" r="2"/><circle cx="256" cy="298" r="2.2"/>
+      <circle cx="266" cy="291" r="2"/><circle cx="284" cy="296" r="2.2"/><circle cx="304" cy="290" r="2"/>
+      <circle cx="324" cy="295" r="2.2"/><circle cx="342" cy="288" r="2"/>
+      <circle cx="184" cy="304" r="2"/><circle cx="218" cy="308" r="2.2"/><circle cx="256" cy="311" r="2.2"/>
+      <circle cx="294" cy="308" r="2.2"/><circle cx="328" cy="304" r="2"/>
     </g>
 
-    <!-- Chestnut Sprout / Tip Tail (てっぺんの愛嬌あるツン) -->
-    <path d="M256 90 C252 78 250 68 255 62 C257 58 261 60 259 68 C258 76 257 84 256 90 Z" fill="#92400e"/>
-    <circle cx="255" cy="62" r="2" fill="#fbbf24" opacity="0.9"/>
+    <!-- Chestnut Tip Whimsical Sprout (てっぺんのツンとした突起) -->
+    <path d="M256 82 C252 70 250 60 255 54 C257 50 261 52 259 60 C258 68 257 76 256 82 Z" fill="#92400e"/>
+    <circle cx="255" cy="54" r="2" fill="#fbbf24" opacity="0.9"/>
   </g>
 
-  <!-- ==================== 3. ADORABLE COMEDIAN FACE ==================== -->
-  <g>
-    <!-- Big Joyful Eyes (Crisp Smooth Arches of Laughing Master) -->
-    <!-- Left Eye -->
-    <path d="M192 218 C194 200 220 200 224 218" stroke="#260f02" stroke-width="7" stroke-linecap="round" fill="none"/>
-    <!-- Right Eye -->
-    <path d="M288 218 C292 200 318 200 320 218" stroke="#260f02" stroke-width="7" stroke-linecap="round" fill="none"/>
-
-    <!-- Rosy Glowing Cheeks (Happy Blush) -->
-    <ellipse cx="178" cy="235" rx="16" ry="11" fill="#f43f5e" opacity="0.75"/>
-    <ellipse cx="334" cy="235" rx="16" ry="11" fill="#f43f5e" opacity="0.75"/>
-    <circle cx="175" cy="232" r="3.5" fill="#ffffff" opacity="0.6"/>
-    <circle cx="331" cy="232" r="3.5" fill="#ffffff" opacity="0.6"/>
-
-    <!-- Happy Laughing Open Mouth (Big Smile) -->
-    <path d="M234 238 C234 268 278 268 278 238 Z" fill="#991b1b" stroke="#3d1300" stroke-width="4" stroke-linejoin="round"/>
-    <!-- Cute Pink Tongue -->
-    <path d="M242 254 C248 248 264 248 270 254 C264 265 248 265 242 254 Z" fill="#fb7185"/>
-
-    <!-- Expressive Comedy Eyebrows (ハの字のユーモラスな眉) -->
-    <path d="M194 194 C202 186 216 189 224 196" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-    <path d="M318 194 C310 186 296 189 288 196" stroke="#451a03" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-  </g>
-
-  <!-- ==================== 4. OGIRI SENSU (GOLDEN JAPANESE FAN) ==================== -->
-  <!-- Fan held proudly by the mascot (balanced within safe zone) -->
-  <g filter="url(#shadowSensu)">
-    <!-- Right Hand (holding fan pivot) -->
-    <circle cx="148" cy="268" r="15" fill="#fde68a" stroke="#92400e" stroke-width="3.5"/>
-
-    <!-- Opened Sensu Fan -->
-    <g transform="rotate(-15 148 268)">
-      <!-- Fan Paper Arc -->
-      <path d="M148 268 L94 168 C116 150 168 136 216 148 L148 268 Z" fill="url(#sensuGold)" stroke="#d97706" stroke-width="3" stroke-linejoin="round"/>
-
-      <!-- Sensu Folds / Rib Lines -->
-      <path d="M148 268 L116 158" stroke="#f59e0b" stroke-width="2" opacity="0.65"/>
-      <path d="M148 268 L142 150" stroke="#f59e0b" stroke-width="2" opacity="0.65"/>
-      <path d="M148 268 L168 149" stroke="#f59e0b" stroke-width="2" opacity="0.65"/>
-      <path d="M148 268 L194 153" stroke="#f59e0b" stroke-width="2" opacity="0.65"/>
-
-      <!-- Bamboo Outer Frame (Oya-bone) -->
-      <path d="M148 268 L92 170" stroke="#78350f" stroke-width="5" stroke-linecap="round"/>
-      <path d="M148 268 L218 150" stroke="#78350f" stroke-width="5" stroke-linecap="round"/>
-
-      <!-- Vibrant Red Crest on Fan (朱色の日の丸) -->
-      <circle cx="152" cy="180" r="18" fill="#dc2626"/>
-      <!-- Gold Laugh Character "笑" in Crest -->
-      <text x="152" y="187" 
-            font-family="'Hiragino Kaku Gothic ProN', 'Meiryo', 'Yu Gothic', sans-serif" 
-            font-weight="900" 
-            font-size="16" 
-            fill="#ffffff" 
-            text-anchor="middle">笑</text>
-
-      <!-- Fan Pivot (Kaname / 要) & Golden Cord -->
-      <circle cx="148" cy="268" r="5" fill="#fbbf24" stroke="#78350f" stroke-width="2"/>
-      <path d="M148 272 C146 284 142 296 135 306" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" fill="none"/>
-    </g>
-  </g>
-
-  <!-- Left Hand (Cheering & Gesturing to the Audience) -->
-  <g>
-    <circle cx="364" cy="268" r="15" fill="#fde68a" stroke="#92400e" stroke-width="3.5"/>
-    <!-- Dynamic comedy action lines (ツッコミ＆歓声の気流) -->
-    <path d="M386 254 C394 262 394 274 386 282" stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-    <path d="M396 248 C406 260 406 280 396 290" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.75"/>
-  </g>
-
-  <!-- ==================== 5. SENJAFUDA "大喜利" TITLE BADGE ==================== -->
-  <!-- Ultra Clear, Bold, Traditional Gold & Crimson Lacquer Plaque -->
-  <g filter="url(#shadowBadge)" transform="translate(0, 5)">
-    <!-- Outer Gold Frame -->
-    <rect x="136" y="386" width="240" height="84" rx="18" fill="url(#goldTrim)"/>
+  <!-- ==================== 4. BOLD "大喜利" TITLE BADGE (SAFE ZONE) ==================== -->
+  <!-- Positioned firmly in safe zone: y=335 to y=415 (well above the bottom edge 512) -->
+  <g filter="url(#shadowBadge)">
+    <!-- Outer Gold Frame (Rounded Plaque) -->
+    <rect x="126" y="336" width="260" height="80" rx="18" fill="url(#goldBorder)"/>
 
     <!-- Inner Red Lacquer (Shu-nuri / 朱塗り) Base -->
-    <rect x="141" y="391" width="230" height="74" rx="14" fill="#881337"/>
-    <rect x="144" y="394" width="224" height="68" rx="12" fill="#991b1b"/>
-    <rect x="146" y="396" width="220" height="64" rx="10" fill="#b91c1c" stroke="#fef08a" stroke-width="1.8" stroke-opacity="0.85"/>
+    <rect x="131" y="341" width="250" height="70" rx="14" fill="#881337"/>
+    <rect x="134" y="344" width="244" height="64" rx="12" fill="#991b1b"/>
+    <rect x="136" y="346" width="240" height="60" rx="10" fill="#b91c1c" stroke="#fef08a" stroke-width="1.8" stroke-opacity="0.85"/>
 
-    <!-- Traditional Gold Studs on Corners -->
+    <!-- Gold Rivets on Corners -->
     <g fill="#fef08a">
-      <circle cx="156" cy="406" r="3.2"/>
-      <circle cx="356" cy="406" r="3.2"/>
-      <circle cx="156" cy="450" r="3.2"/>
-      <circle cx="356" cy="450" r="3.2"/>
+      <circle cx="146" cy="356" r="3"/>
+      <circle cx="366" cy="356" r="3"/>
+      <circle cx="146" cy="396" r="3"/>
+      <circle cx="366" cy="396" r="3"/>
     </g>
 
     <!-- Bold, High-Impact "大 喜 利" Kanji -->
-    <!-- Heavy Outline Shadow for 100% Crisp Legibility on Any Screen -->
-    <text x="256" y="445" 
+    <!-- Heavy Dark Shadow Outline for Max Contrast & Legibility -->
+    <text x="256" y="392" 
           font-family="'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', 'HGSGyoshotai', serif" 
           font-weight="900" 
-          font-size="48" 
+          font-size="46" 
           letter-spacing="6" 
           fill="#450a0a" 
           stroke="#450a0a" 
@@ -298,11 +247,11 @@
           stroke-linejoin="round"
           text-anchor="middle">大喜利</text>
 
-    <!-- Gleaming Gold Main Font -->
-    <text x="256" y="445" 
+    <!-- Radiant Gold Main Kanji -->
+    <text x="256" y="392" 
           font-family="'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', 'HGSGyoshotai', serif" 
           font-weight="900" 
-          font-size="48" 
+          font-size="46" 
           letter-spacing="6" 
           fill="url(#goldPlate)" 
           text-anchor="middle">大喜利</text>

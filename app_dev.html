@@ -518,27 +518,10 @@
       // トースト通知（ライブワッショイ受信や新着レター）
       const [toastNotification, setToastNotification] = useState(null);
 
-      // 届いた称賛レター（メッセージBOX）
+      // 届いた称賛レター（メッセージBOX：初期状態は0件）
       const [letters, setLetters] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_letters');
-        return saved ? JSON.parse(saved) : [
-          {
-            id: 'let-1',
-            fromReal: 'ありぽん（主）',
-            fromFake: '月夜のパンダ',
-            avatar: '🐼',
-            text: '昨日のボケ、最高でした！腹抱えて笑いましたw ナイスセンスです！',
-            date: '11/25 22:15'
-          },
-          {
-            id: 'let-2',
-            fromReal: 'マスターT',
-            fromFake: '路地裏の浪人',
-            avatar: '👺',
-            text: 'ワッショイいただき感謝です！今度サロンで自作ボドゲ会やりましょう！',
-            date: '11/26 19:40'
-          }
-        ];
+        return saved ? JSON.parse(saved) : [];
       });
 
       // メッセージBOXモーダル開閉
@@ -709,7 +692,7 @@
       const timerRef = useRef(null);
 
       // 初回未登録ならプロフィール設定を開く & データクリーンアップ
-      const DATA_VERSION = 'v4_15members_clean';
+      const DATA_VERSION = 'v5_clean_zero_letters';
       useEffect(() => {
         const currentVer = localStorage.getItem('ogiri_salon_version');
         if (currentVer !== DATA_VERSION) {
@@ -719,6 +702,7 @@
           localStorage.setItem('ogiri_salon_version', DATA_VERSION);
           setAnswers(INITIAL_ANSWERS);
           setAnsweredIndices([]);
+          setLetters([]);
         }
         // 開幕前のティザー期間中は自動ポップアップせずティザー画面を見せる
         if (!isPreLaunch && !profile.isRegistered) {

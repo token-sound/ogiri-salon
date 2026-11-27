@@ -564,8 +564,21 @@
         return saved ? JSON.parse(saved) : [];
       });
 
-      // メッセージBOXモーダル開閉
+      // 未読レター数（通知アイコン・バッジ用）
+      const unreadCount = useMemo(() => {
+        return letters.filter(l => l.isRead === false).length;
+      }, [letters]);
+
+      // メッセージBOXモーダル開閉（開いたら既読に更新）
       const [showInboxModal, setShowInboxModal] = useState(false);
+      const openInboxModal = () => {
+        setShowInboxModal(true);
+        if (unreadCount > 0) {
+          const marked = letters.map(l => ({ ...l, isRead: true }));
+          setLetters(marked);
+          localStorage.setItem('ogiri_salon_letters', JSON.stringify(marked));
+        }
+      };
 
       // わっしょいレター送信モーダル (送信対象情報)
       const [sendingTarget, setSendingTarget] = useState(null);
@@ -1049,7 +1062,8 @@
               fromFake: '仮面タヌキ',
               avatar: '🦝',
               text: '主さん！1ヶ月間大喜利めちゃくちゃ楽しかったです！主さんのボケで一番笑いましたw 次回もぜひやってください！',
-              date: 'たった今'
+              date: 'たった今',
+              isRead: false
             };
             setLetters(prev => [letterFromSakuranbo, ...prev]);
             setToastNotification({
@@ -1100,7 +1114,8 @@
           text: selectedPraiseTemplate.text,
           date: 'たった今',
           isReply: false,
-          hasReplied: false
+          hasReplied: false,
+          isRead: false
         };
         const updatedLetters = [demoReply, ...letters];
         setLetters(updatedLetters);
@@ -1199,12 +1214,40 @@
                   <p className="text-[10px] text-amber-300/80 font-normal">一般メンバー向けの12/1開幕直前画面を確認したい場合は右のリンクを押してください</p>
                 </div>
               </div>
-              <a
-                href="?"
-                className="shrink-0 bg-amber-500/30 hover:bg-amber-500/50 border border-amber-500/50 text-amber-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-bold transition ml-2"
-              >
-                公開前画面を見る &rarr;
-              </a>
+              <div className="flex items-center gap-2 shrink-0 ml-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const testLetter = {
+                      id: 'test_let_' + Date.now(),
+                      fromReal: 'マスターT',
+                      fromFake: '路地裏の浪人',
+                      avatar: '👺',
+                      text: '初手から切れ味すごくて声出して笑いました！👏',
+                      date: 'たった今',
+                      isRead: false,
+                      isReply: false,
+                      hasReplied: false
+                    };
+                    setLetters(prev => [testLetter, ...prev]);
+                    setToastNotification({
+                      icon: '📬',
+                      text: 'マスターTさんからわっしょいレターが届きました！'
+                    });
+                    setTimeout(() => setToastNotification(null), 3500);
+                  }}
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-xl text-[11px] font-bold transition shadow flex items-center gap-1"
+                >
+                  <span>📨</span>
+                  <span>新着レター通知テスト</span>
+                </button>
+                <a
+                  href="?"
+                  className="bg-amber-500/30 hover:bg-amber-500/50 border border-amber-500/50 text-amber-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-bold transition"
+                >
+                  公開前画面を見る &rarr;
+                </a>
+              </div>
             </div>
           )}
 
@@ -1243,19 +1286,35 @@
 
             {/* ヘッダー右側ボタン群 */}
             <div className="flex items-center gap-2">
-              {/* 届いたレターボタン */}
+              {/* 届いたレターボタン（新着通知アイコン＆バッジ演出付き） */}
               <button
-                onClick={() => setShowInboxModal(true)}
-                className="relative flex items-center gap-1.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
+                onClick={openInboxModal}
+                className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition shadow-sm ${
+                  unreadCount > 0
+                    ? 'bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/70 text-rose-300 shadow-rose-950/40 shadow-lg'
+                    : 'bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300'
+                }`}
                 title="仲間から届いたレターを見る"
               >
-                <span className="text-sm">📬</span>
+                <div className="relative flex items-center justify-center">
+                  <span className="text-sm">📬</span>
+                  {unreadCount > 0 && (
+                    <>
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full animate-ping opacity-75"></span>
+                      <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+                    </>
+                  )}
+                </div>
                 <span>届いたレター</span>
-                {letters.length > 0 && (
-                  <span className="bg-rose-500 text-white text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-bold">
+                {unreadCount > 0 ? (
+                  <span className="bg-rose-500 text-white text-[9.5px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-bold animate-bounce shadow">
+                    {unreadCount}
+                  </span>
+                ) : letters.length > 0 ? (
+                  <span className="bg-slate-800 text-slate-400 text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-medium">
                     {letters.length}
                   </span>
-                )}
+                ) : null}
               </button>
             </div>
           </header>

@@ -303,79 +303,188 @@
       }
     ];
 
-    // サンプル仲間回答データ（サロンメンバーたちのボケ）
+    // サンプル仲間回答データ（サロンメンバー15名の個性豊かなボケ）
     const INITIAL_ANSWERS = [
+      // --- お題1: ザックリワカール降臨（天の声） ---
       {
         id: 'a1',
         topicId: 'q1',
         fakeName: '月夜のパンダ',
         avatar: '🐼',
-        realName: 'ありぽん（主）',
+        realName: 'ヒロシ@珈琲屋',
         text: '「ポテトチップスは……うすしお味が一番うまい……と天が仰せである」',
-        points: 12,
-        voters: ['user_other1']
+        points: 14,
+        voters: []
       },
       {
         id: 'a2',
-        topicId: 'q2',
-        fakeName: '路地裏の浪人',
+        topicId: 'q1',
+        fakeName: '鉄骨マッスル',
         avatar: '👺',
-        realName: 'マスターT',
-        text: '「愚民ども！風呂上がりにアイスを食うと、腹を壊すぞ！！」',
-        points: 9,
+        realName: 'ケンジ@筋トレ部',
+        text: '「天からの声：『プロテインは水より牛乳で割った方が絶対うまい』」',
+        points: 11,
         voters: []
       },
       {
         id: 'a3',
-        topicId: 'q3',
-        fakeName: '金曜日のフクロウ',
-        avatar: '🦉',
-        realName: 'ユウキ@Web制作',
-        text: '「ピンポーン、ヤマト運輸でーす！お荷物お届けに上がりましたー！」',
-        points: 15,
+        topicId: 'q1',
+        fakeName: '宇宙ウサギ',
+        avatar: '👽',
+        realName: 'アヤネ@宇宙派',
+        text: '「天からの啓示：『今日こそ部屋のルンバのゴミを捨てなさい』」',
+        points: 9,
         voters: []
       },
+
+      // --- お題2: 世の支配者と愚民ども ---
       {
         id: 'a4',
-        topicId: 'q4',
-        fakeName: '月夜のパンダ',
-        avatar: '🐼',
-        realName: 'ありぽん（主）',
-        text: '「あかん…この被り物、息苦しい上に前髪ペッタリなるわ…」',
-        points: 18,
+        topicId: 'q2',
+        fakeName: '路地裏の浪人',
+        avatar: '👺',
+        realName: 'マスターT',
+        text: '「愚民ども！風呂上がりにアイスを一気に食うと、腹を壊すぞ！！」',
+        points: 16,
         voters: []
       },
       {
         id: 'a5',
+        topicId: 'q2',
+        fakeName: 'サイコロ侍',
+        avatar: '🎭',
+        realName: 'ダイスケ@ボドゲ狂',
+        text: '「愚民ども！カタンで鉄と麦を独占する奴は、私生活でも友達が少ないぞ！！」',
+        points: 15,
+        voters: []
+      },
+      {
+        id: 'a6',
+        topicId: 'q2',
+        fakeName: '迷い星',
+        avatar: '👽',
+        realName: 'カズキ@お得情報',
+        text: '「愚民ども、よく聞け！近所のスーパーの半額シールは19時40分に貼られるぞ！！」',
+        points: 8,
+        voters: []
+      },
+
+      // --- お題3: ザックリワカールの交信事故 ---
+      {
+        id: 'a7',
+        topicId: 'q3',
+        fakeName: '金曜日のフクロウ',
+        avatar: '🦉',
+        realName: 'ユウキ@Web制作',
+        text: '「ピンポーン！ヤマト運輸でーす！クール宅急便お届けに上がりましたー！」',
+        points: 18,
+        voters: []
+      },
+      {
+        id: 'a8',
+        topicId: 'q3',
+        fakeName: '宵の明星',
+        avatar: '🐱',
+        realName: 'のんちゃん',
+        text: '「『あんた！ご飯できたから早く降りてきなさい！』というリアルオカンの怒声」',
+        points: 13,
+        voters: []
+      },
+      {
+        id: 'a9',
+        topicId: 'q3',
+        fakeName: '謎の覆面DJ',
+        avatar: '🎭',
+        realName: 'シンゴ@音楽班',
+        text: '「天と交信したはずが、隣の家のテレビから流れる『徹子の部屋』のテーマ」',
+        points: 10,
+        voters: []
+      },
+
+      // --- お題4: 支配者の裏の顔（本音） ---
+      {
+        id: 'a10',
+        topicId: 'q4',
+        fakeName: '深夜の文豪',
+        avatar: '🦉',
+        realName: 'タカシ@ライター',
+        text: '「あかん…この被り物、息の湿気でメガネが真っ白になって台本1行も読めんかった…」',
+        points: 17,
+        voters: []
+      },
+      {
+        id: 'a11',
+        topicId: 'q4',
+        fakeName: '夕暮れタヌキ',
+        avatar: '🦝',
+        realName: 'リエ@お笑い推し',
+        text: '「（奥さんに向かって）『ウーバー頼んだから被り物脱ぐの手伝ってー！』」',
+        points: 12,
+        voters: []
+      },
+      {
+        id: 'a12',
+        topicId: 'q4',
+        fakeName: '京都のキツネ',
+        avatar: '🦊',
+        realName: 'みやび@京都',
+        text: '「支配者名乗ってるけど、実は今月まだ一度も確定申告のレシート整理してへんねん…」',
+        points: 11,
+        voters: []
+      },
+
+      // --- お題5: サロン理念×風刺（裏規約） ---
+      {
+        id: 'a13',
         topicId: 'q5',
         fakeName: '仮面タヌキ',
         avatar: '🦝',
         realName: 'さくらんぼ',
         text: '「【第1条】主がスベった時は、いかなる場合も秒でスタンプを3個以上連打すること。」',
+        points: 19,
+        voters: []
+      },
+      {
+        id: 'a14',
+        topicId: 'q5',
+        fakeName: 'ひだまり猫',
+        avatar: '🐱',
+        realName: 'まゆみん',
+        text: '「【第2条】主が『今夜21時、重大発表があります』と言う時は大体カメラ買った報告。」',
         points: 14,
+        voters: []
+      },
+      {
+        id: 'a15',
+        topicId: 'q5',
+        fakeName: '疾風の忍者',
+        avatar: '🦊',
+        realName: 'トモヤ@副業部',
+        text: '「【第3条】ゆるく繋がると謳っているが、毎朝の挨拶スタンプを欠かすと主が寂しがる。」',
+        points: 10,
         voters: []
       }
     ];
 
-    // 上位リワード初期データ
+    // 上位リワード初期データ（15名の中からトップ3）
     const INITIAL_TOP3_PROMOS = {
       rank1: {
-        title: '🌟 【第1位】マスターTの秘密基地',
-        hobby: 'ボードゲーム収集＆自作キーボード作り',
-        intro: '普段は無口ですがボケで1位獲れて嬉しいです！今度サロンで自作ボドゲ会やりましょう！',
+        title: '🍒 【第1位】さくらんぼのイラスト工房',
+        hobby: 'iPadお絵描き・カフェ巡り',
+        intro: '主の裏規約ネタで1位獲れて嬉しいですw！ゆるいアイコン描いてるのでいつでも声かけてください！',
         link: 'https://twitter.com'
       },
       rank2: {
-        title: '🍒 【第2位】さくらんぼのイラスト工房',
-        hobby: 'iPadお絵描き・カフェ巡り',
-        intro: 'ゆるいイラスト描いてます！アイコン描いてほしい人いつでもDMください〜！',
-        link: 'https://instagram.com'
+        title: '🦉 【第2位】ユウキのWeb相談室',
+        hobby: 'Web制作・ガジェット収集',
+        intro: '交信中のヤマト便ネタが刺さって光栄です！サロンメンバーのHP相談いつでも乗ります！',
+        link: 'https://twitter.com'
       },
       rank3: {
-        title: '🐼 【第3位】ありぽんのサウナ放浪記',
-        hobby: '全国のサウナ開拓・お笑い鑑賞',
-        intro: 'サロンのみんな最高！これからもまるくゆるく楽しく遊んでいきましょう！',
-        link: 'https://note.com'
+        title: '👺 【第3位】マスターTの秘密基地',
+        hobby: 'ボードゲーム収集＆自作キーボード',
+        intro: '風呂上がりのアイスは本当に危険です。今度サロン内で自作ボドゲ会やりましょう！',
+        link: 'https://twitter.com'
       }
     };
 
@@ -531,12 +640,30 @@
       // タイマー用Ref
       const timerRef = useRef(null);
 
-      // 初回未登録ならプロフィール設定を開く
+      // 初回未登録ならプロフィール設定を開く & データクリーンアップ
+      const DATA_VERSION = 'v4_15members_clean';
       useEffect(() => {
+        const currentVer = localStorage.getItem('ogiri_salon_version');
+        if (currentVer !== DATA_VERSION) {
+          localStorage.removeItem('ogiri_salon_answers');
+          localStorage.removeItem('ogiri_salon_answered');
+          localStorage.removeItem('ogiri_salon_letters');
+          localStorage.setItem('ogiri_salon_version', DATA_VERSION);
+          setAnswers(INITIAL_ANSWERS);
+          setAnsweredIndices([]);
+        }
         if (!profile.isRegistered) {
           setShowProfileModal(true);
         }
       }, []);
+
+      // デモデータのリセット（主さん確認用）
+      const handleResetDemo = () => {
+        if (confirm('デモデータを初期状態にリセットしますか？\n（過去の投稿やヨイショ履歴が初期化され、最初からテストできます）')) {
+          localStorage.clear();
+          location.reload();
+        }
+      };
 
       // Lucide アイコン初期化
       useEffect(() => {
@@ -703,7 +830,22 @@
         if (window.confetti) {
           window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
         }
-        alert(`💌 ${sendingTarget.realName} さんへ称賛メッセージを届けました！`);
+        const targetName = sendingTarget.realName;
+        alert(`💌 ${targetName} さんへ称賛メッセージを届けました！`);
+        
+        // デモ用：相手からお礼の返信が届く温かい演出！
+        const newReply = {
+          id: 'let_' + Date.now(),
+          fromReal: targetName,
+          fromFake: sendingTarget.fakeName,
+          avatar: sendingTarget.avatar,
+          text: `メッセージありがとうございます！「${letterInput.trim()}」と褒めてもらえてめちゃくちゃ嬉しいです！これからもよろしくお願いします！`,
+          date: 'たった今'
+        };
+        const updatedLetters = [newReply, ...letters];
+        setLetters(updatedLetters);
+        localStorage.setItem('ogiri_salon_letters', JSON.stringify(updatedLetters));
+
         setSendingTarget(null);
         setLetterInput('');
       };
@@ -714,13 +856,13 @@
         answers.forEach(a => {
           if (a.voters && a.voters.includes('user_self') && a.realName !== profile.realName) {
             if (!map[a.realName]) {
-              // サンプルメンバーの受信設定（さくらんぼさんのみお休み中テスト、他はON）
-              const isAccepting = a.realName !== 'さくらんぼ';
+              // 15名中、タカシさんとリエさんのみ「交流お休み中」テスト、他13名は「称賛受付中」
+              const isQuiet = a.realName.includes('タカシ') || a.realName.includes('リエ');
               map[a.realName] = {
                 realName: a.realName,
                 fakeName: a.fakeName,
                 avatar: a.avatar,
-                acceptMessages: isAccepting,
+                acceptMessages: !isQuiet,
                 answers: []
               };
             }
@@ -887,9 +1029,19 @@
                       <span>🧪</span>
                       <span>テスト用・日付早送り操作</span>
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">
-                      現在: <b className="text-amber-400">{calendarInfo.today}日目</b> (残り{calendarInfo.daysLeft}日)
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        現在: <b className="text-amber-400">{calendarInfo.today}日目</b> (残り{calendarInfo.daysLeft}日)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleResetDemo}
+                        className="text-[10px] text-rose-400 hover:text-rose-300 underline"
+                        title="デモデータを初期状態にリセット"
+                      >
+                        🧹データ初期化
+                      </button>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-4 gap-1.5 text-xs font-bold">

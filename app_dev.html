@@ -473,13 +473,26 @@
       // 月間カレンダー展開フラグ (A+D融合)
       const [showCalendar, setShowCalendar] = useState(false);
 
-      // カレンダー日程計算（当月連動）
+      // テスト・動作確認用の日付シミュレーター (1..30)
+      const [simulatedDay, setSimulatedDay] = useState(() => {
+        const saved = localStorage.getItem('ogiri_salon_sim_day');
+        return saved ? parseInt(saved, 10) : new Date().getDate();
+      });
+
+      // 日付シミュレーター変更
+      const changeSimDay = (newDay) => {
+        const d = Math.max(1, Math.min(30, newDay));
+        setSimulatedDay(d);
+        localStorage.setItem('ogiri_salon_sim_day', d.toString());
+      };
+
+      // カレンダー日程計算（シミュレーター連動）
       const calendarInfo = useMemo(() => {
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth() + 1;
-        const today = now.getDate();
         const totalDays = new Date(year, month, 0).getDate();
+        const today = Math.min(totalDays, simulatedDay);
         const daysLeft = Math.max(0, totalDays - today);
         const progressPercent = Math.min(100, Math.round((today / totalDays) * 100));
 
@@ -492,7 +505,7 @@
         }
 
         return { year, month, today, totalDays, daysLeft, progressPercent, days };
-      }, []);
+      }, [simulatedDay]);
 
       // PWA インストールプロンプト監視
       useEffect(() => {
@@ -849,7 +862,7 @@
 
             {/* Aの特長：展開される30日カレンダー（終わった日＝グレー、今日＝オレンジ） */}
             {showCalendar && (
-              <div className="bg-slate-900/95 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 shadow-xl animate-fadeIn">
+              <div className="bg-slate-900/95 border border-slate-800 rounded-2xl p-3.5 space-y-3 shadow-xl animate-fadeIn">
                 <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 border-b border-slate-800 pb-2">
                   <span className="font-bold text-slate-200">
                     {calendarInfo.year}年 {calendarInfo.month}月カレンダー
@@ -867,58 +880,133 @@
                   </div>
                 </div>
 
-                {/* 日付グリッド */}
+                {/* 🧪 テスト・動作確認用 日付早送りコントローラー */}
+                <div className="bg-slate-950/80 border border-indigo-500/30 rounded-xl p-2.5 space-y-2">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-indigo-300 font-bold flex items-center gap-1">
+                      <span>🧪</span>
+                      <span>テスト用・日付早送り操作</span>
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      現在: <b className="text-amber-400">{calendarInfo.today}日目</b> (残り{calendarInfo.daysLeft}日)
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-1.5 text-xs font-bold">
+                    <button
+                      type="button"
+                      onClick={() => changeSimDay(calendarInfo.today - 1)}
+                      disabled={calendarInfo.today <= 1}
+                      className="py-1.5 px-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 border border-slate-700 text-center transition"
+                    >
+                      ◀ 1日前
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => changeSimDay(calendarInfo.today + 1)}
+                      disabled={calendarInfo.today >= calendarInfo.totalDays}
+                      className="py-1.5 px-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 border border-slate-700 text-center transition"
+                    >
+                      1日後 ▶
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => changeSimDay(calendarInfo.totalDays)}
+                      className="py-1.5 px-1 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white shadow text-center transition"
+                    >
+                      ⏩ 最終日へ
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => changeSimDay(1)}
+                      className="py-1.5 px-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 text-center transition"
+                    >
+                      🔄 初日
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-slate-500 text-center">
+                    ※ボタンまたは下のマス目を直接タップしてサクサク進められます
+                  </p>
+                </div>
+
+                {/* 日付グリッド (直接タップでもワープ可能) */}
                 <div className="grid grid-cols-7 gap-1.5 text-center font-mono text-[11px]">
                   {calendarInfo.days.map(d => {
                     if (d.status === 'past') {
                       return (
-                        <div
+                        <button
                           key={d.day}
-                          className="p-1.5 rounded-lg bg-slate-800/40 text-slate-600 line-through select-none"
-                          title={`${d.day}日: 終了`}
+                          type="button"
+                          onClick={() => changeSimDay(d.day)}
+                          className="p-1.5 rounded-lg bg-slate-800/40 text-slate-600 line-through select-none hover:bg-slate-800 transition"
+                          title={`${d.day}日: 終了（タップでこの日に移動）`}
                         >
                           {d.day}
-                        </div>
+                        </button>
                       );
                     }
                     if (d.status === 'today') {
                       return (
-                        <div
+                        <button
                           key={d.day}
-                          className="p-1.5 rounded-lg bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20 ring-2 ring-amber-400 animate-pulse"
+                          type="button"
+                          className="p-1.5 rounded-lg bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20 ring-2 ring-amber-400 animate-pulse cursor-default"
                           title="本日"
                         >
                           {d.day}
-                        </div>
+                        </button>
                       );
                     }
                     if (d.isFinal) {
                       return (
-                        <div
+                        <button
                           key={d.day}
-                          className="p-1.5 rounded-lg bg-purple-950/80 border border-purple-500 text-purple-300 font-bold"
-                          title="最終日・正体開示フェス！"
+                          type="button"
+                          onClick={() => changeSimDay(d.day)}
+                          className="p-1.5 rounded-lg bg-purple-950/80 border border-purple-500 text-purple-300 font-bold hover:brightness-120 transition"
+                          title="最終日・正体開示フェス！（タップで移動）"
                         >
                           🏆{d.day}
-                        </div>
+                        </button>
                       );
                     }
                     return (
-                      <div
+                      <button
                         key={d.day}
-                        className="p-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-medium"
+                        type="button"
+                        onClick={() => changeSimDay(d.day)}
+                        className="p-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-medium hover:border-slate-600 transition"
+                        title={`${d.day}日（タップでこの日に移動）`}
                       >
                         {d.day}
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
 
-                <div className="text-center pt-1 border-t border-slate-800/60">
-                  <span className="text-[10px] text-slate-400">
-                    月末（{calendarInfo.totalDays}日）の夜に「正体＆宣伝枠」タブで全員のサロン本名が一斉開示されます！
-                  </span>
-                </div>
+                {/* 最終日到達時の祝祭バナー */}
+                {calendarInfo.today >= calendarInfo.totalDays ? (
+                  <div className="bg-gradient-to-r from-purple-900/60 via-amber-900/40 to-indigo-900/60 border border-purple-500/50 rounded-xl p-3 text-center space-y-2 mt-2">
+                    <span className="text-2xl">🏆</span>
+                    <h4 className="text-xs font-bold text-amber-300">1ヶ月のシーズン完走！最終日に到達しました！</h4>
+                    <p className="text-[11px] text-slate-300">
+                      「正体＆宣伝枠」タブで、全員のサロン本名アンヴェイルとベスト3宣伝枠、称賛メッセージをお試しください！
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setTab('ranking')}
+                      className="mt-1 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold px-4 py-1.5 rounded-xl text-xs transition shadow-md hover:brightness-110"
+                    >
+                      正体＆宣伝枠タブへGO！ &rarr;
+                    </button>
+                  </div>
+                ) : (
+                  <div className="text-center pt-1 border-t border-slate-800/60">
+                    <span className="text-[10px] text-slate-400">
+                      月末（{calendarInfo.totalDays}日）の夜に「正体＆宣伝枠」タブで全員のサロン本名が一斉開示されます！
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </section>

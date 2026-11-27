@@ -1242,32 +1242,20 @@
             </div>
 
             {/* ヘッダー右側ボタン群 */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               {/* 届いたレターボタン */}
               <button
                 onClick={() => setShowInboxModal(true)}
-                className="relative flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-2.5 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
-                title="仲間から届いた称賛レターを見る"
+                className="relative flex items-center gap-1.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
+                title="仲間から届いたレターを見る"
               >
-                <span>📬</span>
-                <span className="hidden sm:inline">レター</span>
+                <span className="text-sm">📬</span>
+                <span>届いたレター</span>
                 {letters.length > 0 && (
-                  <span className="bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                  <span className="bg-rose-500 text-white text-[9px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-bold">
                     {letters.length}
                   </span>
                 )}
-              </button>
-
-              {/* プロフィールボタン */}
-              <button
-                onClick={() => setShowProfileModal(true)}
-                className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-xs transition"
-              >
-                <span className="text-base">{profile.avatar}</span>
-                <div className="text-left">
-                  <p className="font-bold text-amber-300 leading-none">{profile.fakeName}</p>
-                  <p className="text-[10px] text-slate-400 leading-none mt-1">本名: {profile.realName}</p>
-                </div>
               </button>
             </div>
           </header>
@@ -2267,15 +2255,21 @@
                 </div>
               </div>
 
-              {/* ランキング一覧＆正体フリップカード */}
+              {/* ランキング一覧（上下感を避けるため上位10名のみ・あとはわっしょいつながり） */}
               <div className="space-y-3 pt-2">
-                <h3 className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
-                  <i data-lucide="list-ordered" className="w-4 h-4 text-amber-400"></i>
-                  全メンバーのポイント＆正体一覧
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-slate-200 flex items-center gap-1.5 font-pop">
+                    <span className="text-base">🏆</span>
+                    月間TOP10（十傑）のボケ猛者たち
+                  </h3>
+                  <span className="text-[10px] text-slate-400">10位まで公開</span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  ※上下関係や優劣の雰囲気をなくすため、全体順位の発表は上位10名のみとしています。11位以降の仲間は、下の「あなたが今月ワッショイした仲間たち」の繋がりから温かく確認できます！
+                </p>
 
                 <div className="space-y-2">
-                  {rankingList.map((item, idx) => (
+                  {rankingList.slice(0, 10).map((item, idx) => (
                     <div
                       key={item.realName}
                       className="bg-slate-900/70 border border-slate-800 rounded-xl p-3 flex items-center justify-between shadow-sm"

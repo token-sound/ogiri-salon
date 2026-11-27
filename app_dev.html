@@ -257,16 +257,32 @@
     }
     const sound = new SoundFX();
 
-    // 仮面アバターリスト
+    // 仮面アバターリスト（個性豊かな24のキャラクター）
     const AVATARS = [
-      { id: 'fox', label: '狐面', icon: '🦊' },
-      { id: 'panda', label: '覆面パンダ', icon: '🐼' },
-      { id: 'cat', label: '黒猫', icon: '🐱' },
-      { id: 'samurai', label: '浪人', icon: '👺' },
-      { id: 'tanuki', label: '化け狸', icon: '🦝' },
-      { id: 'owl', label: '夜梟', icon: '🦉' },
-      { id: 'alien', label: '星人', icon: '👽' },
-      { id: 'clown', label: '道化師', icon: '🎭' }
+      { id: 'chestnut', label: '栗頭の刺客', icon: '🌰', tag: 'サロン主', sampleNames: ['渋皮むき太郎', 'イガ栗の暴君', '焼き栗ダンディ', 'マロン伯爵'] },
+      { id: 'zakkuri', label: 'ザックリ星人', icon: '🛸', tag: '宇宙', sampleNames: ['第3銀河の使者', 'ざっくり交信中', '未確認生命体X', '宇宙の珍味'] },
+      { id: 'ninja', label: '闇の忍び', icon: '🥷', tag: '武芸', sampleNames: ['畳返しの術', '巻物紛失中', '影分身失敗丸', '抜け忍志望'] },
+      { id: 'wrestler', label: '覆面レスラー', icon: '🤼', tag: '熱血', sampleNames: ['フライング土下座', '虎の穴出身', 'ロープ際の魔術師', '鋼鉄のラリアット'] },
+      { id: 'buddha', label: 'ネオ大仏', icon: '🗿', tag: '悟り', sampleNames: ['煩悩108号', '悟りを開いた夜', '電子座禅マスター', '木魚ビート'] },
+      { id: 'robot', label: '暴走AIメカ', icon: '🤖', tag: '近未来', sampleNames: ['エラー404号', 'メモリ大暴走', '全自動スベり機', '再起動待機中'] },
+      { id: 'villain', label: '悪の総統', icon: '🦹', tag: '怪人', sampleNames: ['世界征服3日目', '悪の怪人募集係', '漆黒の総帥', '有給消化中のボス'] },
+      { id: 'wizard', label: '迷走魔導士', icon: '🧙‍♂️', tag: '魔法', sampleNames: ['詠唱噛み男', '禁断の黒魔術師', '魔法陣暴走丸', '杖を忘れた賢者'] },
+      { id: 'fox', label: '千年妖狐', icon: '🦊', tag: '妖怪', sampleNames: ['月影の隠密', '九尾のルーキー', '紅葉の九尾', '稲荷の住人'] },
+      { id: 'tengu', label: '酔いどれ天狗', icon: '👺', tag: '妖怪', sampleNames: ['路地裏の浪人', '酒気帯び団扇', '鼻折れ天狗', '居酒屋の仙人'] },
+      { id: 'disco', label: 'パリピ仮面', icon: '🪩', tag: '熱狂', sampleNames: ['ミラーボール中毒', '朝までオール丸', '陽キャの残像', '重低音の貴公子'] },
+      { id: 'emperor', label: '孤独な皇帝', icon: '👑', tag: '権力', sampleNames: ['世の支配者', '玉座で二度寝', '王冠重すぎ男', '全財産没収卿'] },
+      { id: 'tanuki', label: 'ほろ酔い狸', icon: '🦝', tag: '妖怪', sampleNames: ['信楽の泥酔者', '葉っぱ乗せ損ね', '腹鼓ドラマー', 'たぬきうどん'] },
+      { id: 'panda', label: '太極拳パンダ', icon: '🐼', tag: '拳法', sampleNames: ['月夜のパンダ', '竹林のスナイパー', '黒白の拳聖', '笹食ってる場合じゃねえ'] },
+      { id: 'cat', label: '眠り黒猫', icon: '🐱', tag: '気まぐれ', sampleNames: ['コタツの主', '深夜の運動会', '夜鳴きニャンコ', '爪研ぎマスター'] },
+      { id: 'owl', label: '徹夜フクロウ', icon: '🦉', tag: '知性', sampleNames: ['深夜の哲学者', '首回しすぎ教授', 'カフェイン過多丸', '暗闇の観察眼'] },
+      { id: 'clown', label: '悲喜劇ピエロ', icon: '🎭', tag: '狂気', sampleNames: ['サイコロ侍', '涙の道化師', 'ジャグリング落球', '笑いの仮面劇'] },
+      { id: 'octopus', label: '深海タコ星人', icon: '🐙', tag: '海洋', sampleNames: ['八本足の哲学者', '墨吐き逃走丸', '海底2万マイル', 'タコ焼き恐怖症'] },
+      { id: 'frog', label: '悟りカエル', icon: '🐸', tag: '和風', sampleNames: ['雨乞い師匠', '井の中の哲人', '蓮の葉サーファー', 'ゲコゲコ仙人'] },
+      { id: 'detective', label: '迷探偵', icon: '🕵️', tag: '推理', sampleNames: ['迷宮入りの名手', '虫眼鏡のぞき魔', '犯人はこの中にいる', '証拠隠滅係'] },
+      { id: 'vampire', label: '吸血貴族', icon: '🧛‍♂️', tag: '夜行性', sampleNames: ['トマトジュース伯爵', '日焼け止め必須卿', '十字架アレルギー', '棺桶で二度寝'] },
+      { id: 'dino', label: '太古の恐竜', icon: '🦖', tag: '古代', sampleNames: ['短腕のティラノ', '隕石回避訓練中', '白亜紀の残党', '咆哮マスター'] },
+      { id: 'unicorn', label: '夢幻ユニコーン', icon: '🦄', tag: '幻獣', sampleNames: ['虹色ポエム丸', '角引っかかり馬', 'メルヘン暴走特急', '夢の国の住人'] },
+      { id: 'alien', label: 'オカルト星人', icon: '👽', tag: '未確認', sampleNames: ['宇宙ウサギ', '銀河パトロール', 'アブダクション常習犯', 'エリア51脱走兵'] }
     ];
 
     // 全155問のお題プール（純粋144問 ＋ サロン特化11問・完全重複ゼロ）
@@ -1386,10 +1402,20 @@
 
                 <div className="bg-slate-950/70 rounded-2xl p-3.5 flex items-center justify-between gap-3 border border-slate-800">
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-3xl shrink-0">{profile.avatar}</span>
+                    <span className="text-3xl shrink-0 p-1.5 bg-slate-900 border border-slate-800 rounded-2xl shadow-sm">{profile.avatar}</span>
                     <div className="min-w-0">
-                      <p className="font-bold text-sm text-amber-300 truncate">{profile.fakeName}</p>
-                      <p className="text-[11px] text-slate-400 truncate">本名: {profile.realName}</p>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <p className="font-bold text-sm text-amber-300 truncate">{profile.fakeName}</p>
+                        {(() => {
+                          const av = AVATARS.find(a => a.icon === profile.avatar);
+                          return av ? (
+                            <span className="text-[10px] bg-amber-500/10 text-amber-300/90 border border-amber-500/30 px-1.5 py-0.5 rounded-md font-medium shrink-0">
+                              {av.label}
+                            </span>
+                          ) : null;
+                        })()}
+                      </div>
+                      <p className="text-[11px] text-slate-400 truncate mt-0.5">本名: {profile.realName}</p>
                     </div>
                   </div>
                   <button
@@ -2463,9 +2489,28 @@
 
                   {/* 大喜利用の仮名 */}
                   <div>
-                    <label className="block text-slate-300 font-bold mb-1">
-                      大喜利での仮名（マスクネーム）
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-slate-300 font-bold text-xs sm:text-sm">
+                        大喜利での仮名（マスクネーム）
+                      </label>
+                      {!answeredIndices.length && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const curAv = AVATARS.find(a => a.icon === profile.avatar) || AVATARS[0];
+                            const names = curAv.sampleNames || ['月夜のパンダ', '夜更かし侍'];
+                            const curIdx = names.indexOf(profile.fakeName);
+                            const nextName = names[(curIdx + 1) % names.length];
+                            setProfile({ ...profile, fakeName: nextName });
+                          }}
+                          className="text-[11px] text-amber-300 hover:text-amber-200 flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-0.5 rounded-lg border border-amber-500/30 transition shadow-sm active:scale-95"
+                          title="選択中のキャラクターにぴったりの仮名を自動生成"
+                        >
+                          <span>🎲</span>
+                          <span>キャラに合う仮名を生成</span>
+                        </button>
+                      )}
+                    </div>
                     <input
                       type="text"
                       disabled={answeredIndices.length > 0}
@@ -2481,32 +2526,83 @@
                     <p className="text-[10px] text-slate-500 mt-0.5">
                       {answeredIndices.length > 0
                         ? '※回答投稿後は仮名も固定されます'
-                        : '※この名前でボケが投稿・表示されます（未回答なら変更可）'}
+                        : '※この名前でボケが投稿・表示されます（右上のサイコロで自動生成も可能）'}
                     </p>
                   </div>
 
-                  {/* 仮面アバター選択 */}
+                  {/* 仮面キャラクター選択 */}
                   <div>
-                    <label className="block text-slate-300 font-bold mb-2">
-                      仮面アバターを選択 {answeredIndices.length > 0 && <span className="text-[10px] text-slate-500 font-normal">(固定中)</span>}
-                    </label>
-                    <div className="grid grid-cols-4 gap-2">
-                      {AVATARS.map(av => (
-                        <button
-                          key={av.id}
-                          type="button"
-                          disabled={answeredIndices.length > 0}
-                          onClick={() => setProfile({ ...profile, avatar: av.icon })}
-                          className={`p-2 rounded-xl text-center border transition ${
-                            profile.avatar === av.icon
-                              ? 'bg-amber-500/20 border-amber-400 shadow-sm'
-                              : 'bg-slate-950 border-slate-800 hover:border-slate-700'
-                          } ${answeredIndices.length > 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
-                        >
-                          <span className="text-xl block">{av.icon}</span>
-                          <span className="text-[9px] text-slate-400 block mt-1">{av.label}</span>
-                        </button>
-                      ))}
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-slate-300 font-bold text-xs sm:text-sm">
+                        仮面キャラクターを選択（全24種） {answeredIndices.length > 0 && <span className="text-[10px] text-slate-500 font-normal">(固定中)</span>}
+                      </label>
+                      <span className="text-[10px] text-amber-400/90 font-medium bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                        個性豊かな仮面たち
+                      </span>
+                    </div>
+
+                    {/* 現在選んでいるキャラのプレビューカード */}
+                    {(() => {
+                      const curAv = AVATARS.find(a => a.icon === profile.avatar) || AVATARS[0];
+                      return (
+                        <div className="bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-slate-900 border border-amber-500/40 rounded-xl p-3 mb-2 flex items-center justify-between shadow-sm">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-3xl p-1 bg-slate-950 border border-amber-500/40 rounded-xl shadow-inner shrink-0">
+                              {profile.avatar}
+                            </span>
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="text-xs font-bold text-amber-300 font-pop truncate">
+                                  {curAv.label}
+                                </span>
+                                <span className="text-[9px] bg-slate-800 text-amber-400/90 px-1.5 py-0.5 rounded border border-slate-700 font-medium shrink-0">
+                                  {curAv.tag}
+                                </span>
+                              </div>
+                              <p className="text-[10.5px] text-slate-300 font-normal truncate mt-0.5">
+                                おすすめ仮名例: <span className="text-slate-400">{curAv.sampleNames ? curAv.sampleNames.slice(0, 2).join(' / ') : ''}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* 24キャラクター一覧グリッド */}
+                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-56 overflow-y-auto p-2 bg-slate-950/80 border border-slate-800 rounded-xl">
+                      {AVATARS.map(av => {
+                        const isSelected = profile.avatar === av.icon;
+                        return (
+                          <button
+                            key={av.id}
+                            type="button"
+                            disabled={answeredIndices.length > 0}
+                            onClick={() => {
+                              setProfile(prev => {
+                                const isDefault = !prev.fakeName || prev.fakeName === '覆面の刺客';
+                                return {
+                                  ...prev,
+                                  avatar: av.icon,
+                                  fakeName: isDefault && av.sampleNames ? av.sampleNames[0] : prev.fakeName
+                                };
+                              });
+                            }}
+                            className={`p-1.5 rounded-xl text-center border transition flex flex-col items-center justify-center relative ${
+                              isSelected
+                                ? 'bg-amber-500/25 border-amber-400 shadow-md ring-1 ring-amber-400/50'
+                                : 'bg-slate-900/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/50'
+                            } ${answeredIndices.length > 0 ? 'opacity-60 cursor-not-allowed' : 'active:scale-95'}`}
+                          >
+                            <span className="text-2xl block">{av.icon}</span>
+                            <span className="text-[10px] text-slate-200 font-bold block mt-1 leading-tight truncate w-full text-center">
+                              {av.label}
+                            </span>
+                            <span className="text-[8px] text-amber-400/80 block mt-0.5 font-medium">
+                              {av.tag}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 

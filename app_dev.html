@@ -2545,24 +2545,40 @@
                     {(() => {
                       const curAv = AVATARS.find(a => a.icon === profile.avatar) || AVATARS[0];
                       return (
-                        <div className="bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-slate-900 border border-amber-500/40 rounded-xl p-3 mb-2 flex items-center justify-between shadow-sm">
-                          <div className="flex items-center gap-3 min-w-0">
+                        <div className="bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-slate-900 border border-amber-500/40 rounded-xl p-3 mb-2 shadow-sm space-y-2">
+                          <div className="flex items-center gap-3">
                             <span className="text-3xl p-1 bg-slate-950 border border-amber-500/40 rounded-xl shadow-inner shrink-0">
                               {profile.avatar}
                             </span>
-                            <div className="min-w-0">
+                            <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="text-xs font-bold text-amber-300 font-pop truncate">
+                                <span className="text-sm font-bold text-amber-300 font-pop">
                                   {curAv.label}
                                 </span>
-                                <span className="text-[9px] bg-slate-800 text-amber-400/90 px-1.5 py-0.5 rounded border border-slate-700 font-medium shrink-0">
+                                <span className="text-[9.5px] bg-slate-800 text-amber-400 px-1.5 py-0.5 rounded border border-slate-700 font-medium shrink-0">
                                   {curAv.tag}
                                 </span>
                               </div>
-                              <p className="text-[10.5px] text-slate-300 font-normal truncate mt-0.5">
-                                おすすめ仮名例: <span className="text-slate-400">{curAv.sampleNames ? curAv.sampleNames.slice(0, 2).join(' / ') : ''}</span>
+                              <p className="text-[10.5px] text-slate-400 mt-0.5 leading-normal">
+                                タップで即セットできるおすすめ仮名候補：
                               </p>
                             </div>
+                          </div>
+                          {/* 仮名候補タグ群（改行しても絶対に途中で文字が切れず、タップで即選べる） */}
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            {curAv.sampleNames && curAv.sampleNames.map((name, i) => (
+                              <button
+                                key={i}
+                                type="button"
+                                disabled={answeredIndices.length > 0}
+                                onClick={() => setProfile({ ...profile, fakeName: name })}
+                                className="text-[10.5px] bg-slate-900/90 hover:bg-amber-500/20 active:scale-95 text-slate-200 hover:text-amber-200 border border-slate-700/80 hover:border-amber-400/60 px-2.5 py-1 rounded-lg transition shadow-xs flex items-center gap-1 cursor-pointer font-medium"
+                                title="タップしてこの仮名をセット"
+                              >
+                                <span className="text-[9px] text-amber-400">✨</span>
+                                <span>{name}</span>
+                              </button>
+                            ))}
                           </div>
                         </div>
                       );
@@ -2594,7 +2610,7 @@
                             } ${answeredIndices.length > 0 ? 'opacity-60 cursor-not-allowed' : 'active:scale-95'}`}
                           >
                             <span className="text-2xl block">{av.icon}</span>
-                            <span className="text-[10px] text-slate-200 font-bold block mt-1 leading-tight truncate w-full text-center">
+                            <span className="text-[10px] text-slate-200 font-bold block mt-1 leading-tight text-center break-words w-full">
                               {av.label}
                             </span>
                             <span className="text-[8px] text-amber-400/80 block mt-0.5 font-medium">

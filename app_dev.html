@@ -282,7 +282,7 @@
       return ids.map(id => ALL_TOPICS.find(t => t.id === id)).filter(Boolean);
     }
 
-    // 10日ごとに自動変化する「称賛メッセージ定型5種（うち1つ玄人）」
+    // 10日ごとに自動変化する「わっしょいレター定型5種（うち1つ玄人）」
     const PRAISE_TEMPLATES = {
       early: [
         { id: 'p1', text: '初手から切れ味すごくて声出して笑いました！👏', isExpert: false },
@@ -558,7 +558,7 @@
       // トースト通知（ライブワッショイ受信や新着レター）
       const [toastNotification, setToastNotification] = useState(null);
 
-      // 届いた称賛レター（メッセージBOX：初期状態は0件）
+      // 届いたわっしょいレター（メッセージBOX：初期状態は0件）
       const [letters, setLetters] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_letters');
         return saved ? JSON.parse(saved) : [];
@@ -567,7 +567,7 @@
       // メッセージBOXモーダル開閉
       const [showInboxModal, setShowInboxModal] = useState(false);
 
-      // 称賛レター送信モーダル (送信対象情報)
+      // わっしょいレター送信モーダル (送信対象情報)
       const [sendingTarget, setSendingTarget] = useState(null);
       const [selectedPraiseTemplate, setSelectedPraiseTemplate] = useState(null);
 
@@ -1041,7 +1041,7 @@
           if (window.confetti) {
             window.confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
           }
-          // 主宛てに仲間から新しい称賛レターが届く演出！
+          // 主宛てに仲間から新しいわっしょいレターが届く演出！
           setTimeout(() => {
             const letterFromSakuranbo = {
               id: 'let_sakura_' + Date.now(),
@@ -1054,7 +1054,7 @@
             setLetters(prev => [letterFromSakuranbo, ...prev]);
             setToastNotification({
               icon: '📬',
-              text: 'さくらんぼさんからあなた宛てに称賛レターが届きました！'
+              text: 'さくらんぼさんからあなた宛てにわっしょいレターが届きました！'
             });
             setTimeout(() => setToastNotification(null), 3500);
           }, 1200);
@@ -1081,7 +1081,7 @@
         setEditingRank(null);
       };
 
-      // 称賛レター送信処理（定型5種・フリー記述ゼロで身バレ完全防止）
+      // わっしょいレター送信処理（定型5種・フリー記述ゼロで身バレ完全防止）
       const handleSendLetter = () => {
         if (!sendingTarget || !selectedPraiseTemplate) return;
         sound.playSubmit();
@@ -1089,7 +1089,7 @@
           window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
         }
         const targetName = sendingTarget.realName;
-        alert(`💌 ${targetName} さんへ称賛メッセージ（${periodLabel}）を届けました！`);
+        alert(`💌 ${targetName} さんへわっしょいレター（${periodLabel}）を届けました！`);
 
         // デモ用：相手から受け取った側としての疑似レター生成
         const demoReply = {
@@ -1139,7 +1139,7 @@
         answers.forEach(a => {
           if (a.voters && a.voters.includes('user_self') && a.realName !== profile.realName) {
             if (!map[a.realName]) {
-              // 15名中、タカシさんとリエさんのみ「交流お休み中」テスト、他13名は「称賛受付中」
+              // 15名中、タカシさんとリエさんのみ「交流お休み中」テスト、他13名は「レター受付中」
               const isQuiet = a.realName.includes('タカシ') || a.realName.includes('リエ');
               map[a.realName] = {
                 realName: a.realName,
@@ -1446,7 +1446,7 @@
                       <h4 className="font-bold text-slate-100 text-xs">ワッショイした仲間へ感想レター</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      発表時には「自分がワッショイした仲間」のサロン本名が確認でき、称賛メッセージを送ることができます（※今回は初めての試みなので定型文から選ぶ形にしています。受け取りたくない人はOFFにする拒否の自由もあります）。
+                      発表時には「自分がワッショイした仲間」のサロン本名が確認でき、わっしょいレターを送ることができます（※今回は初めての試みなので定型文から選ぶ形にしています。受け取りたくない人はOFFにする拒否の自由もあります）。
                     </p>
                   </div>
                 </div>
@@ -1652,7 +1652,7 @@
                     <span className="text-2xl">🏆</span>
                     <h4 className="text-xs font-bold text-amber-300">1ヶ月のシーズン完走！最終日に到達しました！</h4>
                     <p className="text-[11px] text-slate-300">
-                      「正体＆宣伝枠」タブで、全員のサロン本名アンヴェイルとベスト3宣伝枠、称賛メッセージをお試しください！
+                      「正体＆宣伝枠」タブで、全員のサロン本名アンヴェイルとベスト3宣伝枠、わっしょいレターをお試しください！
                     </p>
                     <button
                       type="button"
@@ -2172,7 +2172,7 @@
                 })}
               </div>
 
-              {/* あなたが今月ワッショイした仲間たち＆称賛レター */}
+              {/* あなたが今月ワッショイした仲間たち＆わっしょいレター */}
               <div className="space-y-3 pt-3 border-t border-slate-800">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-amber-300 flex items-center gap-1.5 font-pop">
@@ -2180,14 +2180,14 @@
                     あなたが今月ワッショイした仲間たち
                   </h3>
                   <span className="text-[11px] text-slate-400">
-                    {yoishoedList.length} 人のボケを称賛済
+                    {yoishoedList.length} 人のボケにわっしょい済
                   </span>
                 </div>
 
                 <p className="text-[11px] text-slate-400 leading-relaxed">
                   {isUnveiled
-                    ? '正体が開示されました！あなたが笑わされた仲間のサロン本名が確認できます。感想や称賛メッセージを送ってみましょう！'
-                    : '※正体発表モードに切り替えると、あなたがワッショイした仲間のサロン本名が開示され、称賛メッセージを送れるようになります！'}
+                    ? '正体が開示されました！あなたが笑わされた仲間のサロン本名が確認できます。わっしょいレターを送ってみましょう！'
+                    : '※正体発表モードに切り替えると、あなたがワッショイした仲間のサロン本名が開示され、わっしょいレターを送れるようになります！'}
                 </p>
 
                 {/* リスト */}
@@ -2237,7 +2237,7 @@
                                 className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:brightness-110 active:scale-95 text-white font-bold text-[11px] px-3 py-1.5 rounded-full shadow transition flex items-center gap-1"
                               >
                                 <span>💌</span>
-                                <span>称賛を送る</span>
+                                <span>レターを送る</span>
                               </button>
                             ) : (
                               <span className="bg-slate-800 text-slate-500 text-[10px] px-2.5 py-1 rounded-full border border-slate-700/60 inline-flex items-center gap-1">
@@ -2442,10 +2442,10 @@
                     </div>
                   </div>
 
-                  {/* 称賛メッセージ受け取り設定（拒否の自由） */}
+                  {/* わっしょいレター受け取り設定（拒否の自由） */}
                   <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
                     <div>
-                      <span className="font-bold text-slate-200 block text-xs">💌 称賛メッセージの受付</span>
+                      <span className="font-bold text-slate-200 block text-xs">💌 わっしょいレターの受付</span>
                       <span className="text-[10px] text-slate-400 block mt-0.5">
                         ワッショイしてくれた仲間からの感想レターを受け取る
                       </span>
@@ -2809,7 +2809,7 @@
             </div>
           )}
 
-          {/* ================= モーダル：届いた称賛レターBOX ================= */}
+          {/* ================= モーダル：届いたわっしょいレターBOX ================= */}
           {showInboxModal && (
             <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
               <div className="bg-slate-900 border border-amber-500/40 rounded-3xl p-5 w-full max-w-md max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col">
@@ -2817,7 +2817,7 @@
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">📬</span>
                     <div>
-                      <h3 className="font-bold text-amber-300 font-pop text-base">仲間からの称賛レター</h3>
+                      <h3 className="font-bold text-amber-300 font-pop text-base">仲間からのわっしょいレター</h3>
                       <p className="text-[11px] text-slate-400">あなたのボケで笑った仲間からの温かい感想</p>
                     </div>
                   </div>
@@ -2899,7 +2899,7 @@
             </div>
           )}
 
-          {/* ================= モーダル：称賛メッセージ送信（定型5種・フリー記述ゼロ） ================= */}
+          {/* ================= モーダル：わっしょいレター送信（定型5種・フリー記述ゼロ） ================= */}
           {sendingTarget && (
             <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
               <div className="bg-slate-900 border border-indigo-500/50 rounded-3xl p-5 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl space-y-3.5">
@@ -2908,7 +2908,7 @@
                     <span className="text-2xl">💌</span>
                     <div>
                       <h3 className="font-bold text-indigo-300 font-pop text-sm flex items-center gap-1.5">
-                        称賛メッセージを送る
+                        わっしょいレターを送る
                         <span className="text-[10px] font-normal bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full border border-indigo-500/30">
                           {periodLabel}
                         </span>

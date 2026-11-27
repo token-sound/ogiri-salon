@@ -965,11 +965,16 @@
 
           {/* ヘッダー */}
           <header className="flex items-center justify-between py-3 border-b border-slate-800 mb-4">
-            {/* ロゴ・タイトル（クリックでいつでもトップに戻る！） */}
+            {/* ロゴ・タイトル（未開封ならクリックで名前修正、回答後はトップ復帰） */}
             <div
-              onClick={() => setTab('today')}
-              className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition group select-none"
-              title="トップページ（今日の5問）に戻る"
+              onClick={() => {
+                setTab('today');
+                if (answeredIndices.length === 0 && openedIndex === null) {
+                  setShowProfileModal(true);
+                }
+              }}
+              className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition group select-none"
+              title={answeredIndices.length === 0 && openedIndex === null ? "クリックで名前やプロフィールを修正できます" : "トップページ（今日の5問）に戻る"}
             >
               <span className="text-2xl group-hover:scale-110 transition-transform">🎭</span>
               <div>
@@ -977,7 +982,13 @@
                   サロン大喜利
                   <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">仲間内編</span>
                 </h1>
-                <p className="text-xs text-slate-400 group-hover:text-slate-300 transition">仮名でボケて1ヶ月後に正体明かし！</p>
+                {answeredIndices.length === 0 && openedIndex === null ? (
+                  <p className="text-[11px] text-amber-300/90 group-hover:text-amber-200 transition flex items-center gap-1">
+                    <span>✏️</span> 未開封ならクリックで名前修正OK！
+                  </p>
+                ) : (
+                  <p className="text-xs text-slate-400 group-hover:text-slate-300 transition">仮名でボケて1ヶ月後に正体明かし！</p>
+                )}
               </div>
             </div>
 
@@ -1270,6 +1281,25 @@
           {/* ================= TAB 1: 今日の5問 (封筒開封＆110秒タイマー) ================= */}
           {tab === 'today' && (
             <div className="space-y-4 flex-1">
+              {/* 参加中プロフィールバー（いつでも編集可能！） */}
+              <div className="bg-slate-900/80 border border-slate-800 rounded-xl px-3.5 py-2.5 flex items-center justify-between text-xs shadow-sm">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-xl">{profile.avatar}</span>
+                  <div className="min-w-0">
+                    <span className="font-bold text-slate-200">{profile.fakeName}</span>
+                    <span className="text-[10px] text-slate-400 ml-1.5">(本名: {profile.realName})</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowProfileModal(true)}
+                  className="shrink-0 bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-amber-300 border border-amber-500/30 px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95"
+                  title="プロフィール・自己紹介を編集する"
+                >
+                  <span>✏️</span> プロフィール編集
+                </button>
+              </div>
+
               {/* ガイドバナー */}
               <div className="bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-500/30 rounded-xl p-3 text-xs text-indigo-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -1825,12 +1855,21 @@
                     </label>
                     <input
                       type="text"
+                      disabled={answeredIndices.length > 0}
                       value={profile.realName}
                       onChange={(e) => setProfile({ ...profile, realName: e.target.value })}
                       placeholder="例: ありぽん、マスターT"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
+                      className={`w-full border rounded-xl px-3 py-2 text-white focus:outline-none ${
+                        answeredIndices.length > 0
+                          ? 'bg-slate-950/50 border-slate-800 text-slate-400 cursor-not-allowed'
+                          : 'bg-slate-950 border-slate-700 focus:border-amber-400'
+                      }`}
                     />
-                    <p className="text-[10px] text-slate-500 mt-0.5">※1ヶ月後の発表時まで他の人には隠されます</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      {answeredIndices.length > 0
+                        ? '※回答投稿後は公平性のため名前は固定されます'
+                        : '※1ヶ月後の発表時まで他の人には隠されます（未回答なら変更可）'}
+                    </p>
                   </div>
 
                   {/* 大喜利用の仮名 */}
@@ -1840,28 +1879,40 @@
                     </label>
                     <input
                       type="text"
+                      disabled={answeredIndices.length > 0}
                       value={profile.fakeName}
                       onChange={(e) => setProfile({ ...profile, fakeName: e.target.value })}
                       placeholder="例: 月夜のパンダ、夜更かし侍"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400"
+                      className={`w-full border rounded-xl px-3 py-2 text-white focus:outline-none ${
+                        answeredIndices.length > 0
+                          ? 'bg-slate-950/50 border-slate-800 text-slate-400 cursor-not-allowed'
+                          : 'bg-slate-950 border-slate-700 focus:border-amber-400'
+                      }`}
                     />
-                    <p className="text-[10px] text-slate-500 mt-0.5">※この名前でボケが投稿・表示されます</p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      {answeredIndices.length > 0
+                        ? '※回答投稿後は仮名も固定されます'
+                        : '※この名前でボケが投稿・表示されます（未回答なら変更可）'}
+                    </p>
                   </div>
 
                   {/* 仮面アバター選択 */}
                   <div>
-                    <label className="block text-slate-300 font-bold mb-2">仮面アバターを選択</label>
+                    <label className="block text-slate-300 font-bold mb-2">
+                      仮面アバターを選択 {answeredIndices.length > 0 && <span className="text-[10px] text-slate-500 font-normal">(固定中)</span>}
+                    </label>
                     <div className="grid grid-cols-4 gap-2">
                       {AVATARS.map(av => (
                         <button
                           key={av.id}
                           type="button"
+                          disabled={answeredIndices.length > 0}
                           onClick={() => setProfile({ ...profile, avatar: av.icon })}
                           className={`p-2 rounded-xl text-center border transition ${
                             profile.avatar === av.icon
                               ? 'bg-amber-500/20 border-amber-400 shadow-sm'
                               : 'bg-slate-950 border-slate-800 hover:border-slate-700'
-                          }`}
+                          } ${answeredIndices.length > 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
                         >
                           <span className="text-xl block">{av.icon}</span>
                           <span className="text-[9px] text-slate-400 block mt-1">{av.label}</span>
@@ -1898,6 +1949,17 @@
                       <span className="text-[10px] text-slate-400 block mt-0.5 leading-normal">
                         ※1ヶ月後にベスト3に入った時や、ヨイショした仲間とメッセージ交換する際に公開されます
                       </span>
+                    </div>
+
+                    {/* いつでも何度でも書き直しできる安心案内 */}
+                    <div className="bg-amber-500/10 border border-amber-500/40 rounded-xl p-2.5 text-amber-200 text-[11px] leading-relaxed flex items-start gap-2">
+                      <span className="text-base shrink-0">💡</span>
+                      <div>
+                        <b className="text-amber-300">ここは大喜利最終日まで何回でも書き直すことができます！</b>
+                        <p className="text-slate-300 text-[10px] mt-0.5">
+                          何を書くか悩んで始められない方も大丈夫。まずは未記入やお試しで始めて、後からいつでも編集できます。
+                        </p>
+                      </div>
                     </div>
 
                     <div>
@@ -1938,7 +2000,7 @@
                     onClick={() => saveProfile(profile)}
                     className="w-full mt-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:brightness-110 active:scale-95"
                   >
-                    この設定で大喜利をはじめる！
+                    {answeredIndices.length > 0 ? "プロフィール設定を更新する" : "この設定で大喜利をはじめる！"}
                   </button>
 
                   {/* 遊び方への導線 */}

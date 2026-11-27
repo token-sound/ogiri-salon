@@ -1341,9 +1341,15 @@
                     {profile.isRegistered ? '✏️ 設定を変更' : 'エントリーする'}
                   </button>
                 </div>
-                <p className="text-[10px] text-slate-400 leading-normal pl-1">
-                  ※自己紹介や好きなことの登録欄は、大喜利最終日まで何回でも書き直せます。まずは気楽に名前だけ決めておけばOKです！
-                </p>
+                <div className="bg-slate-950/50 border border-slate-800/80 rounded-xl p-3 space-y-1.5 text-[10.5px] text-slate-400 leading-normal">
+                  <p>
+                    ※自己紹介や好きなことの登録欄は、大喜利最終日まで何回でも書き直せます。まずは気楽に名前だけ決めておけばOKです！
+                  </p>
+                  <p className="text-emerald-400 font-medium flex items-center gap-1.5 pt-0.5 border-t border-slate-900">
+                    <span>🔒</span>
+                    <span><b>【安心宣言】全ランキング公開はありません！</b>順位発表は上位10名（月間十傑）のみ。11位以降で名前が晒される心配は物理的にゼロですので、安心してお気軽にご参加ください♪</span>
+                  </p>
+                </div>
               </div>
 
               {/* 【はじめての人へ】図解：サロン大喜利 3分まるわかりガイド */}
@@ -1409,14 +1415,17 @@
                   <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
                     <div className="flex items-center justify-between">
                       <span className="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center text-xs">4</span>
-                      <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded-full border border-slate-700">自分だけ手応え確認</span>
+                      <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded-full border border-slate-700">全体晒しゼロで安心</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🎊</span>
-                      <h4 className="font-bold text-slate-100 text-xs">毎朝集計＆大晦日に正体開示！</h4>
+                      <h4 className="font-bold text-slate-100 text-xs">毎朝自分だけ手応え確認 ＆ ランキングはTOP10のみ！</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      朝10時に集計され、<b>あなただけの昨日のウケ具合（わっしょい数）</b>が確認できます！全体の順位や他人の正体は12/31最終日まで秘密なので、大晦日に最高のネタバラシが待っています。
+                      朝10時に集計され、<b>あなただけの昨日のウケ具合（わっしょい数）</b>が確認できます！全体の順位や他人の正体は12/31最終日まで秘密です。<br />
+                      <span className="text-amber-300/90 font-medium block mt-1">
+                        💡 順位による上下感や劣等感を避けるため、全体ランキングの発表は「月間TOP10（十傑）」のみ！11位以降が全体順位で晒されることは一切なく、正体も「あなたがワッショイした仲間」の間でのみ温かく開示されます。
+                      </span>
                     </p>
                   </div>
 
@@ -2506,11 +2515,19 @@
                     </div>
 
                     {/* いつでも何度でも書き直しできる安心案内（下部に小さく配置） */}
-                    <div className="bg-slate-900/80 border border-slate-800 rounded-xl px-2.5 py-1.5 text-slate-400 text-[10px] leading-relaxed flex items-center gap-1.5">
-                      <span className="text-amber-400 text-xs shrink-0">💡</span>
-                      <span>
-                        <b className="text-amber-300/90 font-normal">大喜利最終日まで何回でも書き直せます。</b>まずは未記入やお試しで始めても大丈夫です！
-                      </span>
+                    <div className="bg-slate-900/80 border border-slate-800 rounded-xl px-2.5 py-2 text-slate-400 text-[10px] leading-relaxed space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-amber-400 text-xs shrink-0">💡</span>
+                        <span>
+                          <b className="text-amber-300/90 font-normal">自己紹介は最終日まで何回でも書き直せます。</b>まずは未記入でお試し参加も大歓迎です！
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-emerald-400/90 pt-1 border-t border-slate-800">
+                        <span className="text-xs shrink-0">🔒</span>
+                        <span>
+                          <b>全順位の公開はありません（発表は上位10名のみ）。</b>下位で名前が晒される心配は物理的にゼロですのでご安心ください♪
+                        </span>
+                      </div>
                     </div>
                   </div>
 

@@ -614,8 +614,15 @@
       const [editingRank, setEditingRank] = useState(null);
       const [editPromoForm, setEditPromoForm] = useState({ title: '', hobby: '', intro: '', link: '' });
 
-      // 設定・プロフィール変更モーダル
+      // 設定・プロフィール変更モーダル（入力中の文字揺れ・IME競合を防ぐためローカルステートで管理）
       const [showProfileModal, setShowProfileModal] = useState(false);
+      const [tempProfile, setTempProfile] = useState(() => ({ ...profile }));
+
+      // モーダルを開く関数（現在のプロフィールを安全に複製して開く）
+      const openProfileModal = () => {
+        setTempProfile({ ...profile });
+        setShowProfileModal(true);
+      };
 
       // サロン遊び方ルールブックモーダル
       const [showGuideModal, setShowGuideModal] = useState(false);
@@ -779,7 +786,7 @@
         }
         // 開幕前のティザー期間中は自動ポップアップせずティザー画面を見せる
         if (!isPreLaunch && !profile.isRegistered) {
-          setShowProfileModal(true);
+          openProfileModal();
         }
       }, []);
 
@@ -1245,7 +1252,7 @@
               onClick={() => {
                 setTab('today');
                 if (answeredIndices.length === 0 && openedIndex === null) {
-                  setShowProfileModal(true);
+                  openProfileModal();
                 }
               }}
               className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition group select-none shrink-0"
@@ -1434,7 +1441,7 @@
                   </div>
                   <button
                     type="button"
-                    onClick={() => setShowProfileModal(true)}
+                    onClick={() => openProfileModal()}
                     className="shrink-0 bg-gradient-to-r from-amber-500 to-amber-600 hover:brightness-110 active:scale-95 text-slate-950 font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-md transition"
                   >
                     {profile.isRegistered ? '✏️ 設定を変更' : 'エントリーする'}
@@ -1835,7 +1842,7 @@
                 </div>
                 <button
                   type="button"
-                  onClick={() => setShowProfileModal(true)}
+                  onClick={() => openProfileModal()}
                   className="shrink-0 bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-amber-300 border border-amber-500/30 px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95"
                   title="プロフィール・自己紹介を編集する"
                 >
@@ -2019,7 +2026,7 @@
                                 placeholder="思いついたボケをここに直感で入力！（1分50秒以内に送信）"
                                 rows={3}
                                 autoFocus
-                                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition resize-none"
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition resize-none"
                               ></textarea>
 
                               <div className="flex items-center justify-between gap-3">
@@ -2503,10 +2510,12 @@
                     <input
                       type="text"
                       disabled={answeredIndices.length > 0}
-                      value={profile.realName}
-                      onChange={(e) => setProfile({ ...profile, realName: e.target.value })}
+                      value={tempProfile.realName}
+                      onChange={(e) => setTempProfile({ ...tempProfile, realName: e.target.value })}
                       placeholder="例: ありぽん、マスターT"
-                      className={`w-full border rounded-xl px-3 py-2 text-white focus:outline-none ${
+                      autoComplete="off"
+                      spellCheck="false"
+                      className={`w-full border rounded-xl px-3 py-2 text-white text-base sm:text-xs focus:outline-none transition-colors ${
                         answeredIndices.length > 0
                           ? 'bg-slate-950/50 border-slate-800 text-slate-400 cursor-not-allowed'
                           : 'bg-slate-950 border-slate-700 focus:border-amber-400'
@@ -2527,10 +2536,12 @@
                     <input
                       type="text"
                       disabled={answeredIndices.length > 0}
-                      value={profile.fakeName}
-                      onChange={(e) => setProfile({ ...profile, fakeName: e.target.value })}
+                      value={tempProfile.fakeName}
+                      onChange={(e) => setTempProfile({ ...tempProfile, fakeName: e.target.value })}
                       placeholder="例: 月夜のパンダ、夜更かし侍"
-                      className={`w-full border rounded-xl px-3 py-2 text-white focus:outline-none ${
+                      autoComplete="off"
+                      spellCheck="false"
+                      className={`w-full border rounded-xl px-3 py-2 text-white text-base sm:text-xs focus:outline-none transition-colors ${
                         answeredIndices.length > 0
                           ? 'bg-slate-950/50 border-slate-800 text-slate-400 cursor-not-allowed'
                           : 'bg-slate-950 border-slate-700 focus:border-amber-400'
@@ -2556,12 +2567,12 @@
 
                     {/* 現在選んでいるキャラのプレビューカード */}
                     {(() => {
-                      const curAv = AVATARS.find(a => a.icon === profile.avatar) || AVATARS[0];
+                      const curAv = AVATARS.find(a => a.icon === tempProfile.avatar) || AVATARS[0];
                       return (
                         <div className="bg-gradient-to-r from-amber-500/15 via-purple-500/10 to-slate-900 border border-amber-500/40 rounded-xl p-3 mb-2 shadow-sm space-y-2">
                           <div className="flex items-center gap-3">
                             <span className="text-3xl p-1 bg-slate-950 border border-amber-500/40 rounded-xl shadow-inner shrink-0">
-                              {profile.avatar}
+                              {tempProfile.avatar}
                             </span>
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 flex-wrap">
@@ -2584,7 +2595,7 @@
                                 key={i}
                                 type="button"
                                 disabled={answeredIndices.length > 0}
-                                onClick={() => setProfile({ ...profile, fakeName: name })}
+                                onClick={() => setTempProfile({ ...tempProfile, fakeName: name })}
                                 className="text-[10.5px] bg-slate-900/90 hover:bg-amber-500/20 active:scale-95 text-slate-200 hover:text-amber-200 border border-slate-700/80 hover:border-amber-400/60 px-2.5 py-1 rounded-lg transition shadow-xs flex items-center gap-1 cursor-pointer font-medium"
                                 title="タップしてこの仮名をセット"
                               >
@@ -2600,14 +2611,14 @@
                     {/* 24キャラクター一覧グリッド */}
                     <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-56 overflow-y-auto p-2 bg-slate-950/80 border border-slate-800 rounded-xl">
                       {AVATARS.map(av => {
-                        const isSelected = profile.avatar === av.icon;
+                        const isSelected = tempProfile.avatar === av.icon;
                         return (
                           <button
                             key={av.id}
                             type="button"
                             disabled={answeredIndices.length > 0}
                             onClick={() => {
-                              setProfile(prev => {
+                              setTempProfile(prev => {
                                 const isDefault = !prev.fakeName || prev.fakeName === '覆面の刺客';
                                 return {
                                   ...prev,
@@ -2646,8 +2657,8 @@
                     <label className="relative inline-flex items-center cursor-pointer shrink-0">
                       <input
                         type="checkbox"
-                        checked={profile.acceptMessages !== false}
-                        onChange={(e) => setProfile({ ...profile, acceptMessages: e.target.checked })}
+                        checked={tempProfile.acceptMessages !== false}
+                        onChange={(e) => setTempProfile({ ...tempProfile, acceptMessages: e.target.checked })}
                         className="sr-only peer"
                       />
                       <div className="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
@@ -2669,10 +2680,10 @@
                       <label className="block text-slate-300 font-bold mb-1 text-[11px]">好きなこと・趣味・活動</label>
                       <input
                         type="text"
-                        value={profile.hobby || ''}
-                        onChange={(e) => setProfile({ ...profile, hobby: e.target.value })}
+                        value={tempProfile.hobby || ''}
+                        onChange={(e) => setTempProfile({ ...tempProfile, hobby: e.target.value })}
                         placeholder="例: ボードゲーム、サウナ、Web制作、料理など"
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-base sm:text-xs focus:outline-none focus:border-amber-400"
                       />
                     </div>
 
@@ -2680,10 +2691,10 @@
                       <label className="block text-slate-300 font-bold mb-1 text-[11px]">自己紹介・サロン仲間への一言</label>
                       <textarea
                         rows={2}
-                        value={profile.intro || ''}
-                        onChange={(e) => setProfile({ ...profile, intro: e.target.value })}
+                        value={tempProfile.intro || ''}
+                        onChange={(e) => setTempProfile({ ...tempProfile, intro: e.target.value })}
                         placeholder="例: サロンのみんなとまるくゆるく楽しく笑い合いたいです！気軽に絡んでください〜！"
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white text-base sm:text-xs focus:outline-none focus:border-amber-400 resize-none"
                       ></textarea>
                     </div>
 
@@ -2691,10 +2702,10 @@
                       <label className="block text-slate-300 font-bold mb-1 text-[11px]">宣伝・活動リンク（任意）</label>
                       <input
                         type="url"
-                        value={profile.link || ''}
-                        onChange={(e) => setProfile({ ...profile, link: e.target.value })}
+                        value={tempProfile.link || ''}
+                        onChange={(e) => setTempProfile({ ...tempProfile, link: e.target.value })}
                         placeholder="例: https://twitter.com/... や note、作品リンク"
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-base sm:text-xs focus:outline-none focus:border-amber-400"
                       />
                     </div>
 
@@ -2716,7 +2727,7 @@
                   </div>
 
                   <button
-                    onClick={() => saveProfile(profile)}
+                    onClick={() => saveProfile(tempProfile)}
                     className="w-full mt-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:brightness-110 active:scale-95"
                   >
                     {answeredIndices.length > 0 ? "プロフィール設定を更新する" : "この設定で大喜利をはじめる！"}
@@ -2780,7 +2791,7 @@
                       type="text"
                       value={editPromoForm.title}
                       onChange={(e) => setEditPromoForm({ ...editPromoForm, title: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-base sm:text-xs"
                     />
                   </div>
 
@@ -2790,7 +2801,7 @@
                       type="text"
                       value={editPromoForm.hobby}
                       onChange={(e) => setEditPromoForm({ ...editPromoForm, hobby: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-base sm:text-xs"
                     />
                   </div>
 
@@ -2800,7 +2811,7 @@
                       rows={3}
                       value={editPromoForm.intro}
                       onChange={(e) => setEditPromoForm({ ...editPromoForm, intro: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white resize-none"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white text-base sm:text-xs resize-none"
                     ></textarea>
                   </div>
 
@@ -2811,7 +2822,7 @@
                       value={editPromoForm.link}
                       onChange={(e) => setEditPromoForm({ ...editPromoForm, link: e.target.value })}
                       placeholder="https://..."
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-base sm:text-xs"
                     />
                   </div>
 

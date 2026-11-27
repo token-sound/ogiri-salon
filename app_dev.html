@@ -488,12 +488,22 @@
       }
     };
 
+    // 匿名バックアップキー生成（個人情報ゼロ・英数字8文字）
+    const generateBackupKey = () => {
+      const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+      let s1 = '', s2 = '';
+      for (let i = 0; i < 4; i++) s1 += chars.charAt(Math.floor(Math.random() * chars.length));
+      for (let i = 0; i < 4; i++) s2 += chars.charAt(Math.floor(Math.random() * chars.length));
+      return `${s1}-${s2}`;
+    };
+
     function App() {
       // ユーザープロフィール
       const [profile, setProfile] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_profile');
         const parsed = saved ? JSON.parse(saved) : null;
         return parsed || {
+          backupKey: generateBackupKey(), // 個人情報ゼロの番号札キー
           realName: 'サロンの仲間A',
           fakeName: '覆面の刺客',
           avatar: '🦊',
@@ -704,6 +714,55 @@
         }
       }, []);
 
+      // 🔑 個人情報ゼロの番号札（バックアップキー）同期＆URL反映
+      useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const urlKey = params.get('key') || params.get('u');
+
+        // URLにキーがあり、ローカルストレージが消失している場合は自動復元
+        if (urlKey && (!profile.isRegistered || profile.backupKey !== urlKey)) {
+          const savedBackup = localStorage.getItem('ogiri_backup_' + urlKey);
+          if (savedBackup) {
+            try {
+              const restored = JSON.parse(savedBackup);
+              setProfile(restored);
+              localStorage.setItem('ogiri_salon_profile', JSON.stringify(restored));
+            } catch (e) {}
+          }
+        }
+
+        // 現在のキーをバックアップ保存＆URLクエリにそっと保持（ホーム画面追加・ブックマーク用）
+        if (profile.backupKey) {
+          localStorage.setItem('ogiri_backup_' + profile.backupKey, JSON.stringify(profile));
+          if (!params.get('key') && !params.get('u')) {
+            params.set('key', profile.backupKey);
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, '', newUrl);
+          }
+        }
+      }, [profile]);
+
+      // ⏰ 1日のタイムスケジュール判定（10:00〜22:00: 投稿＆投票 / 22:00〜翌10:00: 前日分わっしょい鑑賞・投票タイム）
+      const currentHour = new Date().getHours();
+      const isNightVotingTime = currentHour >= 22 || currentHour < 10;
+
+      // 手動でのバックアップキー復元処理
+      const [manualRestoreInput, setManualRestoreInput] = useState('');
+      const handleRestoreKey = (keyString) => {
+        const k = keyString.trim().toUpperCase();
+        if (!k) return;
+        const backup = localStorage.getItem('ogiri_backup_' + k);
+        if (backup) {
+          const restored = JSON.parse(backup);
+          setProfile(restored);
+          localStorage.setItem('ogiri_salon_profile', JSON.stringify(restored));
+          alert(`🎉 復元成功！ ${restored.fakeName} さんのデータが復活しました！`);
+          setShowProfileModal(false);
+        } else {
+          alert('⚠️ 指定されたキーのセーブデータが見つかりませんでした。キーをご確認ください。');
+        }
+      };
+
       // デモデータのリセット（主さん確認用）
       const handleResetDemo = () => {
         if (confirm('デモデータを初期状態にリセットしますか？\n（過去の投稿やワッショイ履歴が初期化され、最初からテストできます）')) {
@@ -848,20 +907,42 @@
         }
       };
 
-      // わっしょい！投票処理
+      // わっしょい！投票処理（1ボケにつき最大5連打まで！）
       const handleYoisho = (answerId) => {
+        const target = answers.find(a => a.id === answerId);
+        if (!target) return;
+        const voterKey = profile.backupKey || 'user_self';
+        const myVotes = (target.voters || []).filter(v => v === voterKey).length;
+
+        if (myVotes >= 5) {
+          setToastNotification({
+            icon: '🔥',
+            text: 'このボケには最大（5わっしょい）まで応援済みです！'
+          });
+          setTimeout(() => setToastNotification(null), 2500);
+          return;
+        }
+
         sound.playYoisho();
         if (window.confetti) {
-          window.confetti({ particleCount: 30, spread: 45, origin: { y: 0.7 } });
+          window.confetti({ particleCount: 25 + myVotes * 10, spread: 40 + myVotes * 10, origin: { y: 0.7 } });
         }
+
+        const nextVotes = myVotes + 1;
+        setToastNotification({
+          icon: nextVotes === 5 ? '👑' : '👏',
+          text: nextVotes === 5
+            ? '🔥 5わっしょい（最大）を送りました！'
+            : `👏 わっしょい！ (${nextVotes}/5連打) を送りました！`
+        });
+        setTimeout(() => setToastNotification(null), 2000);
 
         const updated = answers.map(a => {
           if (a.id === answerId) {
-            const hasVoted = a.voters.includes('user_self');
             return {
               ...a,
-              points: hasVoted ? a.points : a.points + 1,
-              voters: hasVoted ? a.voters : [...a.voters, 'user_self']
+              points: a.points + 1,
+              voters: [...(a.voters || []), voterKey]
             };
           }
           return a;
@@ -1216,6 +1297,9 @@
                     <p className="text-[11px] text-slate-300 leading-relaxed">
                       1日5問。お題は最初は隠されており、封筒を開けた瞬間にタイマー（110秒）がスタート！ネット検索やAIに頼る暇のない「リアルタイムの直感勝負」だから全員が対等に楽しめます。
                     </p>
+                    <p className="text-[10px] text-amber-300/90 font-medium">
+                      ⏰ 投稿タイム：毎日 朝10:00 〜 夜22:00
+                    </p>
                   </div>
 
                   {/* Step 2 */}
@@ -1237,14 +1321,17 @@
                   <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
                     <div className="flex items-center justify-between">
                       <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
-                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full border border-slate-700">見る専も大歓迎</span>
+                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full border border-slate-700">最大5連打OK</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">👏</span>
                       <h4 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！」投票</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      「みんなのボケ」タブで仲間の回答を見て、クスッと笑えたら「わっしょい！」を押してポイントをプレゼント！ボケるだけでなく、笑って応援するだけでもサロンを盛り上げられます。
+                      クスッと笑えたら「わっしょい！」を押してポイントをプレゼント！1つのボケに最大5回まで連打できます。
+                    </p>
+                    <p className="text-[10px] text-indigo-300/90 font-medium">
+                      🌙 夜22:00〜翌朝10:00は寝る前の「前日分わっしょい鑑賞タイム」！
                     </p>
                   </div>
 
@@ -1572,6 +1659,26 @@
                 </button>
               </div>
 
+              {/* 夜間投票タイム案内（22:00〜翌10:00） */}
+              {isNightVotingTime && (
+                <div className="bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-slate-900 border border-purple-500/50 rounded-2xl p-3.5 shadow-lg flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-2xl shrink-0">🌙</span>
+                    <div className="min-w-0">
+                      <span className="font-bold text-amber-300 block text-xs">夜〜朝のわっしょいタイム中（22:00〜10:00）</span>
+                      <p className="text-[11px] text-slate-300 truncate mt-0.5">出揃った前日のボケを読んで「わっしょい！」を押そう！</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setTab('answers')}
+                    className="shrink-0 bg-gradient-to-r from-amber-500 to-amber-600 hover:brightness-110 active:scale-95 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs shadow-md transition"
+                  >
+                    ボケを見に行く &rarr;
+                  </button>
+                </div>
+              )}
+
               {/* ガイドバナー */}
               <div className="bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-500/30 rounded-xl p-3 text-xs text-indigo-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -1773,19 +1880,28 @@
           {/* ================= TAB 2: みんなのボケ＆わっしょい！ ================= */}
           {tab === 'answers' && (
             <div className="space-y-4 flex-1">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <span className="text-lg">👏</span>
-                  <span>面白いボケに<b>「わっしょい！」</b>を押して応援！</span>
-                </span>
-                <span className="text-amber-400 text-[11px] font-bold">誰のボケかは仮名で非公開</span>
+              {/* タイムテーブル＆投票案内バナー */}
+              <div className="bg-gradient-to-r from-slate-900 via-indigo-950/70 to-slate-900 border border-indigo-500/30 rounded-2xl p-3 text-xs text-slate-300 space-y-1.5 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-amber-300 flex items-center gap-1.5">
+                    <span>👏</span> 仲間のボケに「わっしょい！」投票しよう
+                  </span>
+                  <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
+                    1ボケ最大5連打OK！
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-normal">
+                  ⏰ <b>毎日朝10:00〜夜22:00</b>が投稿タイム！<b>夜22:00〜翌朝10:00</b>は出揃ったボケをじっくり鑑賞する「前日分わっしょい投票タイム」です。
+                </p>
               </div>
 
               {/* 回答一覧 */}
               <div className="space-y-3">
                 {answers.map(ans => {
                   const topic = TODAY_TOPICS.find(t => t.id === ans.topicId);
-                  const hasVoted = ans.voters.includes('user_self');
+                  const myKey = profile.backupKey || 'user_self';
+                  const myVotes = (ans.voters || []).filter(v => v === myKey).length;
+                  const isMax = myVotes >= 5;
 
                   return (
                     <div
@@ -1827,20 +1943,27 @@
                           </div>
                         </div>
 
-                        {/* わっしょいボタン */}
+                        {/* わっしょいボタン (1ボケ最大5連打まで) */}
                         <button
                           onClick={() => handleYoisho(ans.id)}
                           className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition active:scale-95 shadow-sm ${
-                            hasVoted
-                              ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                            isMax
+                              ? 'bg-amber-500/25 text-amber-300 border border-amber-400/60 shadow-inner'
+                              : myVotes > 0
+                              ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25'
                               : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
                           }`}
                         >
-                          <span>👏</span>
-                          <span>わっしょい!</span>
-                          <span className="bg-slate-950/50 px-1.5 py-0.2 rounded-full font-mono text-[11px] text-amber-300">
+                          <span>{isMax ? '🔥' : '👏'}</span>
+                          <span>{isMax ? 'わっしょいMAX!' : 'わっしょい!'}</span>
+                          <span className="bg-slate-950/60 px-1.5 py-0.2 rounded-full font-mono text-[11px] text-amber-300">
                             {ans.points}
                           </span>
+                          {myVotes > 0 && (
+                            <span className="text-[10px] text-amber-400/80 font-mono">
+                              ({myVotes}/5)
+                            </span>
+                          )}
                         </button>
                       </div>
                     </div>
@@ -2295,6 +2418,21 @@
                     </button>
                   </div>
 
+                  {/* 🔑 個人情報ゼロの番号札（復元キー表示） */}
+                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3 space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-400 flex items-center gap-1 font-bold">
+                        <span>🔑</span> あなたの復元キー
+                      </span>
+                      <span className="font-mono font-bold text-amber-300 bg-slate-900 border border-slate-700 px-2.5 py-0.5 rounded-lg select-all">
+                        {profile.backupKey || '未発行'}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 leading-normal">
+                      ※このURLをブックマークやホーム画面に追加しておくと、スマホをお掃除しても自動で復元されます。
+                    </p>
+                  </div>
+
                   {/* 個人情報ゼロ・安心注記（P2P/端末完結・下部に小さく配置） */}
                   <div className="pt-2 border-t border-slate-800/60 text-center">
                     <div className="inline-flex items-center gap-1 text-[10px] text-emerald-400/90 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-1 rounded-full">
@@ -2438,11 +2576,14 @@
                   <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
-                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！👏」と投票</h5>
+                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！👏」と投票（最大5連打OK）</h5>
                     </div>
-                    <p className="text-slate-400 pl-8 text-[11px]">
-                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「わっしょい！」を押してポイントをプレゼントしましょう！
+                    <p className="text-slate-400 pl-8 text-[11px] leading-relaxed">
+                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「わっしょい！」を押して応援しましょう！1つのボケにつき最大5回まで連打できます。
                     </p>
+                    <div className="ml-8 mt-1 p-2 rounded-xl bg-indigo-950/40 border border-indigo-500/30 text-[10px] text-indigo-200">
+                      ⏰ <b>1日のタイムスケジュール</b>：朝10:00〜夜22:00がボケ投稿タイム。夜22:00〜翌朝10:00は出揃ったボケをじっくり鑑賞する「前日分わっしょいタイム」です！
+                    </div>
                   </div>
 
                   {/* ルール4 */}

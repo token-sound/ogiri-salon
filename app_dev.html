@@ -492,14 +492,21 @@
       // ユーザープロフィール
       const [profile, setProfile] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_profile');
-        return saved ? JSON.parse(saved) : {
+        const parsed = saved ? JSON.parse(saved) : null;
+        return parsed || {
           realName: 'サロンの仲間A',
           fakeName: '覆面の刺客',
           avatar: '🦊',
           acceptMessages: true, // メッセージ受け取りの自由 (ON/OFF)
+          hobby: 'お笑い鑑賞・ボードゲーム',
+          intro: 'サロンのみんなでまるくゆるく楽しく笑い合いたいです！',
+          link: '',
           isRegistered: false
         };
       });
+
+      // トースト通知（ライブヨイショ受信や新着レター）
+      const [toastNotification, setToastNotification] = useState(null);
 
       // 届いた称賛レター（メッセージBOX）
       const [letters, setLetters] = useState(() => {
@@ -746,6 +753,39 @@
           window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         }
 
+        // 🤖 他のAI仲間たちからリアルタイムにヨイショが届くライブ演出！
+        const aiFans = [
+          { name: 'ヒロシ@珈琲屋', avatar: '🐼' },
+          { name: 'ユウキ@Web制作', avatar: '🦉' },
+          { name: 'さくらんぼ', avatar: '🦝' },
+          { name: 'マスターT', avatar: '👺' },
+          { name: 'のんちゃん', avatar: '🐱' }
+        ];
+        [1500, 3200, 5200].forEach((delay, i) => {
+          const fan = aiFans[i % aiFans.length];
+          setTimeout(() => {
+            sound.playYoisho();
+            if (window.confetti) {
+              window.confetti({ particleCount: 25, spread: 45, origin: { y: 0.7 } });
+            }
+            setAnswers(prev => prev.map(a => {
+              if (a.id === newAnswer.id) {
+                return {
+                  ...a,
+                  points: a.points + 1,
+                  voters: [...a.voters, `fan_${i}`]
+                };
+              }
+              return a;
+            }));
+            setToastNotification({
+              icon: '👏',
+              text: `${fan.avatar} ${fan.name} から「よいしょ！」が届きました！(+1P)`
+            });
+            setTimeout(() => setToastNotification(null), 2500);
+          }, delay);
+        });
+
         // 開封状態を終了
         setOpenedIndex(null);
         setCurrentInput('');
@@ -800,6 +840,23 @@
           if (window.confetti) {
             window.confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
           }
+          // 主宛てに仲間から新しい称賛レターが届く演出！
+          setTimeout(() => {
+            const letterFromSakuranbo = {
+              id: 'let_sakura_' + Date.now(),
+              fromReal: 'さくらんぼ',
+              fromFake: '仮面タヌキ',
+              avatar: '🦝',
+              text: '主さん！1ヶ月間大喜利めちゃくちゃ楽しかったです！主さんのボケで一番笑いましたw 次回もぜひやってください！',
+              date: 'たった今'
+            };
+            setLetters(prev => [letterFromSakuranbo, ...prev]);
+            setToastNotification({
+              icon: '📬',
+              text: 'さくらんぼさんからあなた宛てに称賛レターが届きました！'
+            });
+            setTimeout(() => setToastNotification(null), 3500);
+          }, 1200);
         }
       };
 
@@ -897,17 +954,30 @@
       const timerColor = timeLeft > 40 ? 'bg-emerald-500' : timeLeft > 15 ? 'bg-amber-500' : 'bg-rose-500 animate-pulse';
 
       return (
-        <div className="flex-1 flex flex-col py-4 w-full">
+        <div className="flex-1 flex flex-col py-4 w-full relative">
+          {/* 🔔 ライブトースト通知 */}
+          {toastNotification && (
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-amber-400/80 text-amber-300 px-4 py-2 rounded-full shadow-2xl flex items-center gap-2 text-xs font-bold animate-bounce">
+              <span className="text-base">{toastNotification.icon}</span>
+              <span>{toastNotification.text}</span>
+            </div>
+          )}
+
           {/* ヘッダー */}
           <header className="flex items-center justify-between py-3 border-b border-slate-800 mb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🎭</span>
+            {/* ロゴ・タイトル（クリックでいつでもトップに戻る！） */}
+            <div
+              onClick={() => setTab('today')}
+              className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition group select-none"
+              title="トップページ（今日の5問）に戻る"
+            >
+              <span className="text-2xl group-hover:scale-110 transition-transform">🎭</span>
               <div>
                 <h1 className="text-lg font-bold font-pop text-amber-400 tracking-wide flex items-center gap-1.5">
                   サロン大喜利
                   <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">仲間内編</span>
                 </h1>
-                <p className="text-xs text-slate-400">仮名でボケて1ヶ月後に正体明かし！</p>
+                <p className="text-xs text-slate-400 group-hover:text-slate-300 transition">仮名でボケて1ヶ月後に正体明かし！</p>
               </div>
             </div>
 
@@ -1720,7 +1790,7 @@
           {/* ================= モーダル：プロフィール設定 ================= */}
           {showProfileModal && (
             <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 w-full max-w-sm shadow-2xl">
+              <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 w-full max-w-sm max-h-[90vh] overflow-y-auto shadow-2xl">
                 <div className="text-center mb-5">
                   <span className="text-3xl">🎭</span>
                   <h3 className="text-lg font-bold text-amber-400 font-pop mt-2">メンバー登録・設定</h3>
@@ -1797,6 +1867,51 @@
                       />
                       <div className="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
+                  </div>
+
+                  {/* 👑 上位入賞＆メッセージ交換用 お披露目プロフィール登録欄 */}
+                  <div className="bg-gradient-to-br from-slate-950 to-indigo-950/40 border border-amber-500/30 rounded-2xl p-3.5 space-y-3">
+                    <div>
+                      <span className="font-bold text-amber-300 block text-xs flex items-center gap-1.5 font-pop">
+                        <span>👑</span> お披露目プロフィール（自己紹介・宣伝）
+                      </span>
+                      <span className="text-[10px] text-slate-400 block mt-0.5 leading-normal">
+                        ※1ヶ月後にベスト3に入った時や、ヨイショした仲間とメッセージ交換する際に公開されます
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-slate-300 font-bold mb-1 text-[11px]">好きなこと・趣味・活動</label>
+                      <input
+                        type="text"
+                        value={profile.hobby || ''}
+                        onChange={(e) => setProfile({ ...profile, hobby: e.target.value })}
+                        placeholder="例: ボードゲーム、サウナ、Web制作、料理など"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-slate-300 font-bold mb-1 text-[11px]">自己紹介・サロン仲間への一言</label>
+                      <textarea
+                        rows={2}
+                        value={profile.intro || ''}
+                        onChange={(e) => setProfile({ ...profile, intro: e.target.value })}
+                        placeholder="例: サロンのみんなとまるくゆるく楽しく笑い合いたいです！気軽に絡んでください〜！"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                      ></textarea>
+                    </div>
+
+                    <div>
+                      <label className="block text-slate-300 font-bold mb-1 text-[11px]">宣伝・活動リンク（任意）</label>
+                      <input
+                        type="url"
+                        value={profile.link || ''}
+                        onChange={(e) => setProfile({ ...profile, link: e.target.value })}
+                        placeholder="例: https://twitter.com/... や note、作品リンク"
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
                   </div>
 
                   <button

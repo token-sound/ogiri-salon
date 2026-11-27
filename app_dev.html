@@ -2407,6 +2407,15 @@
                     {answeredIndices.length > 0 ? "プロフィール設定を更新する" : "この設定で大喜利をはじめる！"}
                   </button>
 
+                  {/* トップページにもどるボタン */}
+                  <button
+                    type="button"
+                    onClick={() => setShowProfileModal(false)}
+                    className="w-full py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+                  >
+                    トップページにもどる
+                  </button>
+
                   {/* 遊び方への導線 */}
                   <div className="text-center pt-2">
                     <button
@@ -2416,21 +2425,6 @@
                     >
                       <span>❓</span> 詳しい遊び方・ルールを見る
                     </button>
-                  </div>
-
-                  {/* 🔑 個人情報ゼロの番号札（復元キー表示） */}
-                  <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3 space-y-2">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400 flex items-center gap-1 font-bold">
-                        <span>🔑</span> あなたの復元キー
-                      </span>
-                      <span className="font-mono font-bold text-amber-300 bg-slate-900 border border-slate-700 px-2.5 py-0.5 rounded-lg select-all">
-                        {profile.backupKey || '未発行'}
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-slate-500 leading-normal">
-                      ※このURLをブックマークやホーム画面に追加しておくと、スマホをお掃除しても自動で復元されます。
-                    </p>
                   </div>
 
                   {/* 個人情報ゼロ・安心注記（P2P/端末完結・下部に小さく配置） */}

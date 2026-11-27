@@ -203,7 +203,7 @@
         osc.start(now);
         osc.stop(now + 0.4);
       }
-      // よいしょ！ (ピコーン拍手風)
+      // わっしょい！ (ピコーン拍手風)
       playYoisho() {
         this.init();
         if (!this.ctx) return;
@@ -505,7 +505,7 @@
         };
       });
 
-      // トースト通知（ライブヨイショ受信や新着レター）
+      // トースト通知（ライブワッショイ受信や新着レター）
       const [toastNotification, setToastNotification] = useState(null);
 
       // 届いた称賛レター（メッセージBOX）
@@ -525,7 +525,7 @@
             fromReal: 'マスターT',
             fromFake: '路地裏の浪人',
             avatar: '👺',
-            text: 'ヨイショいただき感謝です！今度サロンで自作ボドゲ会やりましょう！',
+            text: 'ワッショイいただき感謝です！今度サロンで自作ボドゲ会やりましょう！',
             date: '11/26 19:40'
           }
         ];
@@ -538,7 +538,7 @@
       const [sendingTarget, setSendingTarget] = useState(null);
       const [letterInput, setLetterInput] = useState('');
 
-      // 表示タブ: 'today' (今日の5問), 'answers' (みんなのボケ＆よいしょ), 'ranking' (月間集計＆アンヴェイル)
+      // 表示タブ: 'today' (今日の5問), 'answers' (みんなのボケ＆わっしょい), 'ranking' (月間集計＆アンヴェイル)
       const [tab, setTab] = useState('today');
 
       // 封筒開封＆タイマー状態
@@ -666,7 +666,7 @@
 
       // デモデータのリセット（主さん確認用）
       const handleResetDemo = () => {
-        if (confirm('デモデータを初期状態にリセットしますか？\n（過去の投稿やヨイショ履歴が初期化され、最初からテストできます）')) {
+        if (confirm('デモデータを初期状態にリセットしますか？\n（過去の投稿やワッショイ履歴が初期化され、最初からテストできます）')) {
           localStorage.clear();
           location.reload();
         }
@@ -753,7 +753,7 @@
           window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         }
 
-        // 🤖 他のAI仲間たちからリアルタイムにヨイショが届くライブ演出！
+        // 🤖 他のAI仲間たちからリアルタイムにワッショイが届くライブ演出！
         const aiFans = [
           { name: 'ヒロシ@珈琲屋', avatar: '🐼' },
           { name: 'ユウキ@Web制作', avatar: '🦉' },
@@ -780,7 +780,7 @@
             }));
             setToastNotification({
               icon: '👏',
-              text: `${fan.avatar} ${fan.name} から「よいしょ！」が届きました！(+1P)`
+              text: `${fan.avatar} ${fan.name} から「わっしょい！」が届きました！(+1P)`
             });
             setTimeout(() => setToastNotification(null), 2500);
           }, delay);
@@ -808,7 +808,7 @@
         }
       };
 
-      // よいしょ！投票処理
+      // わっしょい！投票処理
       const handleYoisho = (answerId) => {
         sound.playYoisho();
         if (window.confetti) {
@@ -907,7 +907,7 @@
         setLetterInput('');
       };
 
-      // 自分が今月ヨイショした仲間たち一覧
+      // 自分が今月ワッショイした仲間たち一覧
       const yoishoedList = useMemo(() => {
         const map = {};
         answers.forEach(a => {
@@ -1485,7 +1485,7 @@
                   <span className="text-3xl">🎉</span>
                   <h3 className="font-bold text-amber-300 font-pop mt-2">本日の5問コンプリート！</h3>
                   <p className="text-xs text-slate-300 mt-1">
-                    お疲れ様でした！仲間のボケ一覧を見に行って「よいしょ！👏」と投票して盛り上がりましょう！
+                    お疲れ様でした！仲間のボケ一覧を見に行って「わっしょい！👏」と投票して盛り上がりましょう！
                   </p>
                   <button
                     onClick={() => setTab('answers')}
@@ -1498,13 +1498,13 @@
             </div>
           )}
 
-          {/* ================= TAB 2: みんなのボケ＆よいしょ！ ================= */}
+          {/* ================= TAB 2: みんなのボケ＆わっしょい！ ================= */}
           {tab === 'answers' && (
             <div className="space-y-4 flex-1">
               <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
                   <span className="text-lg">👏</span>
-                  <span>面白いボケに<b>「よいしょ！」</b>を押して応援！</span>
+                  <span>面白いボケに<b>「わっしょい！」</b>を押して応援！</span>
                 </span>
                 <span className="text-amber-400 text-[11px] font-bold">誰のボケかは仮名で非公開</span>
               </div>
@@ -1535,7 +1535,7 @@
                         「{ans.text}」
                       </p>
 
-                      {/* フッター：投稿者（仮名）＆よいしょボタン */}
+                      {/* フッター：投稿者（仮名）＆わっしょいボタン */}
                       <div className="flex items-center justify-between pt-2 border-t border-slate-800/60">
                         {/* 投稿者表示（正体アンヴェイル状態なら本名も表示！） */}
                         <div className="flex items-center gap-2">
@@ -1555,7 +1555,7 @@
                           </div>
                         </div>
 
-                        {/* よいしょボタン */}
+                        {/* わっしょいボタン */}
                         <button
                           onClick={() => handleYoisho(ans.id)}
                           className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition active:scale-95 shadow-sm ${
@@ -1565,7 +1565,7 @@
                           }`}
                         >
                           <span>👏</span>
-                          <span>よいしょ!</span>
+                          <span>わっしょい!</span>
                           <span className="bg-slate-950/50 px-1.5 py-0.2 rounded-full font-mono text-[11px] text-amber-300">
                             {ans.points}
                           </span>
@@ -1679,12 +1679,12 @@
                 })}
               </div>
 
-              {/* あなたが今月ヨイショした仲間たち＆称賛レター */}
+              {/* あなたが今月ワッショイした仲間たち＆称賛レター */}
               <div className="space-y-3 pt-3 border-t border-slate-800">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-amber-300 flex items-center gap-1.5 font-pop">
                     <span className="text-lg">💌</span>
-                    あなたが今月ヨイショした仲間たち
+                    あなたが今月ワッショイした仲間たち
                   </h3>
                   <span className="text-[11px] text-slate-400">
                     {yoishoedList.length} 人のボケを称賛済
@@ -1694,14 +1694,14 @@
                 <p className="text-[11px] text-slate-400 leading-relaxed">
                   {isUnveiled
                     ? '正体が開示されました！あなたが笑わされた仲間のサロン本名が確認できます。感想や称賛メッセージを送ってみましょう！'
-                    : '※正体発表モードに切り替えると、あなたがヨイショした仲間のサロン本名が開示され、称賛メッセージを送れるようになります！'}
+                    : '※正体発表モードに切り替えると、あなたがワッショイした仲間のサロン本名が開示され、称賛メッセージを送れるようになります！'}
                 </p>
 
                 {/* リスト */}
                 <div className="space-y-2">
                   {yoishoedList.length === 0 ? (
                     <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-center text-xs text-slate-500">
-                      まだ誰のボケにもヨイショしていません。「みんなのボケ」タブで面白いボケにヨイショしてみましょう！
+                      まだ誰のボケにもワッショイしていません。「みんなのボケ」タブで面白いボケにワッショイしてみましょう！
                     </div>
                   ) : (
                     yoishoedList.map(member => (
@@ -1838,15 +1838,6 @@
                   <p className="text-xs text-slate-400 mt-1">サロン本名と、今回の大喜利用の仮名を設定してください</p>
                 </div>
 
-                {/* 個人情報ゼロ・安心バッジ */}
-                <div className="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-3 mb-4 text-emerald-200 text-[11px] leading-relaxed flex items-start gap-2">
-                  <span className="text-base shrink-0 mt-0.5">🔒</span>
-                  <div>
-                    <span className="font-bold text-emerald-400 block mb-0.5">個人情報の完全ゼロ設計</span>
-                    メールアドレスやパスワード等の個人情報は一切収集・保存しません。データはお使いの端末（ブラウザ）にのみ安全に保持され、外部サーバーに預けられることはありません。
-                  </div>
-                </div>
-
                 <div className="space-y-4 text-xs">
                   {/* サロン本名 */}
                   <div>
@@ -1926,7 +1917,7 @@
                     <div>
                       <span className="font-bold text-slate-200 block text-xs">💌 称賛メッセージの受付</span>
                       <span className="text-[10px] text-slate-400 block mt-0.5">
-                        ヨイショしてくれた仲間からの感想レターを受け取る
+                        ワッショイしてくれた仲間からの感想レターを受け取る
                       </span>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer shrink-0">
@@ -1947,19 +1938,8 @@
                         <span>👑</span> お披露目プロフィール（自己紹介・宣伝）
                       </span>
                       <span className="text-[10px] text-slate-400 block mt-0.5 leading-normal">
-                        ※1ヶ月後にベスト3に入った時や、ヨイショした仲間とメッセージ交換する際に公開されます
+                        ※1ヶ月後にベスト3に入った時や、ワッショイした仲間とメッセージ交換する際に公開されます
                       </span>
-                    </div>
-
-                    {/* いつでも何度でも書き直しできる安心案内 */}
-                    <div className="bg-amber-500/10 border border-amber-500/40 rounded-xl p-2.5 text-amber-200 text-[11px] leading-relaxed flex items-start gap-2">
-                      <span className="text-base shrink-0">💡</span>
-                      <div>
-                        <b className="text-amber-300">ここは大喜利最終日まで何回でも書き直すことができます！</b>
-                        <p className="text-slate-300 text-[10px] mt-0.5">
-                          何を書くか悩んで始められない方も大丈夫。まずは未記入やお試しで始めて、後からいつでも編集できます。
-                        </p>
-                      </div>
                     </div>
 
                     <div>
@@ -1994,6 +1974,14 @@
                         className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
                       />
                     </div>
+
+                    {/* いつでも何度でも書き直しできる安心案内（下部に小さく配置） */}
+                    <div className="bg-slate-900/80 border border-slate-800 rounded-xl px-2.5 py-1.5 text-slate-400 text-[10px] leading-relaxed flex items-center gap-1.5">
+                      <span className="text-amber-400 text-xs shrink-0">💡</span>
+                      <span>
+                        <b className="text-amber-300/90 font-normal">大喜利最終日まで何回でも書き直せます。</b>まずは未記入やお試しで始めても大丈夫です！
+                      </span>
+                    </div>
                   </div>
 
                   <button
@@ -2012,6 +2000,17 @@
                     >
                       <span>❓</span> 詳しい遊び方・ルールを見る
                     </button>
+                  </div>
+
+                  {/* 個人情報ゼロ・安心注記（P2P/端末完結・下部に小さく配置） */}
+                  <div className="pt-2 border-t border-slate-800/60 text-center">
+                    <div className="inline-flex items-center gap-1 text-[10px] text-emerald-400/90 bg-emerald-950/30 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                      <span>🔒</span>
+                      <span>個人情報ゼロ設計（端末完結 / P2P通信対応）</span>
+                    </div>
+                    <p className="text-[9px] text-slate-500 mt-1 leading-normal">
+                      メールアドレスやパスワード等は一切収集しません。データはお手元の端末にのみ安全に保持されます。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2146,10 +2145,10 @@
                   <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
-                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「よいしょ！👏」と投票</h5>
+                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！👏」と投票</h5>
                     </div>
                     <p className="text-slate-400 pl-8 text-[11px]">
-                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「よいしょ！」を押してポイントをプレゼントしましょう！
+                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「わっしょい！」を押してポイントをプレゼントしましょう！
                     </p>
                   </div>
 
@@ -2293,7 +2292,7 @@
                     <div className="text-center py-8 text-slate-500 space-y-2">
                       <span className="text-3xl block">💌</span>
                       <p className="text-xs">まだ届いたレターはありません</p>
-                      <p className="text-[11px] text-slate-600">あなたのボケにヨイショしてくれた仲間からメッセージが届きます！</p>
+                      <p className="text-[11px] text-slate-600">あなたのボケにワッショイしてくれた仲間からメッセージが届きます！</p>
                     </div>
                   ) : (
                     letters.map(letItem => (

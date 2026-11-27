@@ -359,187 +359,147 @@
     const TODAY_TOPICS = getTopicsForDay(1);
 
 
-    // サンプル仲間回答データ（サロンメンバー15名の個性豊かなボケ）
+    // サンプル仲間回答データ（盛り上げ役のAI仲間5名による回答）
     const INITIAL_ANSWERS = [
-      // --- お題1: ザックリワカール降臨（天の声） ---
+      // --- お題1: 悪の組織の幹部会議 ---
       {
         id: 'a1',
-        topicId: 'q1',
+        topicId: 'p1',
         fakeName: '月夜のパンダ',
         avatar: '🐼',
         realName: 'ヒロシ@珈琲屋',
-        text: '「ポテトチップスは……うすしお味が一番うまい……と天が仰せである」',
+        isAI: true,
+        text: '「悪の組織の幹部会議：『給湯室のマグカップ、使ったら各自で洗ってほしい』」',
         points: 14,
         voters: []
       },
       {
         id: 'a2',
-        topicId: 'q1',
-        fakeName: '鉄骨マッスル',
-        avatar: '👺',
-        realName: 'ケンジ@筋トレ部',
-        text: '「天からの声：『プロテインは水より牛乳で割った方が絶対うまい』」',
-        points: 11,
-        voters: []
-      },
-      {
-        id: 'a3',
-        topicId: 'q1',
-        fakeName: '宇宙ウサギ',
-        avatar: '👽',
-        realName: 'アヤネ@宇宙派',
-        text: '「天からの啓示：『今日こそ部屋のルンバのゴミを捨てなさい』」',
-        points: 9,
-        voters: []
-      },
-
-      // --- お題2: 世の支配者と愚民ども ---
-      {
-        id: 'a4',
-        topicId: 'q2',
+        topicId: 'p1',
         fakeName: '路地裏の浪人',
         avatar: '👺',
         realName: 'マスターT',
-        text: '「愚民ども！風呂上がりにアイスを一気に食うと、腹を壊すぞ！！」',
+        isAI: true,
+        text: '「首領からの一言：『今月の世界征服予算、電気代の高騰によりエアコンは28度設定とする』」',
         points: 16,
         voters: []
       },
+
+      // --- お題2: 桃太郎の給料制 ---
+      {
+        id: 'a3',
+        topicId: 'p20',
+        fakeName: '仮面タヌキ',
+        avatar: '🦝',
+        realName: 'さくらんぼ',
+        isAI: true,
+        text: '「キジが『鬼退治の残業代、固定残業に含まれてるの納得いかないんですけど』と労基に相談」',
+        points: 18,
+        voters: []
+      },
+      {
+        id: 'a4',
+        topicId: 'p20',
+        fakeName: '金曜日のフクロウ',
+        avatar: '🦉',
+        realName: 'ユウキ@Web制作',
+        isAI: true,
+        text: '「イヌが『福利厚生にドッグラン追加してくれないなら鬼ヶ島行きません』とストライキ」',
+        points: 12,
+        voters: []
+      },
+
+      // --- お題3: 理不尽すぎる校則 ---
       {
         id: 'a5',
-        topicId: 'q2',
-        fakeName: 'サイコロ侍',
-        avatar: '🎭',
-        realName: 'ダイスケ@ボドゲ狂',
-        text: '「愚民ども！カタンで鉄と麦を独占する奴は、私生活でも友達が少ないぞ！！」',
+        topicId: 'p39',
+        fakeName: '宵の明星',
+        avatar: '🐱',
+        realName: 'のんちゃん',
+        isAI: true,
+        text: '「『廊下を走る時は、必ず競歩のルール（片足が常に地面につくこと）を厳守すること』」',
         points: 15,
         voters: []
       },
       {
         id: 'a6',
-        topicId: 'q2',
-        fakeName: '迷い星',
-        avatar: '👽',
-        realName: 'カズキ@お得情報',
-        text: '「愚民ども、よく聞け！近所のスーパーの半額シールは19時40分に貼られるぞ！！」',
-        points: 8,
-        voters: []
-      },
-
-      // --- お題3: ザックリワカールの交信事故 ---
-      {
-        id: 'a7',
-        topicId: 'q3',
-        fakeName: '金曜日のフクロウ',
-        avatar: '🦉',
-        realName: 'ユウキ@Web制作',
-        text: '「ピンポーン！ヤマト運輸でーす！クール宅急便お届けに上がりましたー！」',
-        points: 18,
-        voters: []
-      },
-      {
-        id: 'a8',
-        topicId: 'q3',
-        fakeName: '宵の明星',
-        avatar: '🐱',
-        realName: 'のんちゃん',
-        text: '「『あんた！ご飯できたから早く降りてきなさい！』というリアルオカンの怒声」',
-        points: 13,
-        voters: []
-      },
-      {
-        id: 'a9',
-        topicId: 'q3',
-        fakeName: '謎の覆面DJ',
-        avatar: '🎭',
-        realName: 'シンゴ@音楽班',
-        text: '「天と交信したはずが、隣の家のテレビから流れる『徹子の部屋』のテーマ」',
-        points: 10,
-        voters: []
-      },
-
-      // --- お題4: 支配者の裏の顔（本音） ---
-      {
-        id: 'a10',
-        topicId: 'q4',
-        fakeName: '深夜の文豪',
-        avatar: '🦉',
-        realName: 'タカシ@ライター',
-        text: '「あかん…この被り物、息の湿気でメガネが真っ白になって台本1行も読めんかった…」',
-        points: 17,
-        voters: []
-      },
-      {
-        id: 'a11',
-        topicId: 'q4',
-        fakeName: '夕暮れタヌキ',
-        avatar: '🦝',
-        realName: 'リエ@お笑い推し',
-        text: '「（奥さんに向かって）『ウーバー頼んだから被り物脱ぐの手伝ってー！』」',
-        points: 12,
-        voters: []
-      },
-      {
-        id: 'a12',
-        topicId: 'q4',
-        fakeName: '京都のキツネ',
-        avatar: '🦊',
-        realName: 'みやび@京都',
-        text: '「支配者名乗ってるけど、実は今月まだ一度も確定申告のレシート整理してへんねん…」',
+        topicId: 'p39',
+        fakeName: '月夜のパンダ',
+        avatar: '🐼',
+        realName: 'ヒロシ@珈琲屋',
+        isAI: true,
+        text: '「『雨の日は、校長先生のテンションに合わせて傘の色を変えなければならない』」',
         points: 11,
         voters: []
       },
 
-      // --- お題5: サロン理念×風刺（裏規約） ---
+      // --- お題4: しゃっくり100回で地球停止 ---
       {
-        id: 'a13',
-        topicId: 'q5',
+        id: 'a7',
+        topicId: 'p58',
+        fakeName: '路地裏の浪人',
+        avatar: '👺',
+        realName: 'マスターT',
+        isAI: true,
+        text: '「しゃっくりが出た人を街で見かけると、見知らぬ通行人全員が全力で変顔をして驚かせにかかる」',
+        points: 17,
+        voters: []
+      },
+      {
+        id: 'a8',
+        topicId: 'p58',
         fakeName: '仮面タヌキ',
         avatar: '🦝',
         realName: 'さくらんぼ',
-        text: '「【第1条】主がスベった時は、いかなる場合も秒でスタンプを3個以上連打すること。」',
-        points: 19,
+        isAI: true,
+        text: '「99回出た瞬間に、政府から『息を止めて飲む用の特製ぬるま湯』がドローンで緊急空輸される」',
+        points: 13,
+        voters: []
+      },
+
+      // --- お題5: コンビニ店員が急に正座 ---
+      {
+        id: 'a9',
+        topicId: 'p77',
+        fakeName: '金曜日のフクロウ',
+        avatar: '🦉',
+        realName: 'ユウキ@Web制作',
+        isAI: true,
+        text: '「ツナマヨを置いた瞬間、手首のスマートウォッチから『心拍数が危険域です』と警告音が鳴った」',
+        points: 16,
         voters: []
       },
       {
-        id: 'a14',
-        topicId: 'q5',
-        fakeName: 'ひだまり猫',
+        id: 'a10',
+        topicId: 'p77',
+        fakeName: '宵の明星',
         avatar: '🐱',
-        realName: 'まゆみん',
-        text: '「【第2条】主が『今夜21時、重大発表があります』と言う時は大体カメラ買った報告。」',
+        realName: 'のんちゃん',
+        isAI: true,
+        text: '「『大変申し上げにくいのですが…このシャケ、中身が全部昆布です』という重大な懺悔」',
         points: 14,
-        voters: []
-      },
-      {
-        id: 'a15',
-        topicId: 'q5',
-        fakeName: '疾風の忍者',
-        avatar: '🦊',
-        realName: 'トモヤ@副業部',
-        text: '「【第3条】ゆるく繋がると謳っているが、毎朝の挨拶スタンプを欠かすと主が寂しがる。」',
-        points: 10,
         voters: []
       }
     ];
 
-    // 上位リワード初期データ（15名の中からトップ3）
+    // 上位リワード初期データ（AI仲間5名の中からトップ3）
     const INITIAL_TOP3_PROMOS = {
       rank1: {
-        title: '🍒 【第1位】さくらんぼのイラスト工房',
+        title: '🍒 【第1位】さくらんぼ（AI）のイラスト工房',
         hobby: 'iPadお絵描き・カフェ巡り',
-        intro: '主の裏規約ネタで1位獲れて嬉しいですw！ゆるいアイコン描いてるのでいつでも声かけてください！',
+        intro: '桃太郎ネタで1位獲れて嬉しいですw！ゆるいアイコン描いてるのでいつでも声かけてください！（※AI）',
         link: 'https://twitter.com'
       },
       rank2: {
-        title: '🦉 【第2位】ユウキのWeb相談室',
-        hobby: 'Web制作・ガジェット収集',
-        intro: '交信中のヤマト便ネタが刺さって光栄です！サロンメンバーのHP相談いつでも乗ります！',
+        title: '👺 【第2位】マスターT（AI）の秘密基地',
+        hobby: 'ボードゲーム収集＆自作キーボード',
+        intro: '世界征服のエアコンネタが刺さって光栄だ！サロンみんなで楽しもう！（※AI）',
         link: 'https://twitter.com'
       },
       rank3: {
-        title: '👺 【第3位】マスターTの秘密基地',
-        hobby: 'ボードゲーム収集＆自作キーボード',
-        intro: '風呂上がりのアイスは本当に危険です。今度サロン内で自作ボドゲ会やりましょう！',
+        title: '🦉 【第3位】ユウキ（AI）のWeb相談室',
+        hobby: 'Web制作・ガジェット収集',
+        intro: 'ツナマヨネタを読んでくださり感謝！サロンを盛り上げられて最高です！（※AI）',
         link: 'https://twitter.com'
       }
     };
@@ -805,7 +765,7 @@
       const timerRef = useRef(null);
 
       // 初回未登録ならプロフィール設定を開く & データクリーンアップ
-      const DATA_VERSION = 'v6_topics_111_chestnut';
+      const DATA_VERSION = 'v7_ai_5members';
       useEffect(() => {
         const currentVer = localStorage.getItem('ogiri_salon_version');
         if (currentVer !== DATA_VERSION) {
@@ -1073,18 +1033,21 @@
           // 主宛てに仲間から新しいわっしょいレターが届く演出！
           setTimeout(() => {
             const letterFromSakuranbo = {
-              id: 'let_sakura_' + Date.now(),
+              id: 'let_ai_sakura_' + Date.now(),
               fromReal: 'さくらんぼ',
               fromFake: '仮面タヌキ',
               avatar: '🦝',
-              text: '主さん！1ヶ月間大喜利めちゃくちゃ楽しかったです！主さんのボケで一番笑いましたw 次回もぜひやってください！',
+              isAI: true,
+              text: '主さん！1ヶ月間サロン大喜利ありがとうございました！主さんのボケで一番笑いましたw 次回もぜひやってください！（※実は盛り上げ役のAIでした🤖♪）',
               date: 'たった今',
-              isRead: false
+              isRead: false,
+              isReply: false,
+              hasReplied: false
             };
             setLetters(prev => [letterFromSakuranbo, ...prev]);
             setToastNotification({
-              icon: '📬',
-              text: 'さくらんぼさんからあなた宛てにわっしょいレターが届きました！'
+              icon: '🤖',
+              text: 'さくらんぼ(AI)からあなた宛てにわっしょいレターが届きました！'
             });
             setTimeout(() => setToastNotification(null), 3500);
           }, 1200);
@@ -1121,21 +1084,29 @@
         const targetName = sendingTarget.realName;
         alert(`💌 ${targetName} さんへわっしょいレター（${periodLabel}）を届けました！`);
 
-        // デモ用：相手から受け取った側としての疑似レター生成
-        const demoReply = {
-          id: 'let_' + Date.now(),
-          fromReal: targetName,
-          fromFake: sendingTarget.fakeName,
-          avatar: sendingTarget.avatar,
-          text: selectedPraiseTemplate.text,
-          date: 'たった今',
-          isReply: false,
-          hasReplied: false,
-          isRead: false
-        };
-        const updatedLetters = [demoReply, ...letters];
-        setLetters(updatedLetters);
-        localStorage.setItem('ogiri_salon_letters', JSON.stringify(updatedLetters));
+        // AI仲間相手の場合、定型文で温かい自動御礼レターが届く演出
+        if (sendingTarget.isAI) {
+          setTimeout(() => {
+            const aiReplyLetter = {
+              id: 'let_ai_reply_' + Date.now(),
+              fromReal: targetName,
+              fromFake: sendingTarget.fakeName,
+              avatar: sendingTarget.avatar,
+              isAI: true,
+              text: `【AIからの御礼】わっしょいレターありがとうございます！あなたのセンスあふれるボケに心から拍手です👏 サロンを一緒に盛り上げてくれて本当に感謝です✨`,
+              date: 'たった今',
+              isReply: true,
+              hasReplied: false,
+              isRead: false
+            };
+            setLetters(prev => [aiReplyLetter, ...prev]);
+            setToastNotification({
+              icon: '🤖',
+              text: `${targetName}(AI)から御礼のわっしょいレターが届きました！`
+            });
+            setTimeout(() => setToastNotification(null), 3500);
+          }, 1500);
+        }
 
         setSendingTarget(null);
         setSelectedPraiseTemplate(null);
@@ -1170,13 +1141,12 @@
         answers.forEach(a => {
           if (a.voters && a.voters.includes('user_self') && a.realName !== profile.realName) {
             if (!map[a.realName]) {
-              // 15名中、タカシさんとリエさんのみ「交流お休み中」テスト、他13名は「レター受付中」
-              const isQuiet = a.realName.includes('タカシ') || a.realName.includes('リエ');
               map[a.realName] = {
                 realName: a.realName,
                 fakeName: a.fakeName,
                 avatar: a.avatar,
-                acceptMessages: !isQuiet,
+                isAI: a.isAI || false,
+                acceptMessages: true,
                 answers: []
               };
             }
@@ -1196,6 +1166,7 @@
               realName: a.realName,
               fakeName: a.fakeName,
               avatar: a.avatar,
+              isAI: a.isAI || false,
               totalPoints: 0,
               bestAnswer: a.text,
               count: 0
@@ -2350,11 +2321,17 @@
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5 flex-wrap">
                               {isUnveiled ? (
-                                <span className="font-bold text-xs text-purple-300">
-                                  {member.realName}
-                                  <span className="text-[10px] text-slate-400 font-normal ml-1">
+                                <span className="font-bold text-xs text-purple-300 flex items-center gap-1 flex-wrap">
+                                  <span>{member.realName}</span>
+                                  <span className="text-[10px] text-slate-400 font-normal">
                                     (仮名: {member.fakeName})
                                   </span>
+                                  {member.isAI && (
+                                    <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] px-1.5 py-0.2 rounded-full font-bold inline-flex items-center gap-0.5">
+                                      <span>🤖</span>
+                                      <span>AI</span>
+                                    </span>
+                                  )}
                                 </span>
                               ) : (
                                 <span className="font-bold text-xs text-amber-300">
@@ -2425,11 +2402,17 @@
                         <div>
                           <div className="flex items-center gap-1.5">
                             {isUnveiled ? (
-                              <span className="font-bold text-sm text-purple-300">
-                                {item.realName}
-                                <span className="text-xs text-slate-400 font-normal ml-1">
+                              <span className="font-bold text-sm text-purple-300 flex items-center gap-1 flex-wrap">
+                                <span>{item.realName}</span>
+                                <span className="text-xs text-slate-400 font-normal">
                                   ({item.fakeName})
                                 </span>
+                                {item.isAI && (
+                                  <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] px-1.5 py-0.2 rounded-full font-bold inline-flex items-center gap-0.5">
+                                    <span>🤖</span>
+                                    <span>AI</span>
+                                  </span>
+                                )}
                               </span>
                             ) : (
                               <span className="font-bold text-sm text-amber-300">
@@ -3064,8 +3047,16 @@
                           <div className="flex items-center gap-2">
                             <span className="text-xl">{letItem.avatar}</span>
                             <div>
-                              <span className="font-bold text-slate-200">{letItem.fromReal}</span>
-                              <span className="text-[10px] text-slate-400 ml-1">({letItem.fromFake})</span>
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="font-bold text-slate-200">{letItem.fromReal}</span>
+                                {letItem.isAI && (
+                                  <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] px-1.5 py-0.2 rounded-full font-bold inline-flex items-center gap-0.5">
+                                    <span>🤖</span>
+                                    <span>AI</span>
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-[10px] text-slate-400">({letItem.fromFake})</span>
                             </div>
                           </div>
                           <span className="text-[10px] text-slate-500 font-mono">{letItem.date}</span>

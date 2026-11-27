@@ -574,10 +574,6 @@
       // トースト通知（ライブワッショイ受信や新着レター）
       const [toastNotification, setToastNotification] = useState(null);
 
-      // 開幕吹き出しの可愛らしい言葉（タップで切り替え可能）
-      const CUTE_TAGS = ['…勝手に！', '…しずかに', 'おもいつきで'];
-      const [cuteTagIndex, setCuteTagIndex] = useState(0);
-
       // 届いたわっしょいレター（メッセージBOX：初期状態は0件）
       const [letters, setLetters] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_letters');
@@ -1351,29 +1347,10 @@
                   <span>2026年 12月シーズン 第1弾</span>
                 </div>
 
-                <div className="space-y-1 pt-3">
+                <div className="space-y-1">
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-pop tracking-tight">
                     12/1<span className="text-sm font-normal text-slate-300 ml-1">(火) 10:00</span>
-                    <span className="relative inline-block ml-2">
-                      {/* 開幕の左上に可愛らしく配置されたポップアップ吹き出し（タップで言葉が変化） */}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          try {
-                            if (sound && sound.playYoisho) sound.playYoisho();
-                          } catch (err) {}
-                          setCuteTagIndex(prev => (prev + 1) % CUTE_TAGS.length);
-                        }}
-                        className="absolute -top-7 -left-8 sm:-left-10 whitespace-nowrap bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white text-[10.5px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full shadow-lg -rotate-12 animate-bounce cursor-pointer flex items-center gap-1 border border-white/40 select-none hover:scale-110 active:scale-95 transition z-10"
-                        title="タップで言葉が変わるよ♪"
-                      >
-                        <span>💭</span>
-                        <span>{CUTE_TAGS[cuteTagIndex]}</span>
-                        <span className="absolute -bottom-1 right-3 w-2 h-2 bg-pink-500 rotate-45"></span>
-                      </button>
-                      <span className="text-amber-400">開幕！</span>
-                    </span>
+                    <span className="text-amber-400 ml-2">開幕！</span>
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-300">
                     年内いっぱい（12/1 〜 12/31）仲間内で楽しむ大喜利バトル

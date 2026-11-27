@@ -589,6 +589,45 @@
       // 月間カレンダー展開フラグ (A+D融合)
       const [showCalendar, setShowCalendar] = useState(false);
 
+      // ================= 12/1 開幕カウントダウン＆モード判定 =================
+      // 12/1 00:00:00 JST 開幕
+      const targetLaunchDate = useMemo(() => new Date('2026-12-01T00:00:00+09:00'), []);
+
+      // テストモード判定: URLパラメータに ?test=true または ?demo=true があるか
+      const isTestMode = useMemo(() => {
+        return window.location.search.includes('test=true') || window.location.search.includes('demo=true');
+      }, []);
+
+      // リアルタイムカウントダウン計算
+      const [countdown, setCountdown] = useState(() => {
+        const diff = targetLaunchDate - new Date();
+        if (diff <= 0) return null;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        return { days, hours, minutes, seconds, diff };
+      });
+
+      useEffect(() => {
+        const timer = setInterval(() => {
+          const diff = targetLaunchDate - new Date();
+          if (diff <= 0) {
+            setCountdown(null);
+          } else {
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            setCountdown({ days, hours, minutes, seconds, diff });
+          }
+        }, 1000);
+        return () => clearInterval(timer);
+      }, [targetLaunchDate]);
+
+      // 12/1開幕前ティザー表示フラグ（テストモード時は通常ゲーム＋早送り画面を表示）
+      const isPreLaunch = !isTestMode && countdown !== null;
+
       // テスト・動作確認用の日付シミュレーター (1..30)
       const [simulatedDay, setSimulatedDay] = useState(() => {
         const saved = localStorage.getItem('ogiri_salon_sim_day');
@@ -659,7 +698,8 @@
           setAnswers(INITIAL_ANSWERS);
           setAnsweredIndices([]);
         }
-        if (!profile.isRegistered) {
+        // 開幕前のティザー期間中は自動ポップアップせずティザー画面を見せる
+        if (!isPreLaunch && !profile.isRegistered) {
           setShowProfileModal(true);
         }
       }, []);
@@ -963,6 +1003,25 @@
             </div>
           )}
 
+          {/* 🧪 テストモード案内バナー (?test=true 時のみ表示) */}
+          {isTestMode && (
+            <div className="bg-amber-500/20 border border-amber-500/50 rounded-2xl p-3 mb-4 text-xs text-amber-200 flex items-center justify-between shadow-lg">
+              <div className="flex items-center gap-2 font-bold">
+                <span className="text-base">🧪</span>
+                <div>
+                  <span>テスト動作確認モード中（早送りシミュレーター有効）</span>
+                  <p className="text-[10px] text-amber-300/80 font-normal">一般メンバー向けの12/1開幕直前画面を確認したい場合は右のリンクを押してください</p>
+                </div>
+              </div>
+              <a
+                href="?"
+                className="shrink-0 bg-amber-500/30 hover:bg-amber-500/50 border border-amber-500/50 text-amber-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-bold transition ml-2"
+              >
+                公開前画面を見る &rarr;
+              </a>
+            </div>
+          )}
+
           {/* ヘッダー */}
           <header className="flex items-center justify-between py-3 border-b border-slate-800 mb-4">
             {/* ロゴ・タイトル（未開封ならクリックで名前修正、回答後はトップ復帰） */}
@@ -974,7 +1033,7 @@
                 }
               }}
               className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition group select-none"
-              title={answeredIndices.length === 0 && openedIndex === null ? "クリックで名前やプロフィールを修正できます" : "トップページ（今日の5問）に戻る"}
+              title={answeredIndices.length === 0 && openedIndex === null ? "クリックで名前やプロフィールを修正できます" : "トップページに戻る"}
             >
               <span className="text-2xl group-hover:scale-110 transition-transform">🎭</span>
               <div>
@@ -982,7 +1041,11 @@
                   サロン大喜利
                   <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">仲間内編</span>
                 </h1>
-                {answeredIndices.length === 0 && openedIndex === null ? (
+                {isPreLaunch ? (
+                  <p className="text-[11px] text-indigo-300 font-bold flex items-center gap-1">
+                    <span>⏳</span> 12/1(火) 0:00 START！事前受付中
+                  </p>
+                ) : answeredIndices.length === 0 && openedIndex === null ? (
                   <p className="text-[11px] text-amber-300/90 group-hover:text-amber-200 transition flex items-center gap-1">
                     <span>✏️</span> 未開封ならクリックで名前修正OK！
                   </p>
@@ -1043,8 +1106,217 @@
             </div>
           </header>
 
-          {/* ================= A+D融合：月間カウントダウン＆開閉カレンダー ================= */}
-          <section className="mb-4 space-y-2">
+          {/* ================= 12/1 開幕直前ティザー＆事前エントリー＆解説画面 ================= */}
+          {isPreLaunch ? (
+            <div className="space-y-6 flex-1 pb-6">
+              {/* ヒーローカウントダウンカード */}
+              <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 border border-amber-500/40 rounded-3xl p-6 text-center shadow-2xl space-y-4">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-32 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="inline-flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                  <span>🔥</span>
+                  <span>2026年 12月シーズン 第1弾</span>
+                </div>
+
+                <div className="space-y-1">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-pop tracking-tight">
+                    12/1<span className="text-sm font-normal text-slate-300 ml-1">(火) 00:00</span>
+                    <span className="text-amber-400 ml-2">開幕！</span>
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-300">
+                    年内いっぱい（12/1 〜 12/31）仲間内で楽しむ大喜利バトル
+                  </p>
+                </div>
+
+                {/* 4連カウントダウンタイマー */}
+                <div className="grid grid-cols-4 gap-2 max-w-xs mx-auto pt-1 font-mono">
+                  <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 shadow-inner">
+                    <span className="text-xl sm:text-2xl font-bold text-amber-400 block">{countdown.days}</span>
+                    <span className="text-[10px] text-slate-400 block">日</span>
+                  </div>
+                  <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 shadow-inner">
+                    <span className="text-xl sm:text-2xl font-bold text-amber-400 block">{countdown.hours}</span>
+                    <span className="text-[10px] text-slate-400 block">時間</span>
+                  </div>
+                  <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 shadow-inner">
+                    <span className="text-xl sm:text-2xl font-bold text-amber-400 block">{countdown.minutes}</span>
+                    <span className="text-[10px] text-slate-400 block">分</span>
+                  </div>
+                  <div className="bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 shadow-inner">
+                    <span className="text-xl sm:text-2xl font-bold text-amber-400 block">{countdown.seconds}</span>
+                    <span className="text-[10px] text-slate-400 block">秒</span>
+                  </div>
+                </div>
+                <p className="text-[11px] text-amber-300/80 animate-pulse font-medium">
+                  ⏳ 12/1の0時になった瞬間、第1日目の封筒がオープンします！
+                </p>
+              </div>
+
+              {/* 事前エントリー状況カード */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">🎭</span>
+                    <div>
+                      <h3 className="font-bold text-slate-100 text-sm font-pop">あなたの事前エントリー状況</h3>
+                      <p className="text-[11px] text-slate-400">大喜利ネーム（仮名）と仮面を決めておこう！</p>
+                    </div>
+                  </div>
+                  <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold border ${
+                    profile.isRegistered
+                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                      : 'bg-amber-500/20 text-amber-300 border-amber-500/40 animate-pulse'
+                  }`}>
+                    {profile.isRegistered ? 'エントリー完了' : '未登録'}
+                  </span>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-2xl p-3.5 flex items-center justify-between gap-3 border border-slate-800">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-3xl shrink-0">{profile.avatar}</span>
+                    <div className="min-w-0">
+                      <p className="font-bold text-sm text-amber-300 truncate">{profile.fakeName}</p>
+                      <p className="text-[11px] text-slate-400 truncate">本名: {profile.realName}</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowProfileModal(true)}
+                    className="shrink-0 bg-gradient-to-r from-amber-500 to-amber-600 hover:brightness-110 active:scale-95 text-slate-950 font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-md transition"
+                  >
+                    {profile.isRegistered ? '✏️ 設定を変更' : 'エントリーする'}
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 leading-normal pl-1">
+                  ※自己紹介や好きなことの登録欄は、大喜利最終日まで何回でも書き直せます。まずは気楽に名前だけ決めておけばOKです！
+                </p>
+              </div>
+
+              {/* 【はじめての人へ】図解：サロン大喜利 3分まるわかりガイド */}
+              <div className="space-y-3">
+                <div className="text-center space-y-1">
+                  <h3 className="font-bold text-amber-400 text-base font-pop flex items-center justify-center gap-1.5">
+                    <span>📖</span> はじめてのサロン大喜利 3分ガイド
+                  </h3>
+                  <p className="text-xs text-slate-400">ルールはとてもシンプル！図解でわかる遊び方</p>
+                </div>
+
+                {/* 6つのわかりやすいステップカード */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* Step 1 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs">1</span>
+                      <span className="text-[10px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full border border-slate-700">完全初見・公平</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">💌</span>
+                      <h4 className="font-bold text-slate-100 text-xs">封筒を開けて1分50秒勝負！</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      1日5問。お題は最初は隠されており、封筒を開けた瞬間にタイマー（110秒）がスタート！ネット検索やAIに頼る暇のない「リアルタイムの直感勝負」だから全員が対等に楽しめます。
+                    </p>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-indigo-500 text-white font-bold flex items-center justify-center text-xs">2</span>
+                      <span className="text-[10px] bg-slate-800 text-indigo-300 px-2 py-0.5 rounded-full border border-slate-700">恥ずかしさゼロ</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">🎭</span>
+                      <h4 className="font-bold text-slate-100 text-xs">仮名＆仮面で完全匿名！</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      ボケる時は事前に決めた「仮名（マスク名）」で投稿。プレイ中は誰が書いたか完全シークレットなので、普段のキャラと違っても、盛大にスベっても誰にもバレません！
+                    </p>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
+                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full border border-slate-700">見る専も大歓迎</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">👏</span>
+                      <h4 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！」投票</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      「みんなのボケ」タブで仲間の回答を見て、クスッと笑えたら「わっしょい！」を押してポイントをプレゼント！ボケるだけでなく、笑って応援するだけでもサロンを盛り上げられます。
+                    </p>
+                  </div>
+
+                  {/* Step 4 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center text-xs">4</span>
+                      <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded-full border border-slate-700">最高のネタバラシ</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">🎊</span>
+                      <h4 className="font-bold text-slate-100 text-xs">月末（12/31）に正体一斉開示！</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      1ヶ月間、誰のボケか秘密のままポイントを蓄積。大晦日に全員のサロン本名が一斉アンヴェイル！「えっ！あの面白いボケ〇〇さんだったの！？」と最高の盛り上がりが待っています。
+                    </p>
+                  </div>
+
+                  {/* Step 5 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-xs">5</span>
+                      <span className="text-[10px] bg-slate-800 text-rose-300 px-2 py-0.5 rounded-full border border-slate-700">月間ベスト3</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">👑</span>
+                      <h4 className="font-bold text-slate-100 text-xs">上位3名に「好きなこと宣伝枠」！</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      ポイント上位3名には、アプリTOPの特設ステージで自分の好きなこと・自己紹介・活動リンク（SNSや自作作品など）を堂々とPRできる権利が贈呈されます！
+                    </p>
+                  </div>
+
+                  {/* Step 6 */}
+                  <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="w-6 h-6 rounded-full bg-teal-500 text-slate-950 font-bold flex items-center justify-center text-xs">6</span>
+                      <span className="text-[10px] bg-slate-800 text-teal-300 px-2 py-0.5 rounded-full border border-slate-700">温かい繋がり</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">💌</span>
+                      <h4 className="font-bold text-slate-100 text-xs">ワッショイした仲間へ感想レター</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      発表時には「自分がワッショイした仲間」のサロン本名が確認でき、称賛メッセージを送ることができます。（※受け取りたくない人はOFFにする拒否の自由もあります）
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* スマホにアプリ追加案内 */}
+              <div className="bg-gradient-to-r from-indigo-950/60 to-slate-900 border border-indigo-500/40 rounded-2xl p-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-2xl">📲</span>
+                  <div>
+                    <h4 className="font-bold text-xs text-indigo-200">スマホのホーム画面に追加しよう！</h4>
+                    <p className="text-[11px] text-slate-400">URLバーが消えて本物のアプリのように全画面で起動できます</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowInstallModal(true)}
+                  className="shrink-0 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow"
+                >
+                  手順を見る
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* ================= A+D融合：月間カウントダウン＆開閉カレンダー ================= */}
+              <section className="mb-4 space-y-2">
             {/* 日めくり付き進行バナー（クリックで開閉） */}
             <button
               onClick={() => setShowCalendar(!showCalendar)}
@@ -1816,16 +2088,37 @@
               </div>
             </div>
           )}
+        </>
+      )}
 
-          {/* ================= フッター（安心宣言・著作権） ================= */}
+          {/* ================= フッター（安心宣言・著作権・テストモード切替） ================= */}
           <footer className="mt-8 pt-4 pb-8 border-t border-slate-800/80 text-center space-y-2">
             <div className="inline-flex items-center gap-1.5 bg-slate-900/80 border border-emerald-500/30 rounded-full px-3 py-1 text-[11px] text-emerald-300">
               <span>🔒</span>
-              <span>個人情報を外部サーバーに預けない安心・安全設計</span>
+              <span>個人情報を外部サーバーに預けない安心設計（端末完結 / P2P通信対応）</span>
             </div>
             <p className="text-[10px] text-slate-500">
               サロン大喜利 仲間内編 &copy; 2026 token-sound. All rights reserved.
             </p>
+
+            {/* 主・運営用テスト切り替えリンク */}
+            <div className="pt-1">
+              {isTestMode ? (
+                <a
+                  href="?"
+                  className="text-[10px] text-amber-400 hover:text-amber-300 underline transition"
+                >
+                  [一般メンバー向け] 12/1開幕直前画面に戻る
+                </a>
+              ) : (
+                <a
+                  href="?test=true"
+                  className="text-[10px] text-slate-600 hover:text-slate-400 underline transition"
+                >
+                  [主・運営用] 🧪 動作確認シミュレーター（?test=true）を開く
+                </a>
+              )}
+            </div>
           </footer>
 
           {/* ================= モーダル：プロフィール設定 ================= */}

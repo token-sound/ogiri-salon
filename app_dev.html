@@ -571,6 +571,18 @@
         return saved ? JSON.parse(saved) : INITIAL_ANSWERS;
       });
 
+      // 自分だけの獲得わっしょい数計算（自分専用・全体順位は最終日まで秘密）
+      const myTotalVotes = useMemo(() => {
+        return answers
+          .filter(a => a.fakeName === profile.fakeName || a.realName === profile.realName)
+          .reduce((sum, a) => sum + (a.points || 0), 0);
+      }, [answers, profile]);
+
+      // ボケ一覧のランダムシャッフル表示（上部有利を排除・全員平等表示）
+      const shuffledAnswers = useMemo(() => {
+        return [...answers].sort(() => Math.random() - 0.5);
+      }, [answers, tab]);
+
       // 1ヶ月後の正体アンヴェイル（正体明かし）モードフラグ
       const [isUnveiled, setIsUnveiled] = useState(() => {
         return localStorage.getItem('ogiri_salon_unveiled') === 'true';
@@ -1288,7 +1300,7 @@
                   <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
                     <div className="flex items-center justify-between">
                       <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs">1</span>
-                      <span className="text-[10px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full border border-slate-700">完全初見・公平</span>
+                      <span className="text-[10px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full border border-slate-700">毎日10:00スタート</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">💌</span>
@@ -1298,7 +1310,7 @@
                       1日5問。お題は最初は隠されており、封筒を開けた瞬間にタイマー（110秒）がスタート！ネット検索やAIに頼る暇のない「リアルタイムの直感勝負」だから全員が対等に楽しめます。
                     </p>
                     <p className="text-[10px] text-amber-300/90 font-medium">
-                      ⏰ 投稿タイム：毎日 朝10:00 〜 夜22:00
+                      ⏰ 投稿受付：毎日 10:00 〜 22:00（昼の12時間）
                     </p>
                   </div>
 
@@ -1321,17 +1333,14 @@
                   <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
                     <div className="flex items-center justify-between">
                       <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
-                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full border border-slate-700">最大5連打OK</span>
+                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full border border-slate-700">🔀 ランダム公平</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">👏</span>
-                      <h4 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！」投票</h4>
+                      <h4 className="font-bold text-slate-100 text-xs">前日分ボケ鑑賞＆わっしょい投票</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      クスッと笑えたら「わっしょい！」を押してポイントをプレゼント！1つのボケに最大5回まで連打できます。
-                    </p>
-                    <p className="text-[10px] text-indigo-300/90 font-medium">
-                      🌙 夜22:00〜翌朝10:00は寝る前の「前日分わっしょい鑑賞タイム」！
+                      夜22:00〜翌朝10:00は鑑賞タイム！ボケ一覧は上部有利を防ぐため<b>ガラガラポンと完全ランダム順</b>で表示。クスッと笑えたら最大5連打まで「わっしょい！」を押して応援できます。
                     </p>
                   </div>
 
@@ -1339,14 +1348,14 @@
                   <div className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 space-y-2 transition shadow-sm">
                     <div className="flex items-center justify-between">
                       <span className="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center text-xs">4</span>
-                      <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded-full border border-slate-700">最高のネタバラシ</span>
+                      <span className="text-[10px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded-full border border-slate-700">自分だけ手応え確認</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🎊</span>
-                      <h4 className="font-bold text-slate-100 text-xs">月末（12/31）に正体一斉開示！</h4>
+                      <h4 className="font-bold text-slate-100 text-xs">毎朝集計＆大晦日に正体開示！</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      1ヶ月間、誰のボケか秘密のままポイントを蓄積。大晦日に全員のサロン本名が一斉アンヴェイル！「えっ！あの面白いボケ〇〇さんだったの！？」と最高の盛り上がりが待っています。
+                      朝10時に集計され、<b>あなただけの昨日のウケ具合（わっしょい数）</b>が確認できます！全体の順位や他人の正体は12/31最終日まで秘密なので、大晦日に最高のネタバラシが待っています。
                     </p>
                   </div>
 
@@ -1659,6 +1668,29 @@
                 </button>
               </div>
 
+              {/* 昨日のウケ具合カード（自分だけが確認できる安心＆やる気UP機能） */}
+              <div className="bg-gradient-to-r from-amber-500/15 via-slate-900 to-indigo-950/40 border border-amber-500/40 rounded-2xl p-3.5 shadow-md flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xl shrink-0">
+                    👏
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
+                        昨日のウケ具合（あなた専用）
+                      </span>
+                    </div>
+                    <p className="text-xs text-white font-bold mt-1">
+                      獲得わっしょい: <span className="text-amber-400 font-mono text-base font-extrabold">{myTotalVotes}</span> P
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right shrink-0 text-[10px] text-slate-400">
+                  <span>※全体順位と正体は</span><br />
+                  <b className="text-purple-300 font-bold">12/31最終日まで秘密！</b>
+                </div>
+              </div>
+
               {/* 夜間投票タイム案内（22:00〜翌10:00） */}
               {isNightVotingTime && (
                 <div className="bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-slate-900 border border-purple-500/50 rounded-2xl p-3.5 shadow-lg flex items-center justify-between gap-3 text-xs">
@@ -1886,18 +1918,23 @@
                   <span className="font-bold text-amber-300 flex items-center gap-1.5">
                     <span>👏</span> 仲間のボケに「わっしょい！」投票しよう
                   </span>
-                  <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
-                    1ボケ最大5連打OK！
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full border border-indigo-500/30 font-bold">
+                      🔀 完全ランダム表示
+                    </span>
+                    <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30 font-bold">
+                      最大5連打OK！
+                    </span>
+                  </div>
                 </div>
                 <p className="text-[11px] text-slate-400 leading-normal">
-                  ⏰ <b>毎日朝10:00〜夜22:00</b>が投稿タイム！<b>夜22:00〜翌朝10:00</b>は出揃ったボケをじっくり鑑賞する「前日分わっしょい投票タイム」です。
+                  ⏰ <b>毎日朝10:00〜夜22:00</b>が投稿タイム！<b>夜22:00〜翌朝10:00</b>は出揃ったボケをじっくり鑑賞する「前日分わっしょい投票タイム」です。（※上部有利をなくすため並び順はガラガラポンとランダムシャッフルされます）
                 </p>
               </div>
 
-              {/* 回答一覧 */}
+              {/* 回答一覧（ランダムシャッフル表示で完全公平！） */}
               <div className="space-y-3">
-                {answers.map(ans => {
+                {shuffledAnswers.map(ans => {
                   const topic = TODAY_TOPICS.find(t => t.id === ans.topicId);
                   const myKey = profile.backupKey || 'user_self';
                   const myVotes = (ans.voters || []).filter(v => v === myKey).length;
@@ -2570,10 +2607,10 @@
                   <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs">3</span>
-                      <h5 className="font-bold text-slate-100 text-xs">仲間のボケに「わっしょい！👏」と投票（最大5連打OK）</h5>
+                      <h5 className="font-bold text-slate-100 text-xs">前日分ボケ鑑賞＆わっしょい投票（最大5連打OK）</h5>
                     </div>
                     <p className="text-slate-400 pl-8 text-[11px] leading-relaxed">
-                      「みんなのボケ」タブで仲間の回答を見ることができます。クスッと笑えたボケにはどんどん「わっしょい！」を押して応援しましょう！1つのボケにつき最大5回まで連打できます。
+                      「みんなのボケ」タブで仲間の回答を見ることができます。ボケ一覧は上部有利を防ぐため<b>ガラガラポンと完全ランダム順</b>で表示されるので、いつ投稿しても全員が平等に読んでもらえます！クスッと笑えたボケには最大5回まで連打できます。
                     </p>
                     <div className="ml-8 mt-1 p-2 rounded-xl bg-indigo-950/40 border border-indigo-500/30 text-[10px] text-indigo-200">
                       ⏰ <b>1日のタイムスケジュール</b>：朝10:00〜夜22:00がボケ投稿タイム。夜22:00〜翌朝10:00は出揃ったボケをじっくり鑑賞する「前日分わっしょいタイム」です！
@@ -2584,10 +2621,10 @@
                   <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-3.5 space-y-1.5">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center text-xs">4</span>
-                      <h5 className="font-bold text-slate-100 text-xs">1ヶ月後に正体一斉アンヴェイル（開示）！</h5>
+                      <h5 className="font-bold text-slate-100 text-xs">毎朝10時集計 ＆ 大晦日に正体一斉開示！</h5>
                     </div>
-                    <p className="text-slate-400 pl-8 text-[11px]">
-                      1ヶ月間、誰のボケか分からない状態でポイントを蓄積。月末に全員のサロン本名が一斉開示されます！「えっ！あのキレキレのボケ〇〇さんだったの！？」と最高のネタバラシが待っています。
+                    <p className="text-slate-400 pl-8 text-[11px] leading-relaxed">
+                      毎朝10時に集計され、<b>あなただけの昨日のウケ具合（獲得わっしょい数）</b>が確認できます！全体の順位や他人の正体は12/31最終日まで完全に秘密なので、大晦日に「えっ！あのキレキレのボケ〇〇さんだったの！？」と最高のネタバラシが待っています。
                     </p>
                   </div>
 

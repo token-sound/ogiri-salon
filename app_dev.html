@@ -1218,14 +1218,14 @@
                   setShowProfileModal(true);
                 }
               }}
-              className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition group select-none"
+              className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition group select-none shrink-0"
               title={answeredIndices.length === 0 && openedIndex === null ? "クリックで名前やプロフィールを修正できます" : "トップページに戻る"}
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">🌰</span>
+              <span className="text-2xl group-hover:scale-110 transition-transform shrink-0">🌰</span>
               <div>
-                <h1 className="text-lg font-bold font-pop text-amber-400 tracking-wide flex items-center gap-1.5">
+                <h1 className="text-base sm:text-lg font-bold font-pop text-amber-400 tracking-wide flex items-center gap-1.5 whitespace-nowrap">
                   サロン大喜利
-                  <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">仲間内編</span>
+                  <span className="text-[10px] sm:text-xs bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded-full border border-amber-500/30 shrink-0">仲間内編</span>
                 </h1>
                 {isPreLaunch ? (
                   <p className="text-[11px] text-indigo-300 font-bold flex items-center gap-1">
@@ -1256,26 +1256,6 @@
                     {letters.length}
                   </span>
                 )}
-              </button>
-
-              {/* アプリ追加ボタン */}
-              <button
-                onClick={handleInstallClick}
-                className="flex items-center gap-1 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 px-2 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
-                title="スマホにアプリとして追加する"
-              >
-                <span>📲</span>
-                <span className="hidden sm:inline">アプリ化</span>
-              </button>
-
-              {/* ルールブックボタン */}
-              <button
-                onClick={() => setShowGuideModal(true)}
-                className="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 px-2 py-1.5 rounded-full text-xs font-bold transition shadow-sm"
-                title="遊び方・ルールを見る"
-              >
-                <span>❓</span>
-                <span className="hidden sm:inline">遊び方</span>
               </button>
 
               {/* プロフィールボタン */}
@@ -1478,7 +1458,7 @@
                       <h4 className="font-bold text-slate-100 text-xs">ワッショイした仲間へ感想レター</h4>
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
-                      発表時には「自分がワッショイした仲間」のサロン本名が確認でき、称賛メッセージを送ることができます。（※受け取りたくない人はOFFにする拒否の自由もあります）
+                      発表時には「自分がワッショイした仲間」のサロン本名が確認でき、称賛メッセージを送ることができます（※今回は初めての試みなので定型文から選ぶ形にしています。受け取りたくない人はOFFにする拒否の自由もあります）。
                     </p>
                   </div>
                 </div>

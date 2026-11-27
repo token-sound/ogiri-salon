@@ -575,16 +575,6 @@
       const [replyingLetter, setReplyingLetter] = useState(null);
       const [selectedReplyTemplate, setSelectedReplyTemplate] = useState(null);
 
-      // 10日ごとに自動変化するフェーズ判定 (early: 1-10日, mid: 11-20日, late: 21-31日)
-      const currentPeriod = useMemo(() => getPeriodKey(currentDayNumber), [currentDayNumber]);
-      const currentPraiseTemplates = useMemo(() => PRAISE_TEMPLATES[currentPeriod] || PRAISE_TEMPLATES.early, [currentPeriod]);
-      const currentReplyTemplates = useMemo(() => REPLY_TEMPLATES[currentPeriod] || REPLY_TEMPLATES.early, [currentPeriod]);
-      const periodLabel = useMemo(() => {
-        if (currentPeriod === 'early') return '【上旬: 開幕期】';
-        if (currentPeriod === 'mid') return '【中旬: 白熱期】';
-        return '【下旬: クライマックス期】';
-      }, [currentPeriod]);
-
       // 表示タブ: 'today' (今日の5問), 'answers' (みんなのボケ＆わっしょい), 'ranking' (月間集計＆アンヴェイル)
       const [tab, setTab] = useState('today');
 
@@ -750,6 +740,16 @@
       // 本日の5問（シミュレーターまたは現在の日付に連動）
       const currentDayNumber = isTestMode ? simulatedDay : calendarInfo.today;
       const todayTopics = useMemo(() => getTopicsForDay(currentDayNumber), [currentDayNumber]);
+
+      // 10日ごとに自動変化するフェーズ判定 (early: 1-10日, mid: 11-20日, late: 21-31日)
+      const currentPeriod = useMemo(() => getPeriodKey(currentDayNumber), [currentDayNumber]);
+      const currentPraiseTemplates = useMemo(() => PRAISE_TEMPLATES[currentPeriod] || PRAISE_TEMPLATES.early, [currentPeriod]);
+      const currentReplyTemplates = useMemo(() => REPLY_TEMPLATES[currentPeriod] || REPLY_TEMPLATES.early, [currentPeriod]);
+      const periodLabel = useMemo(() => {
+        if (currentPeriod === 'early') return '【上旬: 開幕期】';
+        if (currentPeriod === 'mid') return '【中旬: 白熱期】';
+        return '【下旬: クライマックス期】';
+      }, [currentPeriod]);
 
       // PWA インストールプロンプト監視
       useEffect(() => {

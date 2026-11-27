@@ -598,10 +598,35 @@
       // 12/1 00:00:00 JST 開幕
       const targetLaunchDate = useMemo(() => new Date('2026-12-01T00:00:00+09:00'), []);
 
-      // テストモード判定: URLパラメータに ?test=true または ?demo=true があるか
-      const isTestMode = useMemo(() => {
-        return window.location.search.includes('test=true') || window.location.search.includes('demo=true');
-      }, []);
+      // テストモード判定: URLパラメータに ?test=true または ?demo=true があり、かつパスワード認証済みか
+      const [isTestMode, setIsTestMode] = useState(() => {
+        const hasParam = window.location.search.includes('test=true') || window.location.search.includes('demo=true');
+        if (!hasParam) return false;
+        try {
+          return sessionStorage.getItem('ogiri_admin_auth') === 'salon2026';
+        } catch (e) {
+          return false;
+        }
+      });
+
+      // 直接 ?test=true でアクセスされた場合のパスワード確認
+      useEffect(() => {
+        const hasParam = window.location.search.includes('test=true') || window.location.search.includes('demo=true');
+        if (hasParam && !isTestMode) {
+          const pass = window.prompt('【主・運営専用】シミュレーター用パスワードを入力してください:');
+          if (pass === 'salon2026') {
+            try {
+              sessionStorage.setItem('ogiri_admin_auth', 'salon2026');
+            } catch (e) {}
+            setIsTestMode(true);
+          } else {
+            if (pass !== null) {
+              alert('⚠️ パスワードが違います。一般画面に戻ります。');
+            }
+            window.location.replace(window.location.pathname);
+          }
+        }
+      }, [isTestMode]);
 
       // リアルタイムカウントダウン計算
       const [countdown, setCountdown] = useState(() => {
@@ -2255,12 +2280,31 @@
                   [一般メンバー向け] 12/1開幕直前画面に戻る
                 </a>
               ) : (
-                <a
-                  href="?test=true"
-                  className="text-[10px] text-slate-600 hover:text-slate-400 underline transition"
+                <button
+                  type="button"
+                  onClick={() => {
+                    let isAuthed = false;
+                    try {
+                      isAuthed = sessionStorage.getItem('ogiri_admin_auth') === 'salon2026';
+                    } catch (e) {}
+                    if (isAuthed) {
+                      window.location.href = '?test=true';
+                      return;
+                    }
+                    const pass = window.prompt('【主・運営専用】シミュレーター用パスワードを入力してください:');
+                    if (pass === 'salon2026') {
+                      try {
+                        sessionStorage.setItem('ogiri_admin_auth', 'salon2026');
+                      } catch (e) {}
+                      window.location.href = '?test=true';
+                    } else if (pass !== null) {
+                      alert('⚠️ パスワードが違います。');
+                    }
+                  }}
+                  className="text-[10px] text-slate-600 hover:text-slate-400 underline transition cursor-pointer"
                 >
-                  [主・運営用] 🧪 動作確認シミュレーター（?test=true）を開く
-                </a>
+                  [主・運営用] 🧪 動作確認シミュレーター（要PW）
+                </button>
               )}
             </div>
           </footer>

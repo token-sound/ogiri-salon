@@ -1355,6 +1355,14 @@
                   <p className="text-xs sm:text-sm text-slate-300">
                     年内いっぱい（12/1 〜 12/31）仲間内で楽しむ大喜利バトル
                   </p>
+                  <div className="flex items-center justify-center gap-1.5 pt-1.5 flex-wrap">
+                    <span className="text-[10px] bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-medium">
+                      🏃‍♂️ 途中参加・気まぐれ投稿OK
+                    </span>
+                    <span className="text-[10px] bg-purple-500/15 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-full font-medium">
+                      👀 見る専・わっしょい投票大歓迎
+                    </span>
+                  </div>
                 </div>
 
                 {/* 4連カウントダウンタイマー */}
@@ -1379,6 +1387,41 @@
                 <p className="text-[11px] text-amber-300/80 animate-pulse font-medium">
                   ⏳ 12/1の朝10:00になった瞬間、第1日目の封筒がオープンします！
                 </p>
+              </div>
+
+              {/* 途中参加・見る専ワッショイ歓迎バナー */}
+              <div className="bg-gradient-to-r from-amber-500/15 via-emerald-500/10 to-purple-500/15 border border-amber-500/30 rounded-3xl p-4 sm:p-5 text-left shadow-lg space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">🍵</span>
+                    <h3 className="font-bold text-amber-300 text-sm font-pop">
+                      毎日やらなくて大丈夫！ゆる〜い仲間内ルール
+                    </h3>
+                  </div>
+                  <span className="text-[10px] bg-slate-900 text-slate-300 px-2.5 py-0.5 rounded-full border border-slate-700 font-bold shrink-0">
+                    ノルマゼロ
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                  <div className="bg-slate-950/75 border border-slate-800 rounded-2xl p-3 space-y-1">
+                    <div className="flex items-center gap-1.5 font-bold text-slate-100">
+                      <span>🏃‍♂️</span>
+                      <span>途中参加・気まぐれ投稿OK！</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed">
+                      「1日1問だけ」「週末だけ」「途中から」の参加も大歓迎！毎日続ける義務は一切ありません♪
+                    </p>
+                  </div>
+                  <div className="bg-slate-950/75 border border-slate-800 rounded-2xl p-3 space-y-1">
+                    <div className="flex items-center gap-1.5 font-bold text-purple-300">
+                      <span>👀</span>
+                      <span>「見る専・わっしょい」大歓迎！</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed">
+                      ボケを書かずに、仲間の回答を読んで「わっしょい！」を押すだけの参加も大歓迎！読むだけで大笑いできます✨
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* 事前エントリー状況カード */}
@@ -1464,6 +1507,9 @@
                     <p className="text-[10px] text-amber-300/90 font-medium">
                       ⏰ 投稿受付：毎日 10:00 〜 22:00（昼の12時間）
                     </p>
+                    <p className="text-[10.5px] text-emerald-400 font-medium pt-1 border-t border-slate-800/80">
+                      🏃‍♂️ 1日5問全部答える必要なし！「気が向いた日だけ1問」「途中から」の参加も大歓迎です♪
+                    </p>
                   </div>
 
                   {/* Step 2 */}
@@ -1493,6 +1539,9 @@
                     </div>
                     <p className="text-[11px] text-slate-300 leading-relaxed">
                       夜22:00〜翌朝10:00は鑑賞タイム！ボケ一覧は上部有利を防ぐため<b>ガラガラポンと完全ランダム順</b>で表示。クスッと笑えたら最大5連打まで「わっしょい！」を押して応援できます。
+                    </p>
+                    <p className="text-[10.5px] text-purple-300 font-medium pt-1 border-t border-slate-800/80">
+                      👀 自分でボケを書かない「見る専・わっしょい投票だけ」の参加も大歓迎！読むだけで大笑いできます♪
                     </p>
                   </div>
 
